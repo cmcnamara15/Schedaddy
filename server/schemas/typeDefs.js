@@ -3,6 +3,7 @@ const { gql } = require("apollo-server-express");
 const typeDefs = gql`
   type User {
     _id: ID!
+    position: [String!]
     firstName: String!
     lastName: String!
     email: String!
@@ -21,14 +22,13 @@ const typeDefs = gql`
   type Shift {
     _id: ID!
     user: [User]
-    position: [String!]
     startDateTime: String!
     endDateTime: String!
   }
 
   type Position {
     _id: ID!
-    jobTitle: [String!]
+    jobTitle: String!
   }
 
   type Address {
