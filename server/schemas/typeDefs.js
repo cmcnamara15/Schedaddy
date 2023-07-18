@@ -3,7 +3,6 @@ const { gql } = require("apollo-server-express");
 const typeDefs = gql`
   type User {
     _id: ID!
-    position: [String!]
     firstName: String!
     lastName: String!
     email: String!
@@ -15,13 +14,12 @@ const typeDefs = gql`
     fullTime: Boolean!
     activeEmployee: Boolean!
     isAdmin: Boolean!
+    position: [Position]
     address: [Address]
     company: [Company]
   }
 
   input UserInput {
-    _id: ID!
-    position: [String!]
     firstName: String!
     lastName: String!
     email: String!
@@ -33,6 +31,7 @@ const typeDefs = gql`
     fullTime: Boolean!
     activeEmployee: Boolean!
     isAdmin: Boolean!
+    position: [Position]
     address: [Address]
     company: [Company]
   }
@@ -59,8 +58,24 @@ const typeDefs = gql`
     country: String!
   }
 
+  input addressInput {
+    street1: String!
+    street2: String
+    city: String!
+    state: String!
+    zip: String!
+    country: String!
+  }
+
   type Company {
     _id: ID!
+    companyName: String!
+    companyAddress: [Address]
+    companyPhone: String!
+    companyAdmin: [User]
+  }
+
+  input companyInput {
     companyName: String!
     companyAddress: [Address]
     companyPhone: String!
@@ -90,20 +105,22 @@ const typeDefs = gql`
     createAccount(email: String!, password: String!): Auth
     createUser(input: UserInput!): User
     updateUser(input: UserInput!): User
-    deleteUser(input: UserInput!): User
-    addShift(): Shift
-    updateShift(): Shift
-    deleteShift(): Shift
-    addPosition(): Position
-    updatePosition(): Position
-    deletePosition(): Position
-    addAddress(): Address
-    updateAddress(): Address
-    deleteAddress(): Address
-    addCompany(): Company
-    updateCompany(): Company
-    deleteCompany(): Company
+    deleteUser(_id: ID!): User
+    addShift(_id: ID!, startDateTime: String!, endDateTime: String!, user: ID!): Shift
+    updateShift(_id: ID!, startDateTime: String!, endDateTime: String!, user: ID!): Shift
+    deleteShift(_id: ID!): Shift
+    addPosition(_id: ID!, jobTitle: String!): Position
+    updatePosition(_id: ID!, jobTitle: String!): Position
+    deletePosition(_id: ID!): Position
+    addAddress(input: addressInput!): Address
+    updateAddress(input: addressInput!): Address
+    deleteAddress(_id: ID!): Address
+    addCompany(input: companyInput!): Company
+    updateCompany(input: companyInput!): Company
+    deleteCompany(_id: ID!): Company
   }
 `;
 
 module.exports = typeDefs;
+
+// Shift mutation needs a user? How do we want to do that?
