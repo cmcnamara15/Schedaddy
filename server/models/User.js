@@ -1,8 +1,8 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const AddressSchema = require('./Address');
-const CompanySchema = require('./Company');
+const addressSchema = require('./Address');
+const companySchema = require('./Company');
 
 const userSchema = new Schema(
     {
@@ -66,11 +66,10 @@ const userSchema = new Schema(
             unique: true,
             required: true,
         },
-        Address: [AddressSchema],
-        Company: [CompanySchema],
+        Address: [addressSchema],
+        Company: [companySchema],
     }
 )
-
 
 userSchema.pre('save', async function (next) {
     if (this.isNew || this.isModified('password')) {
@@ -83,9 +82,7 @@ userSchema.pre('save', async function (next) {
 userSchema.methods.isCorrectPassword = async function (password) {
         return bcrypt.compare(password, this.password);
 };
-    
 
 const User = model('User', userSchema);
 
 module.exports = User
-

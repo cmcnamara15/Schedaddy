@@ -21,24 +21,15 @@ const typeDefs = gql`
   type Shift {
     _id: ID!
     user: [User]
-    position: String!
+    position: [String!]
     startDateTime: String!
     endDateTime: String!
   }
 
   type Position {
     _id: ID!
-    jobTitle: String!
+    jobTitle: [String!]
   }
-  
-  type Company {
-    _id: ID!
-    companyName: String!
-    companyAddress: [Address]
-    companyPhone: String!
-    companyAdmin: [User]
-}
-
 
   type Address {
     _id: ID!
@@ -49,6 +40,14 @@ const typeDefs = gql`
     zip: String!
     country: String!
   }
+
+    type Company {
+    _id: ID!
+    companyName: String!
+    companyAddress: [Address]
+    companyPhone: String!
+    companyAdmin: [User]
+}
 
   type Auth {
     token: ID!
