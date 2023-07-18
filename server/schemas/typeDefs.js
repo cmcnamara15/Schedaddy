@@ -14,6 +14,7 @@ const typeDefs = gql`
     fullTime: Boolean!
     activeEmployee: Boolean!
     isAdmin: Boolean!
+    shift: [Shift]
     position: [Position]
     address: [Address]
     company: [Company]
@@ -45,6 +46,7 @@ const typeDefs = gql`
 
   type Position {
     _id: ID!
+    user: [User]
     jobTitle: String!
   }
 
@@ -88,15 +90,15 @@ const typeDefs = gql`
   }
 
   type Query {
-    user: [User]
+    users: [User]
     user(_id: ID!): User
-    shift: [Shift]
+    shifts: [Shift]
     shift(_id: ID!): Shift
-    position: [Position]
+    positions: [Position]
     position(_id: ID!): Position
-    address: [Address]
+    addresses: [Address]
     address(_id: ID!): Address
-    company: [Company]
+    companies: [Company]
     company(_id: ID!): Company
   }
 
@@ -106,8 +108,18 @@ const typeDefs = gql`
     createUser(input: UserInput!): User
     updateUser(input: UserInput!): User
     deleteUser(_id: ID!): User
-    addShift(_id: ID!, startDateTime: String!, endDateTime: String!, user: ID!): Shift
-    updateShift(_id: ID!, startDateTime: String!, endDateTime: String!, user: ID!): Shift
+    addShift(
+      _id: ID!
+      startDateTime: String!
+      endDateTime: String!
+      user: ID!
+    ): Shift
+    updateShift(
+      _id: ID!
+      startDateTime: String!
+      endDateTime: String!
+      user: ID!
+    ): Shift
     deleteShift(_id: ID!): Shift
     addPosition(_id: ID!, jobTitle: String!): Position
     updatePosition(_id: ID!, jobTitle: String!): Position

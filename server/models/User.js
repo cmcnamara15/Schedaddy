@@ -1,6 +1,8 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
+const shiftSchema = require('./Shift');
+const positionSchema = require('./Position');
 const addressSchema = require('./Address');
 const companySchema = require('./Company');
 
@@ -66,6 +68,8 @@ const userSchema = new Schema(
             unique: true,
             required: true,
         },
+        Shift: [shiftSchema],
+        Position: [positionSchema],
         Address: [addressSchema],
         Company: [companySchema],
     }
