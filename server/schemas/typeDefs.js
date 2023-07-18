@@ -15,8 +15,9 @@ const typeDefs = gql`
     activeEmployee: Boolean!
     isAdmin: Boolean!
     Address: [Address]
+    Company: [Company]
   }
-
+  
   type Shift {
     _id: ID!
     User: [User]
@@ -29,6 +30,15 @@ const typeDefs = gql`
     _id: ID!
     jobTitle: String!
   }
+  
+  Type Company {
+    _id: ID!
+    CompanyName: String!
+    CompanyAddress: [Address]
+    CompanyPhone: String!
+    CompanyAdmin: [User]
+}
+
 
   Type Address {
     _id: ID!
