@@ -32,21 +32,22 @@ const typeDefs = gql`
     fullTime: Boolean!
     activeEmployee: Boolean!
     isAdmin: Boolean!
-    position: [Position]
-    address: [Address]
-    company: [Company]
+    shift: [Shift]
+    position: Position
+    address: Address
+    company: Company
   }
 
   type Shift {
     _id: ID!
-    user: [User]
+    user: User
     startDateTime: String!
     endDateTime: String!
   }
 
   type Position {
     _id: ID!
-    user: [User]
+    user: User
     jobTitle: String!
   }
 
@@ -72,16 +73,16 @@ const typeDefs = gql`
   type Company {
     _id: ID!
     companyName: String!
-    companyAddress: [Address]
+    companyAddress: Address
     companyPhone: String!
-    companyAdmin: [User]
+    companyAdmin: User
   }
 
   input companyInput {
     companyName: String!
-    companyAddress: [Address]
+    companyAddress: Address
     companyPhone: String!
-    companyAdmin: [User]
+    companyAdmin: User
   }
 
   type Auth {
@@ -106,7 +107,7 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     createAccount(email: String!, password: String!): Auth
     createUser(input: UserInput!): User
-    updateUser(input: UserInput!): User
+    updateUser(input: UserInput!): User // be more specific
     deleteUser(_id: ID!): User
     addShift(
       _id: ID!
