@@ -14,49 +14,49 @@ const typeDefs = gql`
     fullTime: Boolean!
     activeEmployee: Boolean!
     isAdmin: Boolean!
-    Address: [Address]
-    Company: [Company]
+    address: [Address]
+    company: [Company]
   }
   
   type Shift {
     _id: ID!
-    User: [User]
-    Position: String!
+    user: [User]
+    position: String!
     startDateTime: String!
     endDateTime: String!
   }
 
-  Type Position {
+  type Position {
     _id: ID!
     jobTitle: String!
   }
   
-  Type Company {
+  type Company {
     _id: ID!
-    CompanyName: String!
-    CompanyAddress: [Address]
-    CompanyPhone: String!
-    CompanyAdmin: [User]
+    companyName: String!
+    companyAddress: [Address]
+    companyPhone: String!
+    companyAdmin: [User]
 }
 
 
-  Type Address {
+  type Address {
     _id: ID!
     street1: String!
     street2: String
-    City: String!
-    State: String!
-    Zip: String!
-    Country: String!
+    city: String!
+    state: String!
+    zip: String!
+    country: String!
   }
 
-  Type Auth {
+  type Auth {
     token: ID!
     user: User
   }
 
   type Query {
-    User: User
+    user: User
   }
 
   type Mutation {
