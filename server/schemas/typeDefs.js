@@ -18,7 +18,25 @@ const typeDefs = gql`
     address: [Address]
     company: [Company]
   }
-  
+
+  input UserInput {
+    _id: ID!
+    position: [String!]
+    firstName: String!
+    lastName: String!
+    email: String!
+    phone: String!
+    socialSecurity: String!
+    hireDate: String!
+    terminationDate: String
+    payRate: Float!
+    fullTime: Boolean!
+    activeEmployee: Boolean!
+    isAdmin: Boolean!
+    address: [Address]
+    company: [Company]
+  }
+
   type Shift {
     _id: ID!
     user: [User]
@@ -41,13 +59,13 @@ const typeDefs = gql`
     country: String!
   }
 
-    type Company {
+  type Company {
     _id: ID!
     companyName: String!
     companyAddress: [Address]
     companyPhone: String!
     companyAdmin: [User]
-}
+  }
 
   type Auth {
     token: ID!
@@ -55,12 +73,36 @@ const typeDefs = gql`
   }
 
   type Query {
-    user: User
+    user: [User]
+    user(_id: ID!): User
+    shift: [Shift]
+    shift(_id: ID!): Shift
+    position: [Position]
+    position(_id: ID!): Position
+    address: [Address]
+    address(_id: ID!): Address
+    company: [Company]
+    company(_id: ID!): Company
   }
 
   type Mutation {
     login(email: String!, password: String!): Auth
-    addUser(username: String!, email: String!, password: String!): Auth
+    createAccount(email: String!, password: String!): Auth
+    createUser(input: UserInput!): User
+    updateUser(input: UserInput!): User
+    deleteUser(input: UserInput!): User
+    addShift(): Shift
+    updateShift(): Shift
+    deleteShift(): Shift
+    addPosition(): Position
+    updatePosition(): Position
+    deletePosition(): Position
+    addAddress(): Address
+    updateAddress(): Address
+    deleteAddress(): Address
+    addCompany(): Company
+    updateCompany(): Company
+    deleteCompany(): Company
   }
 `;
 
