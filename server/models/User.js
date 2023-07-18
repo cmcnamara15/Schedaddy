@@ -1,8 +1,8 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const AddressSchema = require('./Address');
-const CompanySchema = require('./Company');
+const addressSchema = require('./Address');
+const companySchema = require('./Company');
 
 const userSchema = new Schema(
     {
@@ -66,8 +66,8 @@ const userSchema = new Schema(
             unique: true,
             required: true,
         },
-        Address: [AddressSchema],
-        Company: [CompanySchema],
+        Address: [addressSchema],
+        Company: [companySchema],
     }
 )
 
