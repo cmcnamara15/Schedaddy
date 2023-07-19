@@ -107,7 +107,7 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     createAccount(email: String!, password: String!): Auth
     createUser(input: UserInput!): User
-    updateUser(input: UserInput!): User // be more specific
+    updateUser(input: UserInput!): User
     deleteUser(_id: ID!): User
     addShift(
       _id: ID!
