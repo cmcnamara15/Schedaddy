@@ -7,17 +7,18 @@ const resolvers = {
   Query: {
     users: async (parent) => {
       console.log("hello");
-      // if (context.user) {
-      //   return User.find({ _id: context.user._id });
-      // }
-      // throw new Error("user not found");
+      if (context.user) {
+        return User.find({ _id: context.user._id });
+      }
+      throw new Error("user not found");
     },
   },
   Mutation: {
     createUser: async (parent, args) => {
+      console.log("hello");
       console.log(args.input);
-      // const user = await User.create( args );
-      // return { user }
+      const user = await User.create( args );
+      return { user }
     },
     createAccount: async (parents, args) => {
       console.log(args);
@@ -28,3 +29,5 @@ const resolvers = {
     },
   },
 };
+
+module.exports = resolvers;
