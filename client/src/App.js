@@ -7,7 +7,7 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import Navbar from './components/Navbar';
-import EmployeeForm from './components/EmployeeForm';
+import EmployeeForm from './components/forms/EmployeeForm';
 import Loginform from './components/Loginform';
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./components/Loginform.css";
@@ -38,7 +38,10 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
           {/* <Navbar /> */}
-          <Loginform />
+          {/* <Loginform /> */}
+          <div className="container">
+            <EmployeeForm />
+          </div>
       </Router>
     </ApolloProvider>
   );
