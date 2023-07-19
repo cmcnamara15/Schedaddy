@@ -17,8 +17,8 @@ const resolvers = {
     createUser: async (parent, args) => {
       console.log("hello");
       console.log(args.input);
-      const user = await User.create( args );
-      return { user }
+      const user = await User.create( args.input );
+      return user
     },
     createAccount: async (parents, args) => {
       console.log(args);

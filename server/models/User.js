@@ -10,17 +10,17 @@ const userSchema = new Schema(
     {
         firstName: {
             type: String,
-            unique: true,
+            unique: false,
             required: true,
         },
         lastName: {
             type: String,
-            unique: true,
+            unique: false,
             required: true,
         },
         email: {
             type: String,
-            unique: true,
+            unique: false,
             match: [/.+@.+\..+/, 'Must match an email address!'],
             required: true,
         },
@@ -30,42 +30,42 @@ const userSchema = new Schema(
         },
         phone: {
             type: String,
-            unique: true,
+            unique: false,
             required: true,
         },
         socialSecurity: {
             type: String,
-            unique: true,
+            unique: false,
             required: true,
         },
         hireDate: {
             type: String,
-            unique: true,
+            unique: false,
             required: true,
         },
         terminationDate: {
             type: String,
-            unique: true,
+            unique: false,
             required: false,
         },
         payRate: {
             type: Number,
-            unique: true,
+            unique: false,
             required: true,
         },
         fullTime: {
             type: Boolean,
-            unique: true,
+            unique: false,
             required: true,
         },
         activeEmployee: {
             type: Boolean,
-            unique: true,
+            unique: false,
             required: true,
         },
         isAdmin: {
             type: Boolean,
-            unique: true,
+            unique: false,
             required: true,
         },
         Shift: [shiftSchema],

@@ -5,6 +5,7 @@ const typeDefs = gql`
     _id: ID!
     firstName: String!
     lastName: String!
+    password: String!
     email: String!
     phone: String!
     socialSecurity: String!
@@ -82,6 +83,7 @@ const typeDefs = gql`
   input UserInput {
     firstName: String!
     lastName: String!
+    password: String!
     email: String!
     phone: String!
     socialSecurity: String!
