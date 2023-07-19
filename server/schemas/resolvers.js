@@ -1,16 +1,12 @@
 const { User, Company, Address } = require("../models");
 // const { signToken } = require("../utils/auth");
 
-console.log("hello");
-
 const resolvers = {
   Query: {
     users: async (parent) => {
       console.log("hello");
-      if (context.user) {
-        return User.find({ _id: context.user._id });
-      }
-      throw new Error("user not found");
+      const users = await User.find({})
+      return users;
     },
   },
   Mutation: {
