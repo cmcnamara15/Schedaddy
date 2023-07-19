@@ -1,10 +1,12 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import React from 'react'
+import React from 'react';
+import { useState } from 'react'; 
 
-function CollapsibleExample() {
+const CollapsibleExample = () => {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(true);
   setLoggedIn((jwt) => !jwt);
 
   function adminView() {
@@ -53,7 +55,8 @@ function CollapsibleExample() {
     );
   }
 
-  (isAdmin) ? (adminView) : (userView);
+  isAdmin ? adminView() : userView();
 }
 
 export default CollapsibleExample;
+
