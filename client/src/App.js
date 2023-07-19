@@ -1,5 +1,3 @@
-import logo from './logo.svg';
-import './App.css';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {
   ApolloClient,
@@ -11,6 +9,8 @@ import { setContext } from "@apollo/client/link/context";
 import Navbar from './components/Navbar';
 import EmployeeForm from './components/EmployeeForm';
 import Loginform from './components/Loginform';
+import "bootstrap/dist/css/bootstrap.min.css"
+import "./components/Loginform.css";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
