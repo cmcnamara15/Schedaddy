@@ -14,25 +14,7 @@ const typeDefs = gql`
     fullTime: Boolean!
     activeEmployee: Boolean!
     isAdmin: Boolean!
-    shift: [Shift]
-    position: [Position]
-    address: [Address]
-    company: [Company]
-  }
-
-  input UserInput {
-    firstName: String!
-    lastName: String!
-    email: String!
-    phone: String!
-    socialSecurity: String!
-    hireDate: String!
-    terminationDate: String
-    payRate: Float!
-    fullTime: Boolean!
-    activeEmployee: Boolean!
-    isAdmin: Boolean!
-    shift: [Shift]
+    shift: Shift
     position: Position
     address: Address
     company: Company
@@ -59,15 +41,7 @@ const typeDefs = gql`
     state: String!
     zip: String!
     country: String!
-  }
-
-  input addressInput {
-    street1: String!
-    street2: String
-    city: String!
-    state: String!
-    zip: String!
-    country: String!
+    user: User
   }
 
   type Company {
@@ -77,12 +51,50 @@ const typeDefs = gql`
     companyPhone: String!
     companyAdmin: User
   }
-
-  input companyInput {
+  
+  input ShiftInput {
+    user: ID!
+    startDateTime: String!
+    endDateTime: String!
+  }
+  
+  input PositionInput {
+    user: ID!
+    jobTitle: String!
+  }
+  
+  input AddressInput {
+    street1: String!
+    street2: String
+    city: String!
+    state: String!
+    zip: String!
+    country: String!
+  }
+  
+  input CompanyInput {
     companyName: String!
-    companyAddress: Address
+    companyAddress: AddressInput
     companyPhone: String!
-    companyAdmin: User
+    companyAdmin: ID!
+  }
+  
+  input UserInput {
+    firstName: String!
+    lastName: String!
+    email: String!
+    phone: String!
+    socialSecurity: String!
+    hireDate: String!
+    terminationDate: String
+    payRate: Float!
+    fullTime: Boolean!
+    activeEmployee: Boolean!
+    isAdmin: Boolean!
+    shift: [ShiftInput]
+    position: PositionInput
+    address: AddressInput
+    company: CompanyInput
   }
 
   type Auth {
@@ -107,29 +119,19 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     createAccount(email: String!, password: String!): Auth
     createUser(input: UserInput!): User
-    updateUser(input: UserInput!): User
+    updateUser(firstName: String!, lastName: String!, email: String!, phone: String, payRate: Float!, fullTime: Boolean!, activeEmployee: Boolean!, isAdmin: Boolean!): User 
     deleteUser(_id: ID!): User
-    addShift(
-      _id: ID!
-      startDateTime: String!
-      endDateTime: String!
-      user: ID!
-    ): Shift
-    updateShift(
-      _id: ID!
-      startDateTime: String!
-      endDateTime: String!
-      user: ID!
-    ): Shift
+    addShift(input: ShiftInput!): Shift
+    updateShift(_id: ID!, startDateTime: String!, endDateTime: String!): Shift
     deleteShift(_id: ID!): Shift
     addPosition(_id: ID!, jobTitle: String!): Position
     updatePosition(_id: ID!, jobTitle: String!): Position
     deletePosition(_id: ID!): Position
-    addAddress(input: addressInput!): Address
-    updateAddress(input: addressInput!): Address
+    addAddress(input: AddressInput!): Address
+    updateAddress(_id: ID!, street1: String!, street2: String, city: String!, state: String!, zip: String!, country: String!): Address
     deleteAddress(_id: ID!): Address
-    addCompany(input: companyInput!): Company
-    updateCompany(input: companyInput!): Company
+    addCompany(input: CompanyInput!): Company
+    updateCompany(_id: ID!, companyName: String!, companyAddress: String, companyPhone: String!, companyAdmin: ID!): Company
     deleteCompany(_id: ID!): Company
   }
 `;
