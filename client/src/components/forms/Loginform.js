@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Container, Row, Col } from 'react-bootstrap';
+import { Button, Form, Container, Row, Col, Image } from 'react-bootstrap';
 
 const Loginform = () => {
 
@@ -26,7 +26,7 @@ const Loginform = () => {
       <Container>
         <Row>
           <Col md={6}>
-            <h1>Login</h1>
+            <h1 style={{marginTop: 175 + 'px'}}>Login</h1>
             <div className='card'>
               <div className='card-body'>
                 <Form>
@@ -52,12 +52,14 @@ const Loginform = () => {
                   </Form.Group>
                   <input className='btn btn-secondary m-1 col-2' type="button" value="Login" onClick={handleFormSubmit} />
                 </Form>
+                <a href='#'>Register</a>
               </div>
             </div>
 
           </Col>
           <Col md={6}>
             <h1>Right</h1>
+            <p>Image will be here at some point</p>
           </Col>
         </Row>
       </Container>
