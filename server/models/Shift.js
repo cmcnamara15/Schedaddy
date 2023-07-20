@@ -1,17 +1,27 @@
-const { Schema } = require("mongoose");
+const { Schema, model } = require("mongoose");
 
-const userSchema = require("./User");
+// const userSchema = require("./User");
+// const positionSchema = require("./Position");
 
 const shiftSchema = new Schema({
-    user: [userSchema],
-    startDateTime: {
-        type: String,
-        required: true,
-    },
-    endDateTime: {
-        type: String,
-        required: true,
-    },
+  startDateTime: {
+    type: String,
+    required: true,
+  },
+  endDateTime: {
+    type: String,
+    required: true,
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
+  position: {
+    type: Schema.Types.ObjectId,
+    ref: "Position",
+  },
 });
 
-module.exports = shiftSchema;
+const Shift = model("Shift", shiftSchema);
+
+module.exports = Shift;

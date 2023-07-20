@@ -1,13 +1,18 @@
-const { Schema } = require("mongoose");
+const { Schema, model } = require("mongoose");
 
-const userSchema = require("./User");
+// const userSchema = require("./User");
 
 const positionSchema = new Schema({
-    user: [userSchema],
-    jobTitle: {
-        type: String,
-        required: true,
-    },
+  jobTitle: {
+    type: String,
+    required: true,
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
-module.exports = positionSchema;
+const Position = model("Position", positionSchema);
+
+module.exports = Position;
