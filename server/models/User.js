@@ -3,8 +3,8 @@ const bcrypt = require('bcrypt');
 
 // const shiftSchema = require('./Shift');
 // const positionSchema = require('./Position');
-// const addressSchema = require('./Address');
 // const companySchema = require('./Company');
+const addressSchema = require("./Address");
 
 const userSchema = new Schema({
   firstName: {
@@ -75,10 +75,7 @@ const userSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Position",
   },
-  address: {
-    type: Schema.Types.ObjectId,
-    ref: "Address",
-  },
+  address: [addressSchema],
   company: {
     type: Schema.Types.ObjectId,
     ref: "Company",

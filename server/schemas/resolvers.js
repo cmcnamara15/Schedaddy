@@ -41,9 +41,21 @@ const resolvers = {
     },
     addShift: async (parent, args) => {
       console.log("add shift block");
-      console.log(args);
+      console.log(args.input);
       const shift = await Shift.create(args.input);
       return shift;
+    },
+    addPosition: async (parent, args) => {
+      console.log("add position block");
+      console.log(args);
+      const position = await Position.create(args);
+      return position;
+    },
+    addCompany: async (parent, args) => {
+      console.log("add company block");
+      console.log(args.input);
+      const company = await Company.create(args.input);
+      return company;
     },
   },
 };
