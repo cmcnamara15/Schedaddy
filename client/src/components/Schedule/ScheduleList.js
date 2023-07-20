@@ -1,25 +1,25 @@
-// Year, Month (0-11), Day, Hour (24-hour format), Minute
+// DATE FORMAT: Year, Month (0-11), Day, Hour (24-hour format), Minute
 
 const shifts = [
   {
-    title: 'Hamburger Guy',
+    title: 'Eric',
     start: new Date(2023, 6, 19, 10, 0), 
     end: new Date(2023, 6, 19, 12, 0),
-    employee: 'Eric',
+    position: 'Hamburger Guy',
     note: 'flip flip',
   },
   {
-    title: 'French Fry Guy',
+    title: 'Brian',
     start: new Date(2023, 6, 19, 14, 0),
     end: new Date(2023, 6, 19, 16, 0),
-    employee: 'Brian',
+    position: 'French Fry Guy',
     note: 'extra salty plz',
   },
   {
-    title: 'Ice Cream Guy',
+    title: 'Hunter',
     start: new Date(2023, 6, 19, 14, 0),
     end: new Date(2023, 6, 19, 16, 0),
-    employee: 'Hunter',
+    position: 'Ice Cream Guy',
     note: 'fix the ice cream machine',
   },
 ];

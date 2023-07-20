@@ -3,20 +3,28 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import shifts from './ScheduleList';
-import { Modal, Button } from 'react-bootstrap'; 
+import { Modal, Button } from 'react-bootstrap';
 
 const localizer = momentLocalizer(moment);
+
+const EventTitle = ({ event }) => (
+  <div>
+    <strong>{event.title}</strong>
+  </div>
+);
+
+const AgendaEvent = ({ event }) => (
+  <div>
+    <strong>{event.title}</strong>
+    <p>Employee: {event.position}</p>
+    <p>Note: {event.note}</p>
+  </div>
+);
 
 const Schedule = () => {
   const [selectedEvent, setSelectedEvent] = useState(null);
 
-  const shiftInfo = ({ event }) => (
-    <div onClick={() => setSelectedEvent(event)}>
-      <strong>{event.title}</strong>
-      <p>Employee: {event.employee}</p>
-      <p>Note: {event.note}</p>
-    </div>
-  );
+  const handleEventClick = (event) => setSelectedEvent(event);
 
   return (
     <div>
@@ -28,7 +36,13 @@ const Schedule = () => {
         endAccessor="end"
         defaultView="agenda"
         style={{ height: 700 }}
-        components={{ event: shiftInfo }} 
+        components={{
+          event: EventTitle, // show only the event title in month, week, and day views
+          agenda: {
+            event: AgendaEvent, // show full details in the agenda view
+          },
+        }}
+        onSelectEvent={handleEventClick}
       />
 
       <Modal show={selectedEvent !== null} onHide={() => setSelectedEvent(null)}>
@@ -36,11 +50,11 @@ const Schedule = () => {
           <Modal.Title>{selectedEvent?.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>Employee: {selectedEvent?.employee}</p>
+          <p>Position: {selectedEvent?.position}</p>
           <p>Note: {selectedEvent?.note}</p>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setSelectedEvent(null)}>
+          <Button onClick={() => setSelectedEvent(null)}>
             Close
           </Button>
         </Modal.Footer>
