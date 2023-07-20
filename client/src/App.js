@@ -7,7 +7,7 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import Navbar from './components/Navbar';
-// import EmployeeForm from './components/EmployeeForm';
+import EmployeeForm from './components/EmployeeForm';
 import Loginform from './components/Loginform';
 import Schedule from "./components/Schedule/Schedule";
 
@@ -36,12 +36,12 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-          {/* <Navbar />
-          <EmployeeForm/> */}
+          <Navbar />
+          <EmployeeForm/>
           <Schedule/>
-          {/* <div className="container">
+          <div className="container">
             <EmployeeForm />
-          </div> */}
+          </div>
       </Router>
     </ApolloProvider>
   );
