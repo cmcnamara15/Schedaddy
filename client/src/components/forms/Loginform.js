@@ -1,0 +1,69 @@
+import React, { useEffect, useState } from 'react';
+import { Button, Form, Container, Row, Col } from 'react-bootstrap';
+
+const Loginform = () => {
+
+  const [ user, setUser ] = useState({ email: '', password: ''});
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUser({...user, [name]: value})
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    alert(`You have succesfully logged in ${user.email}, here is your password: ${user.password}`);
+  };
+
+  useEffect(() => {
+    // For debugging/state evaluation purposes
+    console.log(user);
+  }, [user])
+
+  return (
+    <>
+      <Container>
+        <Row>
+          <Col md={6}>
+            <h1>Login</h1>
+            <div className='card'>
+              <div className='card-body'>
+                <Form>
+                  <Form.Group controlId='formEmail'>
+                    <Form.Label>Email</Form.Label>
+                    <input
+                      className='form-control'
+                      value={user.email}
+                      name="email"
+                      type="email"
+                      placeholder='example@example.com'
+                      onChange={handleInputChange} />
+                  </Form.Group>
+                  <Form.Group controlId='formPassword'>
+                    <Form.Label>Password</Form.Label>
+                    <input
+                      className='form-control'
+                      value={user.password}
+                      name='password'
+                      type='password'
+                      placeholder='Password'
+                      onChange={handleInputChange} />
+                  </Form.Group>
+                  <input className='btn btn-secondary m-1 col-2' type="button" value="Login" onClick={handleFormSubmit} />
+                </Form>
+              </div>
+            </div>
+
+          </Col>
+          <Col md={6}>
+            <h1>Right</h1>
+          </Col>
+        </Row>
+      </Container>
+
+    </>
+  )
+}
+
+export default Loginform
