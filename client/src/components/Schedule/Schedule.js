@@ -16,8 +16,8 @@ const EventTitle = ({ event }) => (
 const AgendaEvent = ({ event }) => (
   <div>
     <strong>{event.title}</strong>
-    <p>Employee: {event.position}</p>
-    <p>Note: {event.note}</p>
+    <p>Position: {event.position}</p>
+    {event.note !== "" && <p>Note: {event.note}</p>}
   </div>
 );
 
@@ -51,7 +51,9 @@ const Schedule = () => {
         </Modal.Header>
         <Modal.Body>
           <p>Position: {selectedEvent?.position}</p>
-          <p>Note: {selectedEvent?.note}</p>
+          {selectedEvent?.note !== "" ? (
+            <p>Note: {selectedEvent?.note}</p>
+          ) : ("")}
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={() => setSelectedEvent(null)}>
