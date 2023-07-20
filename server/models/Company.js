@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-// const addressSchema = require("./Address");
+const addressSchema = require("./Address");
 // const userSchema = require("./User")
 
 const companySchema = new Schema({
@@ -8,10 +8,7 @@ const companySchema = new Schema({
     type: String,
     required: true,
   },
-  companyAddress: {
-    type: Schema.Types.ObjectId,
-    ref: "Address",
-  },
+  companyAddress: [addressSchema],
   companyPhone: {
     type: String,
     required: true,

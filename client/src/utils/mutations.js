@@ -19,3 +19,22 @@ export const ADD_SHIFT = gql`
     }
   }
   `;
+
+export const ADD_POSITION = gql`
+  mutation addPosition($id: ID!, $jobTitle: String!) {
+    addPosition(_id: $id, jobTitle: $jobTitle) {
+      _id
+      jobTitle
+    }
+  }
+  `;
+
+export const ADD_COMPANY = gql`
+    mutation addCompany($input: CompanyInput!) {
+    addCompany(input: $input) {
+       _id
+       companyName
+       companyPhone
+    }
+  }
+  `;
