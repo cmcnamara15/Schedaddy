@@ -10,10 +10,10 @@ import Navbar from './components/Navbar';
 import Loginform from './components/Loginform';
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/js/bootstrap.min.js";
-import "./components/Loginform.css";
-import EmployeeList from "./components/EmployeeList";
-import EmployeeForm from './components/EmployeeForm';
-import Loginform from './components/Loginform';
+// import "./components/Loginform.css";
+// import EmployeeList from "./components/EmployeeList";
+// import EmployeeForm from './components/EmployeeForm';
+// import Loginform from './components/Loginform';
 import Schedule from "./components/Schedule/Schedule";
 
 const httpLink = createHttpLink({
@@ -43,9 +43,9 @@ function App() {
       <Router>
           {/* <Navbar /> */}
           {/* <Loginform /> */}
-          <Navbar />
+          {/* <Navbar /> */}
           <Schedule/>
-          <EmployeeForm/>
+          {/* <EmployeeForm/> */}
       </Router>
     </ApolloProvider>
   );
