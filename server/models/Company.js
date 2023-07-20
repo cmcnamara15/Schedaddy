@@ -1,18 +1,27 @@
-const { Schema } = require("mongoose");
-const addressSchema = require("./Address");
-const user = require('./User');
+const { Schema, model } = require("mongoose");
+
+// const addressSchema = require("./Address");
+// const userSchema = require("./User")
 
 const companySchema = new Schema({
-    companyName: {
-        type: String,
-        required: true,
-    },
-    companyAddress: [addressSchema],
-    companyPhone: {
-        type: String,
-        required: true,
-    },
-    companyAdmin: [user]
+  companyName: {
+    type: String,
+    required: true,
+  },
+  companyAddress: {
+    type: Schema.Types.ObjectId,
+    ref: "Address",
+  },
+  companyPhone: {
+    type: String,
+    required: true,
+  },
+  companyAdmin: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
-module.exports = companySchema;
+const Company = model("Company", companySchema);
+
+module.exports = Company;
