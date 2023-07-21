@@ -23,8 +23,6 @@ const typeDefs = gql`
   input UserInput {
     firstName: String!
     lastName: String!
-    password: String!
-    email: String!
     phone: String!
     socialSecurity: String!
     hireDate: String!
@@ -37,6 +35,7 @@ const typeDefs = gql`
     position: PositionInput
     address: AddressInput
     company: CompanyInput
+    account: AccountInput
   }
 
   type Account {
@@ -44,6 +43,13 @@ const typeDefs = gql`
     email: String!
     password: String!
     user: User
+  }
+
+  input AccountInput {
+    _id: ID!
+    email: String!
+    password: String!
+    user: UserInput
   }
 
   type Shift {
@@ -114,7 +120,7 @@ const typeDefs = gql`
 
   type Query {
     accounts: [Account]
-    account (_id: ID!): Account
+    account(_id: ID!): Account
     users: [User]
     user(_id: ID!): User
     shifts: [Shift]
