@@ -139,21 +139,22 @@ const typeDefs = gql`
     deleteAccount(_id: ID!): Account
     createUser(input: UserInput!): User
     updateUser(
-      firstName: String!
-      lastName: String!
-      email: String!
+      _id:ID!
+      firstName: String
+      lastName: String
+      email: String
       phone: String
-      payRate: Float!
-      fullTime: Boolean!
-      activeEmployee: Boolean!
-      isAdmin: Boolean!
+      payRate: Float
+      fullTime: Boolean
+      activeEmployee: Boolean
+      isAdmin: Boolean
     ): User
     deleteUser(_id: ID!): User
     addShift(input: ShiftInput!): Shift
-    updateShift(_id: ID!, startDateTime: String!, endDateTime: String!): Shift
+    updateShift(_id: ID!, startDateTime: String, endDateTime: String): Shift
     deleteShift(_id: ID!): Shift
     addPosition(_id: ID!, jobTitle: String!): Position
-    updatePosition(_id: ID!, jobTitle: String!): Position
+    updatePosition(_id: ID!, jobTitle: String): Position
     deletePosition(_id: ID!): Position
     addAddress(input: AddressInput!): Address
     updateAddress(
@@ -169,10 +170,10 @@ const typeDefs = gql`
     addCompany(input: CompanyInput!): Company
     updateCompany(
       _id: ID!
-      companyName: String!
+      companyName: String
       companyAddress: String
-      companyPhone: String!
-      companyAdmin: ID!
+      companyPhone: String
+      companyAdmin: ID
     ): Company
     deleteCompany(_id: ID!): Company
   }
