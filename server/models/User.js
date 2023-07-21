@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
 // const { v4: uuidv4 } = require('uuid');
 // const shiftSchema = require('./Shift');
 // const positionSchema = require('./Position');
@@ -23,16 +23,16 @@ const userSchema = new Schema({
     unique: false,
     required: true,
   },
-  email: {
-    type: String,
-    unique: false,
-    match: [/.+@.+\..+/, "Must match an email address!"],
-    required: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
+//   email: {
+//     type: String,
+//     unique: false,
+//     match: [/.+@.+\..+/, "Must match an email address!"],
+//     required: true,
+//   },
+//   password: {
+//     type: String,
+//     required: true,
+//   },
   phone: {
     type: String,
     unique: false,
@@ -100,17 +100,17 @@ const userSchema = new Schema({
 //   next();
 // });
 
-userSchema.pre('save', async function (next) {
-    if (this.isNew || this.isModified('password')) {
-        const saltRounds = 10;
-        this.password = await bcrypt.hash(this.password, saltRounds);
-    }
-    next();
-})
-// custom method to compare and validate password for logging in
-userSchema.methods.isCorrectPassword = async function (password) {
-        return bcrypt.compare(password, this.password);
-};
+// userSchema.pre('save', async function (next) {
+//     if (this.isNew || this.isModified('password')) {
+//         const saltRounds = 10;
+//         this.password = await bcrypt.hash(this.password, saltRounds);
+//     }
+//     next();
+// })
+// // custom method to compare and validate password for logging in
+// userSchema.methods.isCorrectPassword = async function (password) {
+//         return bcrypt.compare(password, this.password);
+// };
 
 const User = model('User', userSchema);
 

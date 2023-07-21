@@ -139,7 +139,7 @@ const typeDefs = gql`
     deleteAccount(_id: ID!): Account
     createUser(input: UserInput!): User
     updateUser(
-      _id:ID!
+      _id: ID!
       firstName: String
       lastName: String
       email: String
