@@ -11,10 +11,9 @@ import Loginform from './components/Loginform';
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/js/bootstrap.min.js";
 // import "./components/Loginform.css";
-// import EmployeeList from "./components/EmployeeList";
-// import EmployeeForm from './components/EmployeeForm';
 // import Loginform from './components/Loginform';
 import Schedule from "./components/Schedule/Schedule";
+import EmployeeList from "./components/EmployeeList";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -44,8 +43,8 @@ function App() {
           {/* <Navbar /> */}
           {/* <Loginform /> */}
           {/* <Navbar /> */}
-          <Schedule/>
-          {/* <EmployeeForm/> */}
+          {/* <Schedule/> */}
+          <EmployeeList/>
       </Router>
     </ApolloProvider>
   );

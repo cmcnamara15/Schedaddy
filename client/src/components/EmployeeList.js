@@ -6,7 +6,7 @@ const EmployeeList = () => {
   const [employees, setEmployees] = useState([
     {
       firstName: "Joe",
-      lastName: "",
+      lastName: "Cool",
       address: {
         street1: "",
         street2: "",
@@ -23,8 +23,8 @@ const EmployeeList = () => {
       active: true,
       isAdmin: false
     }, {
-      firstName: "",
-      lastName: "",
+      firstName: "John",
+      lastName: "Doe",
       address: {
         street1: "",
         street2: "",
@@ -41,8 +41,8 @@ const EmployeeList = () => {
       active: true,
       isAdmin: false
     }, {
-      firstName: "",
-      lastName: "",
+      firstName: "Billy",
+      lastName: "Bob",
       address: {
         street1: "",
         street2: "",
@@ -63,15 +63,20 @@ const EmployeeList = () => {
 
   return (
     <div>
-      <h1>Employees</h1>
-      <ul>
-        {employees.map((em) => {
-          <Employee
-            
-          />
-        })}
-      </ul>
-      <EmployeeForm />
+      <div className="card">
+        <div className='card-header row'>
+          <div className="col-6">
+            <h1>Employees</h1>
+          </div>
+          <div className="col-6 text-end">
+            <EmployeeForm />
+          </div>
+        </div>
+        <ul className="list-group list-group-flush">
+          {employees.map((emp) => <Employee u={emp}/>)}
+        </ul>
+      </div>
+      
     </div>
   )
 }
