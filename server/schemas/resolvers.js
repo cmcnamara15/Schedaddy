@@ -25,7 +25,7 @@ const resolvers = {
       console.log(args);
       const user = await User.findOne(args);
       return user;
-    },
+    },    
     shifts: async (parent) => {
       console.log("shifts block");
       const shifts = await Shift.find({});
@@ -80,6 +80,17 @@ const resolvers = {
       const user = await User.create(args.input);
       return user;
     },
+    updateUser: async(parent, {_id, ...args }) => {
+      const user = await User.findByIdAndUpdate(
+        _id,
+        args,
+        { new: true }
+      );
+      if(!user) {
+        throw new Error("no user with this id")
+      }
+      return user;
+    },
     deleteUser: async (args) => {
       console.log("delete user block");
       console.log(args);
@@ -90,6 +101,17 @@ const resolvers = {
       console.log("add shift block");
       console.log(args.input);
       const shift = await Shift.create(args.input);
+      return shift;
+    },
+    updateShift: async (parent, {_id, ...args}) => {
+      const shift = await Shift.findByIdAndUpdate(
+        _id,
+        args,
+        { new: true } 
+      );
+      if(!shift) {
+        throw new Error("no shift with this ID")
+      }
       return shift;
     },
     deleteShift: async (args) => {
@@ -104,6 +126,17 @@ const resolvers = {
       const position = await Position.create(args);
       return position;
     },
+    updatePosition: async (parent, {_id, ...args}) => {
+      const position = await Position.findByIdAndUpdate(
+        _id,
+        args,
+        { new: true } 
+      );
+      if(!position) {
+        throw new Error("no position with this ID")
+      }
+      return position;
+    },
     deletePosition: async (args) => {
       console.log("delete position block");
       console.log(args);
@@ -114,6 +147,17 @@ const resolvers = {
       console.log("add company block");
       console.log(args.input);
       const company = await Company.create(args.input);
+      return company;
+    },
+    updateCompany: async (parent, {_id, ...args}) => {
+      const company = await Company.findByIdAndUpdate(
+        _id,
+        args,
+        { new: true } 
+      );
+      if(!company) {
+        throw new Error("no position with this ID")
+      }
       return company;
     },
     deleteCompany: async (args) => {

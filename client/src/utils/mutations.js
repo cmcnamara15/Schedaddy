@@ -27,6 +27,42 @@ export const CREATE_USER = gql`
     }
   }
 `;
+export const UPDATE_USER = gql`
+  mutation UpdateUser(
+    $_id: ID!
+    $firstName: String
+    $lastName: String
+    $email: String
+    $phone: String
+    $payRate: Float
+    $fullTime: Boolean
+    $activeEmployee: Boolean
+    $isAdmin: Boolean
+  ) {
+    updateUser(
+      _id: $_id
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      phone: $phone
+      payRate: $payRate
+      fullTime: $fullTime
+      activeEmployee: $activeEmployee
+      isAdmin: $isAdmin
+    ) {
+      _id
+      firstName
+      lastName
+      email
+      phone
+      payRate
+      fullTime
+      activeEmployee
+      isAdmin
+    }
+  }
+`;
+
 
 export const DELETE_USER = gql`
   mutation deleteUser($id: ID!) {
