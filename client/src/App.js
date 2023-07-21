@@ -7,14 +7,12 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import Navbar from './components/Navbar';
-import Loginform from './components/Loginform';
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/js/bootstrap.min.js";
-// import "./components/Loginform.css";
 // import EmployeeList from "./components/EmployeeList";
 // import EmployeeForm from './components/EmployeeForm';
-// import Loginform from './components/Loginform';
 import Schedule from "./components/Schedule/Schedule";
+import Loginform from "./components/forms/Loginform";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -42,9 +40,8 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
           {/* <Navbar /> */}
-          {/* <Loginform /> */}
-          {/* <Navbar /> */}
-          <Schedule/>
+          <Loginform />
+          {/* <Schedule/> */}
           {/* <EmployeeForm/> */}
       </Router>
     </ApolloProvider>
