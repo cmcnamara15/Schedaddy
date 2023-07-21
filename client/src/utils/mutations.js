@@ -129,3 +129,4 @@ export const DELETE_COMPANY = gql`
     }
   }
   `;
+  
