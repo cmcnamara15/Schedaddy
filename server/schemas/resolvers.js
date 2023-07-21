@@ -1,5 +1,6 @@
 const { Account, Address, Company, Position, Shift, User } = require("../models");
 const { signToken } = require("../utils/auth");
+const { AuthenticationError } = require("apollo-server-express");
 
 const resolvers = {
   Query: {
@@ -25,6 +26,29 @@ const resolvers = {
       const shift = await Shift.findOne(args);
       return shift;
     },
+    positions: async(parent) => {
+      console.log("positions block");
+      const positions = await Position.find({});
+      return positions;
+    },
+    position: async(parent, args, context) => {
+      console.log("position_id block");
+      console.log(args);
+      const position = await Position.findOne(args);
+      return position;
+    },
+    // ***Addresses***
+    companies: async(parent) => {
+      console.log("company block");
+      const companies = await Company.find({});
+      return companies;
+    },
+    company: async(parent, args, context) => {
+      console.log("company_id block");
+      console.log(args);
+      const company = await Company.findOne(args);
+      return company;
+    }
   },
   Mutation: {
     createUser: async (parent, args) => {
@@ -57,6 +81,7 @@ const resolvers = {
       const company = await Company.create(args.input);
       return company;
     },
+    // ***Addresses***
   },
 };
 
