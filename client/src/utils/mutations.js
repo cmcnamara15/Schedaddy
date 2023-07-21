@@ -32,7 +32,6 @@ export const UPDATE_USER = gql`
     $_id: ID!
     $firstName: String
     $lastName: String
-    $email: String
     $phone: String
     $payRate: Float
     $fullTime: Boolean
@@ -43,7 +42,6 @@ export const UPDATE_USER = gql`
       _id: $_id
       firstName: $firstName
       lastName: $lastName
-      email: $email
       phone: $phone
       payRate: $payRate
       fullTime: $fullTime
@@ -53,7 +51,6 @@ export const UPDATE_USER = gql`
       _id
       firstName
       lastName
-      email
       phone
       payRate
       fullTime
@@ -132,3 +129,4 @@ export const DELETE_COMPANY = gql`
     }
   }
   `;
+  
