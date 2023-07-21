@@ -12,13 +12,16 @@ const PositionForm = () => {
       case 'position': 
         setPosition(value);
         break
+      case 'hourlyWage':
+        setHourlyWage(value);
+        break
     };
   };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    alert('New Position created');
+    alert(`New ${position.jobTitle} position created!`);
     setPosition('');
     setHourlyWage('');
   };
