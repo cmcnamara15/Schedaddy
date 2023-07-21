@@ -61,6 +61,14 @@ const EmployeeList = () => {
     }
   ]);
 
+  const handleDetails = (e) => {
+    e.preventDefault();
+  }
+
+  const handleRemove = (e) => {
+    e.preventDefault();
+  }
+
   return (
     <div>
       <div className="card">
@@ -73,6 +81,11 @@ const EmployeeList = () => {
           </div>
         </div>
         <ul className="list-group list-group-flush">
+          {employees.map((emp) => <Employee u={emp}/>)}
+          {employees.map((emp) => <Employee u={emp}/>)}
+          {employees.map((emp) => <Employee u={emp}/>)}
+          {employees.map((emp) => <Employee u={emp}/>)}
+          {employees.map((emp) => <Employee u={emp}/>)}
           {employees.map((emp) => <Employee u={emp}/>)}
         </ul>
       </div>
