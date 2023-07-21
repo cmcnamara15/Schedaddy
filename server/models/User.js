@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
-
+// const { v4: uuidv4 } = require('uuid');
 // const shiftSchema = require('./Shift');
 // const positionSchema = require('./Position');
 // const companySchema = require('./Company');
@@ -8,6 +8,11 @@ const addressSchema = require("./Address");
 // const accountSchema = require("./Account");
 
 const userSchema = new Schema({
+  // _id: {
+  //   type: String,
+  //   required: true,
+  //   unique: true,
+  // },
   firstName: {
     type: String,
     unique: false,
@@ -86,6 +91,14 @@ const userSchema = new Schema({
     ref: "Account",
   },
 });
+
+
+// userSchema.pre('save', function (next) {
+//   if (this.isNew) {
+//     this._id = uuidv4(); // Set a unique ID for new users
+//   }
+//   next();
+// });
 
 userSchema.pre('save', async function (next) {
     if (this.isNew || this.isModified('password')) {
