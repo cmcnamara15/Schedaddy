@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import {
   ApolloClient,
   InMemoryCache,
@@ -9,11 +9,12 @@ import { setContext } from "@apollo/client/link/context";
 import Navbar from './components/Navbar';
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/js/bootstrap.min.js";
-// import EmployeeList from "./components/EmployeeList";
-// import EmployeeForm from './components/EmployeeForm';
+import EmployeeList from "./components/EmployeeList";
+import LoginForm from "./components/forms/LoginForm";
+import RegisterForm from "./components/forms/RegisterForm";
 import Schedule from "./components/Schedule/Schedule";
-import PositionForm from './components/PositionForm';
-import Loginform from "./components/forms/Loginform";
+import Admin from "./components/Admin";
+import PositionList from "./components/PositionList";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -41,13 +42,35 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
           <Navbar />
-          {/* <PositionForm /> */}
-          {/* <Navbar /> */}
-          <Schedule/>
-          {/* <Navbar /> */}
-          <Loginform />
-          {/* <Schedule/> */}
-          {/* <EmployeeForm/> */}
+          
+          <Routes>
+
+            <Route
+              path='/'
+              element={<LoginForm />}
+            />
+            <Route
+              path='/register'
+              element={<RegisterForm />}
+            />
+            <Route
+              path='/schedule'
+              element={<Schedule />}
+            />
+            <Route
+              path='/admin'
+              element={<Admin />}
+            />
+            <Route
+              path='/position'
+              element={<PositionList />}
+            />
+            <Route
+              path='/employee'
+              element={<EmployeeList />}
+            />
+
+          </Routes>
       </Router>
     </ApolloProvider>
   );

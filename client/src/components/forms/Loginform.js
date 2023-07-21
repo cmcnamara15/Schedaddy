@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Container, Row, Col, Image } from 'react-bootstrap';
 
-const Loginform = () => {
+const LoginForm = () => {
 
   const [ user, setUser ] = useState({ email: '', password: ''});
 
@@ -69,4 +69,4 @@ const Loginform = () => {
   )
 }
 
-export default Loginform
+export default LoginForm
