@@ -6,6 +6,7 @@ const typeDefs = gql`
     firstName: String!
     lastName: String!
     email: String!
+    password: String!
     phone: String!
     socialSecurity: String!
     hireDate: String!
@@ -20,68 +21,10 @@ const typeDefs = gql`
     company: Company
   }
 
-  type Shift {
-    _id: ID!
-    user: User
-    startDateTime: String!
-    endDateTime: String!
-  }
-
-  type Position {
-    _id: ID!
-    user: User
-    jobTitle: String!
-  }
-
-  type Address {
-    _id: ID!
-    street1: String!
-    street2: String
-    city: String!
-    state: String!
-    zip: String!
-    country: String!
-    user: User
-  }
-
-  type Company {
-    _id: ID!
-    companyName: String!
-    companyAddress: Address
-    companyPhone: String!
-    companyAdmin: User
-  }
-  
-  input ShiftInput {
-    user: ID!
-    startDateTime: String!
-    endDateTime: String!
-  }
-  
-  input PositionInput {
-    user: ID!
-    jobTitle: String!
-  }
-  
-  input AddressInput {
-    street1: String!
-    street2: String
-    city: String!
-    state: String!
-    zip: String!
-    country: String!
-  }
-  
-  input CompanyInput {
-    companyName: String!
-    companyAddress: AddressInput
-    companyPhone: String!
-    companyAdmin: ID!
-  }
-  
   input UserInput {
     firstName: String!
     lastName: String!
+    password: String!
     email: String!
     phone: String!
     socialSecurity: String!
@@ -97,9 +40,77 @@ const typeDefs = gql`
     company: CompanyInput
   }
 
+  type Account {
+    _id: ID!
+    email: String!
+    password: String!
+  }
+
+  type Shift {
+    _id: ID!
+    startDateTime: String!
+    endDateTime: String!
+    user: User
+    position: Position
+  }
+
+  input ShiftInput {
+    startDateTime: String!
+    endDateTime: String!
+    user: ID!
+  }
+
+  type Position {
+    _id: ID!
+    jobTitle: String!
+    user: User
+  }
+
+  input PositionInput {
+    jobTitle: String!
+    user: ID!
+  }
+
+  type Address {
+    _id: ID!
+    street1: String!
+    street2: String
+    city: String!
+    state: String!
+    zip: String!
+    country: String!
+    user: User
+  }
+
+  input AddressInput {
+    street1: String!
+    street2: String
+    city: String!
+    state: String!
+    zip: String!
+    country: String!
+    user: ID!
+  }
+
+  type Company {
+    _id: ID!
+    companyName: String!
+    companyAddress: Address
+    companyPhone: String!
+    companyAdmin: User
+  }
+
+  input CompanyInput {
+    companyName: String!
+    companyAddress: AddressInput
+    companyPhone: String!
+    companyAdmin: ID!
+  }
+
   type Auth {
     token: ID!
-    user: User
+    email: String!
+    password: String!
   }
 
   type Query {
@@ -116,10 +127,19 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    login(email: String!, password: String!): Auth
-    createAccount(email: String!, password: String!): Auth
+    login(email: String!, password: String!): Account
+    createAccount(email: String!, password: String!): Account
     createUser(input: UserInput!): User
-    updateUser(firstName: String!, lastName: String!, email: String!, phone: String, payRate: Float!, fullTime: Boolean!, activeEmployee: Boolean!, isAdmin: Boolean!): User 
+    updateUser(
+      firstName: String!
+      lastName: String!
+      email: String!
+      phone: String
+      payRate: Float!
+      fullTime: Boolean!
+      activeEmployee: Boolean!
+      isAdmin: Boolean!
+    ): User
     deleteUser(_id: ID!): User
     addShift(input: ShiftInput!): Shift
     updateShift(_id: ID!, startDateTime: String!, endDateTime: String!): Shift
@@ -128,14 +148,26 @@ const typeDefs = gql`
     updatePosition(_id: ID!, jobTitle: String!): Position
     deletePosition(_id: ID!): Position
     addAddress(input: AddressInput!): Address
-    updateAddress(_id: ID!, street1: String!, street2: String, city: String!, state: String!, zip: String!, country: String!): Address
+    updateAddress(
+      _id: ID!
+      street1: String!
+      street2: String
+      city: String!
+      state: String!
+      zip: String!
+      country: String!
+    ): Address
     deleteAddress(_id: ID!): Address
     addCompany(input: CompanyInput!): Company
-    updateCompany(_id: ID!, companyName: String!, companyAddress: String, companyPhone: String!, companyAdmin: ID!): Company
+    updateCompany(
+      _id: ID!
+      companyName: String!
+      companyAddress: String
+      companyPhone: String!
+      companyAdmin: ID!
+    ): Company
     deleteCompany(_id: ID!): Company
   }
 `;
 
 module.exports = typeDefs;
-
-// Shift mutation needs a user? How do we want to do that?

@@ -1,79 +1,99 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
+// const { v4: uuidv4 } = require('uuid');
+// const shiftSchema = require('./Shift');
+// const positionSchema = require('./Position');
+// const companySchema = require('./Company');
+const addressSchema = require("./Address");
 
-const shiftSchema = require('./Shift');
-const positionSchema = require('./Position');
-const addressSchema = require('./Address');
-const companySchema = require('./Company');
+const userSchema = new Schema({
+  // _id: {
+  //   type: String,
+  //   required: true,
+  //   unique: true,
+  // },
+  firstName: {
+    type: String,
+    unique: false,
+    required: true,
+  },
+  lastName: {
+    type: String,
+    unique: false,
+    required: true,
+  },
+  email: {
+    type: String,
+    unique: false,
+    match: [/.+@.+\..+/, "Must match an email address!"],
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  phone: {
+    type: String,
+    unique: false,
+    required: true,
+  },
+  socialSecurity: {
+    type: String,
+    unique: false,
+    required: true,
+  },
+  hireDate: {
+    type: String,
+    unique: false,
+    required: true,
+  },
+  terminationDate: {
+    type: String,
+    unique: false,
+    required: false,
+  },
+  payRate: {
+    type: Number,
+    unique: false,
+    required: true,
+  },
+  fullTime: {
+    type: Boolean,
+    unique: false,
+    required: true,
+  },
+  activeEmployee: {
+    type: Boolean,
+    unique: false,
+    required: true,
+  },
+  isAdmin: {
+    type: Boolean,
+    unique: false,
+    required: true,
+  },
+  shift: {
+    type: Schema.Types.ObjectId,
+    ref: "Shift",
+  },
+  position: {
+    type: Schema.Types.ObjectId,
+    ref: "Position",
+  },
+  address: [addressSchema],
+  company: {
+    type: Schema.Types.ObjectId,
+    ref: "Company",
+  },
+});
 
-const userSchema = new Schema(
-    {
-        firstName: {
-            type: String,
-            unique: true,
-            required: true,
-        },
-        lastName: {
-            type: String,
-            unique: true,
-            required: true,
-        },
-        email: {
-            type: String,
-            unique: true,
-            match: [/.+@.+\..+/, 'Must match an email address!'],
-            required: true,
-        },
-        password: {
-            type: String,
-            required: true,
-        },
-        phone: {
-            type: String,
-            unique: true,
-            required: true,
-        },
-        socialSecurity: {
-            type: String,
-            unique: true,
-            required: true,
-        },
-        hireDate: {
-            type: String,
-            unique: true,
-            required: true,
-        },
-        terminationDate: {
-            type: String,
-            unique: true,
-            required: false,
-        },
-        payRate: {
-            type: Number,
-            unique: true,
-            required: true,
-        },
-        fullTime: {
-            type: Boolean,
-            unique: true,
-            required: true,
-        },
-        activeEmployee: {
-            type: Boolean,
-            unique: true,
-            required: true,
-        },
-        isAdmin: {
-            type: Boolean,
-            unique: true,
-            required: true,
-        },
-        Shift: [shiftSchema],
-        Position: [positionSchema],
-        Address: [addressSchema],
-        Company: [companySchema],
-    }
-)
+
+// userSchema.pre('save', function (next) {
+//   if (this.isNew) {
+//     this._id = uuidv4(); // Set a unique ID for new users
+//   }
+//   next();
+// });
 
 userSchema.pre('save', async function (next) {
     if (this.isNew || this.isModified('password')) {
