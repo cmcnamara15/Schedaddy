@@ -70,26 +70,29 @@ const EmployeeList = () => {
   }
 
   return (
-    <div>
+    <div className='container'>
       <div className="card">
-        <div className='card-header row'>
-          <div className="col-6">
-            <h1>Employees</h1>
-          </div>
-          <div className="col-6 text-end">
-            <EmployeeForm />
+        <div className='card-header mb-0'>
+          <div className="row">
+            <div className="col-6">
+              <h1>Employees</h1>
+            </div>
+            <div className="col-6 text-end">
+              <EmployeeForm />
+            </div>
           </div>
         </div>
-        <ul className="list-group list-group-flush">
-          {employees.map((emp) => <Employee u={emp}/>)}
-          {employees.map((emp) => <Employee u={emp}/>)}
-          {employees.map((emp) => <Employee u={emp}/>)}
-          {employees.map((emp) => <Employee u={emp}/>)}
-          {employees.map((emp) => <Employee u={emp}/>)}
-          {employees.map((emp) => <Employee u={emp}/>)}
-        </ul>
+        <div className="card-body">
+          <ul className="list-group list-group-flush">
+            {employees.map((emp) => <Employee u={emp}/>)}
+            {employees.map((emp) => <Employee u={emp}/>)}
+            {employees.map((emp) => <Employee u={emp}/>)}
+            {employees.map((emp) => <Employee u={emp}/>)}
+            {employees.map((emp) => <Employee u={emp}/>)}
+            {employees.map((emp) => <Employee u={emp}/>)}
+          </ul>
+        </div>
       </div>
-      
     </div>
   )
 }

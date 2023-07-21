@@ -27,7 +27,7 @@ const Schedule = () => {
   const handleEventClick = (event) => setSelectedEvent(event);
 
   return (
-    <div>
+    <div className='container'>
       <h1>My Calendar</h1>
       <Calendar
         localizer={localizer}
