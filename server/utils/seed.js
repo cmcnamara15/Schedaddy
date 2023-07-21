@@ -12,7 +12,7 @@ async function seedDb() {
 
         const fakeCompanies = Array.from({ length: 5 }, () => ({
             companyName: faker.company.name(),
-            companyPhone: faker.phone.number('512-###-###'),
+            companyPhone: faker.phone.number('512-###-####'),
         }));
 
         const fakePositions = Array.from({ length: 10 }, () => ({
@@ -27,7 +27,7 @@ async function seedDb() {
         const fakeUsers = Array.from({ length: 50 }, () => ({
             firstName: faker.person.firstName(),
             lastName: faker.person.lastName(),
-            phone: faker.phone.number('512-###-###'),
+            phone: faker.phone.number('512-###-####'),
             socialSecurity: faker.number.octal({ min: 100000000, max: 999999999 }),
             hireDate: faker.date.past(),
             payRate: faker.number.octal({ min: 20000, max: 150000 }),
@@ -51,11 +51,15 @@ async function seedDb() {
                 country: faker.location.country(),
             };
 
+            // set some employees with termination date and some null(active)
             if (faker.datatype.boolean()) {
                 fakeUser.terminationDate = faker.date.past();
                 } else {
                 fakeUser.terminationDate = null;
                 }
+
+            // if null, activeEmployee = true
+            fakeUser.activeEmployee = fakeUser.terminationDate === null;
 
             // create the user document with the reference to its corresponding account
             const user = await User.create(fakeUser);
