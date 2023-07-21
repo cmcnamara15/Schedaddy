@@ -12,6 +12,7 @@ import "bootstrap/dist/js/bootstrap.min.js";
 // import EmployeeList from "./components/EmployeeList";
 // import EmployeeForm from './components/EmployeeForm';
 import Schedule from "./components/Schedule/Schedule";
+import PositionForm from './components/PositionForm';
 import Loginform from "./components/forms/Loginform";
 
 const httpLink = createHttpLink({
@@ -39,6 +40,10 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
+          <Navbar />
+          {/* <PositionForm /> */}
+          {/* <Navbar /> */}
+          <Schedule/>
           {/* <Navbar /> */}
           <Loginform />
           {/* <Schedule/> */}
