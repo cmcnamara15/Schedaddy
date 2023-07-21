@@ -44,9 +44,8 @@ function App() {
           <Navbar />
           
           <Routes>
-
             <Route
-              path='/'
+              path='/login'
               element={<LoginForm />}
             />
             <Route
@@ -58,18 +57,17 @@ function App() {
               element={<Schedule />}
             />
             <Route
-              path='/admin'
+              path='/account'
               element={<Admin />}
             />
             <Route
-              path='/position'
+              path='/positions'
               element={<PositionList />}
             />
             <Route
-              path='/employee'
+              path='/employees'
               element={<EmployeeList />}
             />
-
           </Routes>
       </Router>
     </ApolloProvider>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { FaFileCirclePlus } from 'react-icons/fa6';
 
 import States from '../partials/States';
 import Checkbox from '../partials/Checkbox';
@@ -48,8 +49,8 @@ const EmployeeForm = ({ u }) => {
 
   return (
     <>
-      <button type='button' className='btn btn-primary' data-bs-toggle='modal' data-bs-target='#addEmployeeForm'>
-        Add Employee
+      <button type='button' className='btn btn-primary' data-bs-toggle='tooltip' data-bs-placement='left' title='Add an Employee'>
+        <span data-bs-toggle='modal' data-bs-target='#addEmployeeForm'><FaFileCirclePlus/></span>
       </button>
 
       <div className="modal fade" id='addEmployeeForm' tabindex='-1' aria-labelledby="addEmployeeFormLabel" aria-hidden="true">

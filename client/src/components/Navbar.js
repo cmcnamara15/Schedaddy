@@ -21,8 +21,8 @@ export default function App() {
           {/* <Nav.Link href="/schedule">My Schedule</Nav.Link> */}
           <Nav.Link href="/employees">Employees</Nav.Link>
           {/* If [isAdmin] show, otherwise don't */}
-          <Nav.Link href="/Message">Messages</Nav.Link>
-          <Nav.Link href="/Account">Account</Nav.Link>
+          <Nav.Link href="/messages">Messages</Nav.Link>
+          <Nav.Link href="/account">Account</Nav.Link>
 
         </Nav>
         <Navbar.Text>
