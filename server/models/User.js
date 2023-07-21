@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 // const positionSchema = require('./Position');
 // const companySchema = require('./Company');
 const addressSchema = require("./Address");
+// const accountSchema = require("./Account");
 
 const userSchema = new Schema({
   firstName: {
@@ -79,6 +80,10 @@ const userSchema = new Schema({
   company: {
     type: Schema.Types.ObjectId,
     ref: "Company",
+  },
+  account: {
+    type: Schema.Types.ObjectId,
+    ref: "Account",
   },
 });
 

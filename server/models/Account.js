@@ -1,5 +1,7 @@
 const { Schema, model } = require("mongoose");
 
+// const userSchema = require("./User");
+
 const accountSchema = new Schema({
   email: {
     type: String,
@@ -10,6 +12,10 @@ const accountSchema = new Schema({
   password: {
     type: String,
     required: true,
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
   },
 });
 
