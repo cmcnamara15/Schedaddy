@@ -60,6 +60,7 @@ const Loginform = () => {
           <Col md={6}>
             <h1>Right</h1>
             <p>Image will be here at some point</p>
+            <Image src='logo512.png' />
           </Col>
         </Row>
       </Container>
