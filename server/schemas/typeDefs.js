@@ -113,6 +113,8 @@ const typeDefs = gql`
   }
 
   type Query {
+    accounts: [Account]
+    account (_id: ID!): Account
     users: [User]
     user(_id: ID!): User
     shifts: [Shift]
@@ -128,6 +130,7 @@ const typeDefs = gql`
   type Mutation {
     login(email: String!, password: String!): Account
     createAccount(email: String!, password: String!): Account
+    deleteAccount(_id: ID!): Account
     createUser(input: UserInput!): User
     updateUser(
       firstName: String!

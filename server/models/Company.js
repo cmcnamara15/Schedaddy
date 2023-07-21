@@ -8,7 +8,7 @@ const companySchema = new Schema({
     type: String,
     required: true,
   },
-  companyAddress: [addressSchema],
+  companyAddress: addressSchema,
   companyPhone: {
     type: String,
     required: true,
