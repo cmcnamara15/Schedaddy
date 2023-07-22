@@ -1,9 +1,9 @@
 const { Schema, model } = require("mongoose");
 
 const addressSchema = require("./Address");
-// const userSchema = require("./User")
 
 const companySchema = new Schema({
+  
   companyName: {
     type: String,
     required: true,
