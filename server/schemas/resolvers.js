@@ -4,21 +4,6 @@ const { AuthenticationError } = require("apollo-server-express");
 
 const resolvers = {
   Query: {
-    login: async (parent, args) => {
-      console.log("user login block");
-      const login = await Account.findOne({ email: args.email });
-      if (!login) {
-        throw new Error("user not found");
-      }
-      const isCorrectPassword = await login.isCorrectPassword(args.password);
-      console.log(!isCorrectPassword);
-      if (!isCorrectPassword) {
-        
-        throw new Error("incorrect credentials");
-      }
-      const token = signToken(login);
-      return { token, login };
-    },
     accounts: async (parent) => {
       console.log("accounts block");
       const accounts = await Account.find({});
@@ -40,7 +25,7 @@ const resolvers = {
       console.log(args);
       const user = await User.findOne(args);
       return user;
-    },    
+    },
     shifts: async (parent) => {
       console.log("shifts block");
       const shifts = await Shift.find({});
@@ -77,10 +62,25 @@ const resolvers = {
     },
   },
   Mutation: {
+    // login: async (parent, args) => {
+    //   console.log("user login block");
+    //   const login = await Account.findOne({ email: args.email });
+    //   if (!login) {
+    //     throw new Error("user not found");
+    //   }
+    //   const isCorrectPassword = await login.isCorrectPassword(args.password);
+    //   console.log(!isCorrectPassword);
+    //   if (!isCorrectPassword) {
+    //     throw new Error("incorrect credentials");
+    //   }
+    //   const token = signToken(login);
+    //   return { token, login };
+    // },
     createAccount: async (parents, args) => {
       console.log("create account block");
       console.log(args);
       const account = await Account.create(args);
+      // const token = signToken(account);
       return account;
     },
     deleteAccount: async (args) => {
@@ -95,14 +95,10 @@ const resolvers = {
       const user = await User.create(args.input);
       return user;
     },
-    updateUser: async(parent, {_id, ...args }) => {
-      const user = await User.findByIdAndUpdate(
-        _id,
-        args,
-        { new: true }
-      );
-      if(!user) {
-        throw new Error("no user with this id")
+    updateUser: async (parent, { _id, ...args }) => {
+      const user = await User.findByIdAndUpdate(_id, args, { new: true });
+      if (!user) {
+        throw new Error("no user with this id");
       }
       return user;
     },
@@ -118,14 +114,10 @@ const resolvers = {
       const shift = await Shift.create(args.input);
       return shift;
     },
-    updateShift: async (parent, {_id, ...args}) => {
-      const shift = await Shift.findByIdAndUpdate(
-        _id,
-        args,
-        { new: true } 
-      );
-      if(!shift) {
-        throw new Error("no shift with this ID")
+    updateShift: async (parent, { _id, ...args }) => {
+      const shift = await Shift.findByIdAndUpdate(_id, args, { new: true });
+      if (!shift) {
+        throw new Error("no shift with this ID");
       }
       return shift;
     },
@@ -141,14 +133,12 @@ const resolvers = {
       const position = await Position.create(args);
       return position;
     },
-    updatePosition: async (parent, {_id, ...args}) => {
-      const position = await Position.findByIdAndUpdate(
-        _id,
-        args,
-        { new: true } 
-      );
-      if(!position) {
-        throw new Error("no position with this ID")
+    updatePosition: async (parent, { _id, ...args }) => {
+      const position = await Position.findByIdAndUpdate(_id, args, {
+        new: true,
+      });
+      if (!position) {
+        throw new Error("no position with this ID");
       }
       return position;
     },
@@ -164,14 +154,10 @@ const resolvers = {
       const company = await Company.create(args.input);
       return company;
     },
-    updateCompany: async (parent, {_id, ...args}) => {
-      const company = await Company.findByIdAndUpdate(
-        _id,
-        args,
-        { new: true } 
-      );
-      if(!company) {
-        throw new Error("no position with this ID")
+    updateCompany: async (parent, { _id, ...args }) => {
+      const company = await Company.findByIdAndUpdate(_id, args, { new: true });
+      if (!company) {
+        throw new Error("no position with this ID");
       }
       return company;
     },
