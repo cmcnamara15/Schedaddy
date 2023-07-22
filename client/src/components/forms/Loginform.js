@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Container, Row, Col, Image } from 'react-bootstrap';
+import RegisterForm from './RegisterForm';
 
 const LoginForm = () => {
 
@@ -52,7 +53,7 @@ const LoginForm = () => {
                   </Form.Group>
                   <input className='btn btn-secondary m-1 col-2' type="button" value="Login" onClick={handleFormSubmit} />
                 </Form>
-                <a href='#'>Register</a>
+                < RegisterForm />
               </div>
             </div>
 
