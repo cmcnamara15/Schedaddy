@@ -15,9 +15,9 @@ const typeDefs = gql`
     isAdmin: Boolean!
     shift: Shift
     position: Position
-    address: Address
-    company: Company
-    account: Account
+    userAddress: Address
+    userCompany: Company
+    userAccount: Account
   }
 
   input UserInput {
@@ -33,9 +33,9 @@ const typeDefs = gql`
     isAdmin: Boolean!
     shift: [ShiftInput]
     position: PositionInput
-    address: AddressInput
-    company: CompanyInput
-    account: AccountInput
+    userAddress: AddressInput
+    userCompany: CompanyInput
+    userAccount: AccountInput
   }
 
   type Account {
