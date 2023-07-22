@@ -1,8 +1,7 @@
 const { Schema, model } = require("mongoose");
 
-// const userSchema = require("./User");
-
 const positionSchema = new Schema({
+  
   jobTitle: {
     type: String,
     required: true,

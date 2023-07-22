@@ -1,9 +1,7 @@
 const { Schema, model } = require("mongoose");
 
-// const userSchema = require("./User");
-// const positionSchema = require("./Position");
-
 const shiftSchema = new Schema({
+  
   startDateTime: {
     type: String,
     required: true,

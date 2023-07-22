@@ -1,8 +1,7 @@
 const { Schema } = require("mongoose");
 
-// const userSchema = require("./User");
-
 const addressSchema = new Schema({
+  
   street1: {
     type: String,
     required: true,
