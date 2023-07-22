@@ -1,5 +1,5 @@
 const { Account, Address, Company, Position, Shift, User } = require("../models");
-const { signToken } = require("../utils/auth");
+// const { signToken } = require("../utils/auth");
 const { AuthenticationError } = require("apollo-server-express");
 
 const resolvers = {
@@ -62,25 +62,10 @@ const resolvers = {
     },
   },
   Mutation: {
-    // login: async (parent, args) => {
-    //   console.log("user login block");
-    //   const login = await Account.findOne({ email: args.email });
-    //   if (!login) {
-    //     throw new Error("user not found");
-    //   }
-    //   const isCorrectPassword = await login.isCorrectPassword(args.password);
-    //   console.log(!isCorrectPassword);
-    //   if (!isCorrectPassword) {
-    //     throw new Error("incorrect credentials");
-    //   }
-    //   const token = signToken(login);
-    //   return { token, login };
-    // },
     createAccount: async (parents, args) => {
       console.log("create account block");
       console.log(args);
       const account = await Account.create(args);
-      // const token = signToken(account);
       return account;
     },
     deleteAccount: async (args) => {

@@ -7,38 +7,35 @@ export const CREATE_ACCOUNT = gql`
         email
         password
     }
-  }
-  `;
+  }`;
 
 export const DELETE_ACCOUNT = gql`
   mutation deleteAccount($id: ID!) {
     deleteAccount(_id: $id) {
         _id
     }
-  }
-`;
+  }`;
   
 // Need to figure about passing through position/address/company/account
 export const CREATE_USER = gql`
-mutation createUser($input: UserInput!) {
-  createUser(input: $input) {
-    _id
-    firstName
-    lastName
-    phone
-    socialSecurity
-    hireDate
-    terminationDate
-    payRate
-    fullTime
-    activeEmployee
-    isAdmin
-  }
-}
-`;
+  mutation createUser($input: UserInput!) {
+    createUser(input: $input) {
+      _id
+      firstName
+      lastName
+      phone
+      socialSecurity
+      hireDate
+      terminationDate
+      payRate
+      fullTime
+      activeEmployee
+      isAdmin
+    }
+  }`;
 
 export const UPDATE_USER = gql`
-  mutation UpdateUser(
+  mutation updateUser(
       $_id: ID!
       $firstName: String
       $lastName: String
@@ -67,8 +64,7 @@ export const UPDATE_USER = gql`
         activeEmployee
         isAdmin
     }
-  }
-`;
+  }`;
 
 
 export const DELETE_USER = gql`
@@ -76,8 +72,7 @@ export const DELETE_USER = gql`
     deleteUser(_id: $id) {
         _id
     }
-  }
-  `;
+  }`;
 
 export const ADD_SHIFT = gql`
   mutation addShift($input: ShiftInput!) {
@@ -86,26 +81,23 @@ export const ADD_SHIFT = gql`
           startDateTime
           endDateTime
     }
-  }
-  `;
+  }`;
 
-  export const UPDATE_SHIFT = gql`
+export const UPDATE_SHIFT = gql`
   mutation updateShift($id: ID!, $startDateTime: String!, $endDateTime: String!){
     updateShift(_id: $id, startDateTime: $startDateTime, endDateTime: $endDateTime){
       _id
       startDateTime
       endDateTime
     }
-  }
-  `;
+  }`;
 
 export const DELETE_SHIFT = gql`
   mutation deleteShift($id: ID!) {
     deleteShift(_id: $id) {
         _id
     }
-  }
-  `;
+  }`;
 
 export const ADD_POSITION = gql`
   mutation addPosition($id: ID!, $jobTitle: String!) {
@@ -113,8 +105,7 @@ export const ADD_POSITION = gql`
         _id
         jobTitle
     }
-  }
-  `;
+  }`;
 
 export const UPDATE_POSITION = gql`
   mutation updatePosition($id: ID!, $jobTitle: String){
@@ -129,8 +120,7 @@ export const DELETE_POSITION = gql`
     deletePosition(_id: $id) {
         _id
     }
-  }
-  `;
+  }`;
 
 
 // ADDRESSES// 
@@ -150,16 +140,28 @@ export const ADD_COMPANY = gql`
           zip
       }
     }
-  }
-`;
+  }`;
 
-export const UPDATE_COMPANY = ``
+export const UPDATE_COMPANY = gql`
+  mutation updateCompany(
+      $id: ID!, 
+      $companyName: String,
+      $companyPhone: String,
+  ) {
+    updateCompany(_id: $id, 
+        companyName: $companyName,
+        companyPhone: $companyPhone
+    ) {
+      _id
+      companyName
+      companyPhone
+    }
+  }`;
 
 export const DELETE_COMPANY = gql`
   mutation deleteCompany($id: ID!) {
     deleteCompany(_id: $id) {
         _id
     }
-  }
-  `;
+  }`;
   
