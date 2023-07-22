@@ -92,7 +92,6 @@ const userSchema = new Schema({
   },
 });
 
-
 // userSchema.pre('save', function (next) {
 //   if (this.isNew) {
 //     this._id = uuidv4(); // Set a unique ID for new users

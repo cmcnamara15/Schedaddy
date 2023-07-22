@@ -4,6 +4,21 @@ const { AuthenticationError } = require("apollo-server-express");
 
 const resolvers = {
   Query: {
+    login: async (parent, args) => {
+      console.log("user login block");
+      const login = await Account.findOne({ email: args.email });
+      if (!login) {
+        throw new Error("user not found");
+      }
+      const isCorrectPassword = await login.isCorrectPassword(args.password);
+      console.log(!isCorrectPassword);
+      if (!isCorrectPassword) {
+        
+        throw new Error("incorrect credentials");
+      }
+      const token = signToken(login);
+      return { token, login };
+    },
     accounts: async (parent) => {
       console.log("accounts block");
       const accounts = await Account.find({});
