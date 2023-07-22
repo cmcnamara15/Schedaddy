@@ -62,7 +62,7 @@ const userSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Position",
   },
-  address: [addressSchema],
+  userAddress: addressSchema,
   company: {
     type: Schema.Types.ObjectId,
     ref: "Company",
