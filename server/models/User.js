@@ -1,13 +1,9 @@
 const { Schema, model } = require('mongoose');
-// const bcrypt = require('bcrypt');
-// const { v4: uuidv4 } = require('uuid');
-// const shiftSchema = require('./Shift');
-// const positionSchema = require('./Position');
-// const companySchema = require('./Company');
+const bcrypt = require("bcrypt");
 const addressSchema = require("./Address");
-// const accountSchema = require("./Account");
 
 const userSchema = new Schema({
+
   firstName: {
     type: String,
     unique: false,
@@ -77,26 +73,19 @@ const userSchema = new Schema({
   },
 });
 
-
-// userSchema.pre('save', function (next) {
-//   if (this.isNew) {
-//     this._id = uuidv4(); // Set a unique ID for new users
-//   }
-//   next();
-// });
-
-// userSchema.pre('save', async function (next) {
-//     if (this.isNew || this.isModified('password')) {
-//         const saltRounds = 10;
-//         this.password = await bcrypt.hash(this.password, saltRounds);
-//     }
-//     next();
-// })
-// // custom method to compare and validate password for logging in
-// userSchema.methods.isCorrectPassword = async function (password) {
-//         return bcrypt.compare(password, this.password);
-// };
+userSchema.pre('save', async function (next) {
+    if (this.isNew || this.isModified('socialSecurity')) {
+        const saltRounds = 10;
+        this.socialSecurity = await bcrypt.hash(this.socialSecurity, saltRounds);
+    }
+    next();
+})
+// custom method to compare and validate social security for database
+userSchema.methods.isSocialSecurity = async function (socialSecurity) {
+        return bcrypt.compare(socialSecurity, this.socialSecurity);
+};
 
 const User = model('User', userSchema);
 
 module.exports = User
+
