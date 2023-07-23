@@ -171,7 +171,6 @@ export const DELETE_COMPANY = gql`
       token
       user {
         _id
-        username
       }
     }
   }
