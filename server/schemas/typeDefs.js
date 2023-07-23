@@ -13,7 +13,7 @@ const typeDefs = gql`
     fullTime: Boolean!
     activeEmployee: Boolean!
     isAdmin: Boolean!
-    shift: Shift
+    shifts: [Shift]
     position: Position
     userAddress: Address
     userCompany: Company
@@ -31,7 +31,7 @@ const typeDefs = gql`
     fullTime: Boolean!
     activeEmployee: Boolean!
     isAdmin: Boolean!
-    shift: [ShiftInput]
+    shifts: [ShiftInput]
     position: PositionInput
     userAddress: AddressInput
     userCompany: CompanyInput
@@ -126,6 +126,7 @@ const typeDefs = gql`
     user(_id: ID!): User
     shifts: [Shift]
     shift(_id: ID!): Shift
+    userShifts(userId: ID!): [Shift]
     positions: [Position]
     position(_id: ID!): Position
     addresses: [Address]

@@ -89,3 +89,12 @@ const User = model('User', userSchema);
 
 module.exports = User
 
+
+// shifts: {
+//   type: [Schema.Types.ObjectId],
+//   ref: "Shifts",
+// },
+// position: {
+//   type: Position,
+//   ref: "Position",
+// },

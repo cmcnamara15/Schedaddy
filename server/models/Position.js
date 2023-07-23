@@ -15,3 +15,16 @@ const positionSchema = new Schema({
 const Position = model("Position", positionSchema);
 
 module.exports = Position;
+
+
+// const positionSchema = new Schema({
+  
+//   jobTitle: {
+//     type: String,
+//     required: true,
+//   },
+//   positionId: {
+//     type: ID,
+//     required: true
+//   }
+// });

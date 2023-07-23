@@ -39,6 +39,12 @@ const resolvers = {
       }
     },   
 
+    userShifts: async (parent, args) => {
+      // I don't know if args.userId is valid syntax
+        const shifts = await Shift.find(args.userId);
+        return shifts;
+    },
+
     shifts: async (parent) => {
       console.log("shifts block");
       const shifts = await Shift.find({});
@@ -146,6 +152,7 @@ const resolvers = {
       console.log("add shift block");
       console.log(args.input);
       const shift = await Shift.create(args.input);
+      // update user shifts array with this shift ID
       return shift;
     },
     updateShift: async (parent, {_id, ...args}) => {
