@@ -1,65 +1,16 @@
 import React, { useState } from 'react';
 import EmployeeForm from './forms/EmployeeForm';
 import Employee from './partials/Employee';
+import { useQuery } from '@apollo/client';
+import { FIND_ALL_USERS } from '../utils/queries';
+
+
 
 const EmployeeList = () => {
-  const [employees, setEmployees] = useState([
-    {
-      firstName: "Joe",
-      lastName: "Cool",
-      address: {
-        street1: "",
-        street2: "",
-        city: "",
-        state: "",
-        zip: "",
-      },
-      email: "",
-      password: "",
-      hireDate: "",
-      terminationDate: "",
-      payRate: "",
-      fullTime: true,
-      active: true,
-      isAdmin: false
-    }, {
-      firstName: "John",
-      lastName: "Doe",
-      address: {
-        street1: "",
-        street2: "",
-        city: "",
-        state: "",
-        zip: "",
-      },
-      email: "",
-      password: "",
-      hireDate: "",
-      terminationDate: "",
-      payRate: "",
-      fullTime: true,
-      active: true,
-      isAdmin: false
-    }, {
-      firstName: "Billy",
-      lastName: "Bob",
-      address: {
-        street1: "",
-        street2: "",
-        city: "",
-        state: "",
-        zip: "",
-      },
-      email: "",
-      password: "",
-      hireDate: "",
-      terminationDate: "",
-      payRate: "",
-      fullTime: true,
-      active: true,
-      isAdmin: false
-    }
-  ]);
+  const { loading, data } = useQuery(FIND_ALL_USERS);
+  console.log(data);
+
+  const employees = data?.users || [];
 
   const handleDetails = (e) => {
     e.preventDefault();
@@ -84,11 +35,6 @@ const EmployeeList = () => {
         </div>
         <div className="card-body">
           <ul className="list-group list-group-flush">
-            {employees.map((emp) => <Employee u={emp}/>)}
-            {employees.map((emp) => <Employee u={emp}/>)}
-            {employees.map((emp) => <Employee u={emp}/>)}
-            {employees.map((emp) => <Employee u={emp}/>)}
-            {employees.map((emp) => <Employee u={emp}/>)}
             {employees.map((emp) => <Employee u={emp}/>)}
           </ul>
         </div>
