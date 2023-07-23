@@ -23,7 +23,7 @@ export default function App() {
   return (
     <Navbar className="bg-body-tertiary">
     <Container fluid className='px-4'>
-      <Navbar.Brand href="#home">ScheDaddy</Navbar.Brand> 
+      <Navbar.Brand href="#home">Schedaddy</Navbar.Brand> 
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse className="justify-content-end">
         <Nav className="me-auto">
