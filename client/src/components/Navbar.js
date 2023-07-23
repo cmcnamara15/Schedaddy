@@ -23,16 +23,17 @@ export default function App() {
   return (
     <Navbar className="bg-body-tertiary">
     <Container fluid className='px-4'>
-      <Navbar.Brand href="#home">BrandName</Navbar.Brand> 
+      <Navbar.Brand href="#home">ScheDaddy</Navbar.Brand> 
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse className="justify-content-end">
         <Nav className="me-auto">
-          <Nav.Link href="/schedule" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>Schedule+Positions</Nav.Link>
-          {/* <Nav.Link href="/schedule">My Schedule</Nav.Link> */}
-          <Nav.Link href="/employees" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>Employees</Nav.Link>
-          {/* If [isAdmin] show, otherwise don't */}
+          <Nav.Link href="/schedule" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+          {isAdmin ? 'Schedule' : 'My Schedule'}
+            </Nav.Link>
+          <Nav.Link href="/employees" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            {isAdmin ? 'Employees' : {display: 'none'}}
+          </Nav.Link>
           <Nav.Link href="/account" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>Account</Nav.Link>
-
         </Nav>
         <Nav.Link href="/login">{loggedIn ? 'Login' : 'Logout'}</Nav.Link>
       </Navbar.Collapse>
@@ -40,7 +41,5 @@ export default function App() {
     </Navbar>
   );
 }
-
-//   isAdmin ? adminView() : userView();
 
 
