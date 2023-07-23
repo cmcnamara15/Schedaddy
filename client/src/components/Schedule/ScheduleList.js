@@ -2,21 +2,21 @@
 
 const shifts = [
   {
-    title: 'Eric',
+    employee: 'Eric',
     start: new Date(2023, 6, 20, 10, 0), 
     end: new Date(2023, 6, 20, 12, 0),
     position: 'Hamburger Guy',
     note: "",
   },
   {
-    title: 'Brian',
+    employee: 'Brian',
     start: new Date(2023, 6, 20, 14, 0),
     end: new Date(2023, 6, 20, 16, 0),
     position: 'French Fry Guy',
     note: 'extra salty plz',
   },
   {
-    title: 'Hunter',
+    employee: 'Hunter',
     start: new Date(2023, 6, 20, 14, 0),
     end: new Date(2023, 6, 20, 16, 0),
     position: 'Ice Cream Guy',

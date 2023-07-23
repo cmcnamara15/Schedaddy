@@ -3,6 +3,7 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import shifts from './ScheduleList';
+import AddShiftButton from './AddShift';
 import { Modal, Button } from 'react-bootstrap';
 
 const localizer = momentLocalizer(moment);
@@ -28,7 +29,9 @@ const Schedule = () => {
 
   return (
     <div className='container'>
-      <h1>My Calendar</h1>
+      
+      <AddShiftButton/>
+
       <Calendar
         localizer={localizer}
         events={shifts}
