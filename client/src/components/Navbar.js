@@ -21,13 +21,11 @@ export default function App() {
           {/* <Nav.Link href="/schedule">My Schedule</Nav.Link> */}
           <Nav.Link href="/employees">Employees</Nav.Link>
           {/* If [isAdmin] show, otherwise don't */}
-          <Nav.Link href="/messages">Messages</Nav.Link>
           <Nav.Link href="/account">Account</Nav.Link>
 
         </Nav>
         <Navbar.Text>
-              Login/Logout
-              {/* <a href="/login">{loggedIn ? 'Login' : 'Logout'}</a> */}
+              <a href="/login">{loggedIn ? 'Login' : 'Logout'}</a>
             </Navbar.Text>
       </Navbar.Collapse>
     </Container>
