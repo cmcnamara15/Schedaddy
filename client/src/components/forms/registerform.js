@@ -46,7 +46,7 @@ const RegisterForm = () => {
     </a>
     <Modal show={showModal} onHide={handleModalClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Sign Up</Modal.Title>
+        <Modal.Title>Sign up</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
@@ -64,6 +64,17 @@ const RegisterForm = () => {
           <br/>
           <Form.Group controlId='formPassword'>
             <Form.Label>Password</Form.Label>
+            <input
+              required
+              className='form-control'
+              value={user.password}
+              name='password'
+              type='password'
+              placeholder='Password'
+              onChange={handleInputChange} />
+          </Form.Group>
+          <Form.Group controlId='formPassword'>
+            <Form.Label>Confirm Password</Form.Label>
             <input
               required
               className='form-control'
