@@ -25,7 +25,20 @@ const resolvers = {
       console.log(args);
       const user = await User.findOne(args);
       return user;
-    },    
+    }, 
+    me: async (parent, args, context) => {
+      if(context.account) {
+        console.log(context.account)
+        const account = await Account.findOne({
+          _id: context.account._id
+        })
+        .populate("user");
+        return account;
+      } else{
+        throw new AuthenticationError("needs to be logged in")
+      }
+    },   
+
     shifts: async (parent) => {
       console.log("shifts block");
       const shifts = await Shift.find({});
@@ -48,7 +61,6 @@ const resolvers = {
       const position = await Position.findOne(args);
       return position;
     },
-    // ***Addresses***
     companies: async (parent) => {
       console.log("company block");
       const companies = await Company.find({});
@@ -61,12 +73,33 @@ const resolvers = {
       return company;
     },
   },
+
   Mutation: {
-    createAccount: async (parents, args) => {
-      console.log("create account block");
-      console.log(args);
-      const account = await Account.create(args);
-      return account;
+    login: async (parent, { email, password }, context) => {
+      const account = await Account.findOne({ email });
+      if (!account) {
+          throw new AuthenticationError(
+              "No account found with this email address"
+          );
+      }
+      const correctPw = await account.isCorrectPassword(password);
+      if (!correctPw) {
+          throw new AuthenticationError("Incorrect password");
+      }
+      const token = signToken(account);
+      return token
+    },
+
+      createAccount: async (parents, args) => {
+        try{
+        console.log("create account block");
+        console.log(args);
+        const account = await Account.create(args);
+        return account;
+      } catch(err) {
+        console.log(err)
+        throw new Error("something went wrong!")
+      }
     },
     deleteAccount: async (args) => {
       console.log("delete account block");
@@ -74,11 +107,23 @@ const resolvers = {
       const account = await Account.deleteOne(args);
       return;
     },
-    createUser: async (parent, args) => {
-      console.log("create user block");
-      console.log(args.input);
-      const user = await User.create(args.input);
-      return user;
+    createUser: async (parent, args, context) => {
+      if(context.account) {
+        console.log("create user block");
+        console.log(args.input);
+        const user = await User.create(args.input);
+
+        const account = await Account.updateOne({
+          _id: context.account._id
+        }, {
+          user: user._id
+        })
+
+        return user;
+      } else {
+        throw new AuthenticationError("needs to be logged in")
+      }
+
     },
     updateUser: async(parent, {_id, ...args }) => {
       const user = await User.findByIdAndUpdate(
