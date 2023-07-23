@@ -9,6 +9,8 @@ const RegisterForm = () => {
     password: ''
   });
 
+  const [validated, setValidated] = useState(false);
+
   const handleModalOpen = () => {
     setShowModal(true)
   };
@@ -24,9 +26,17 @@ const RegisterForm = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    };
 
+    setValidated(true);
     alert(`${user.email} has successfully created an account. It looks like your password is ${user.password} too...`);
   };
+
+
 
 
   return (
@@ -36,23 +46,26 @@ const RegisterForm = () => {
     </a>
     <Modal show={showModal} onHide={handleModalClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Title</Modal.Title>
+        <Modal.Title>Sign Up</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
+        <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
           <Form.Group controlId='formEmail'>
             <Form.Label>Email</Form.Label>
             <input
+            required
             className='form-control'
             value={user.email}
             name="email"
             type="email"
-            placeholder='farquaad@charleschip.us'
-            onChange={handleInputChange} />
+            placeholder='Email'
+            onChange={handleInputChange} /> 
           </Form.Group>
+          <br/>
           <Form.Group controlId='formPassword'>
             <Form.Label>Password</Form.Label>
             <input
+              required
               className='form-control'
               value={user.password}
               name='password'
