@@ -24,22 +24,17 @@
 
 ## Description
 
-
 Schedaddy is a Customer relationship management (CRM) platform with the intent to streamline your scheduling for your company. Schedaddy offers the ability to manage employees, roles, and schedules with the greatest of ease.
 
 Our intention with Schedaddy was to try our hand at creating a modern CRM platform that could be used to create dynamic schedules for various types of companies.
 
-During this project, we faced a couple of challenges. Our biggest challenge was our 2-week sprint to MVP. Thankfully, we were able to establish a solid baseline for Schedaddy...
+During this project, we faced a couple of challenges. Our biggest challenge was our 2-week sprint to MVP. Despite the time constraints, we successfully built a solid baseline that formed the core of Schedaddy.
 
 ## Screenshots
-
-
 
 WIP
 
 ## Technologies-Used
-
-
 
 This application was created using the MERN stack along with:
 
@@ -63,8 +58,6 @@ This application was created using the MERN stack along with:
 
 ## Credits
 
-
-
 Our team of contributors:
 
 * Eric Easthope
@@ -76,42 +69,29 @@ Our team of contributors:
 
 ## Features
 
-
-
 WIP
 
 ## Usage-Information
-
-
 
 WIP
 
 ## Suggested-Future-Development
 
-
-
 WIP
 
 ## Contribution-Guidelines
-
-
 
 Open to collaboration, if you choose to do so open an issue and modify any changes you would like to see on a feature branch and wait for approval before merging to the main branch.
 
 ## Test-Instructions
 
-
-
 There is currently no unit testing written for this application.
 
 ## License
 
-
-
 NOTICE: This application is covered under the MIT License
 
 ## Questions
-
 
 Have additional questions? Click the links below to us reach us through GitHub or Email.
 
