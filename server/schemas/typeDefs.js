@@ -79,7 +79,6 @@ const typeDefs = gql`
     city: String!
     state: String!
     zip: String!
-    country: String!
     user: User
   }
 
@@ -89,7 +88,6 @@ const typeDefs = gql`
     city: String!
     state: String!
     zip: String!
-    country: String!
   }
 
   type Company {
@@ -151,17 +149,6 @@ const typeDefs = gql`
     addPosition(jobTitle: String!): Position
     updatePosition(_id: ID!, jobTitle: String): Position
     deletePosition(_id: ID!): Position
-    addAddress(input: AddressInput!): Address
-    updateAddress(
-      _id: ID!
-      street1: String!
-      street2: String
-      city: String!
-      state: String!
-      zip: String!
-      country: String!
-    ): Address
-    deleteAddress(_id: ID!): Address
     addCompany(input: CompanyInput!): Company
     updateCompany(
       _id: ID!
@@ -171,6 +158,7 @@ const typeDefs = gql`
       companyAdmin: ID
     ): Company
     deleteCompany(_id: ID!): Company
+    linkUserAccount(_id: ID!): Account
   }
 `;
 

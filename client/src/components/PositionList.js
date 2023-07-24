@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PositionForm from './PositionForm';
+import PositionForm from './forms/PositionForm';
 import Position from './partials/Position';
 import { useQuery } from '@apollo/client';
 import { FIND_ALL_POSITIONS } from '../utils/queries';
@@ -9,9 +9,12 @@ import Auth from '../utils/auth';
 import RequestSignIn from './RequestSignIn';
 
 const PositionList = () => {
-  const { loading, data } = useQuery(FIND_ALL_POSITIONS);
+  const { loading, data, error } = useQuery(FIND_ALL_POSITIONS);
 
   const positions = data?.positions || [];
+
+  if (loading) return "Loading...";
+  if (error) return <pre>{`Error: ${error.message}`}</pre>
 
   return (
     <>

@@ -3,7 +3,7 @@ import EmployeeForm from './forms/EmployeeForm';
 import Employee from './partials/Employee';
 import { useQuery } from '@apollo/client';
 import { FIND_ALL_USERS } from '../utils/queries';
-import { FaFileCirclePlus } from 'react-icons/fa6';
+import { AiOutlinePlus } from 'react-icons/ai';
 import Auth from '../utils/auth';
 import EmptyUser from './partials/EmptyUser';
 import RequestSignIn from './RequestSignIn';
@@ -14,14 +14,6 @@ const EmployeeList = () => {
   const { loading, data, error } = useQuery(FIND_ALL_USERS);
 
   const employees = data?.users || [];
-
-  const handleDetails = (e) => {
-    e.preventDefault();
-  }
-
-  const handleRemove = (e) => {
-    e.preventDefault();
-  }
 
   if (loading) return "Loading...";
   if (error) return <pre>{`Error: ${error.message}`}</pre>
@@ -40,7 +32,7 @@ const EmployeeList = () => {
                   <EmployeeForm u={EmptyUser} id='new' button={
                     <button type='button' className='btn btn-primary' data-bs-toggle='tooltip' data-bs-placement='left' title='Add an Employee'>
                       <span data-bs-toggle='modal' data-bs-target='#addEmployeeForm-new'>
-                        <FaFileCirclePlus/>
+                        <AiOutlinePlus/> Employee
                       </span>
                     </button>
                   }/>

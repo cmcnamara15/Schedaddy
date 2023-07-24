@@ -4,8 +4,6 @@ import { FaAddressCard, FaRegAddressCard, FaX } from "react-icons/fa6";
 import EmployeeForm from '../forms/EmployeeForm';
 
 const Employee = ({ u, handleDetails, handleRemove }) => {
-  console.log(u);
-
   return (
     <li className="list-group-item row d-flex">
       <div className="col-8">

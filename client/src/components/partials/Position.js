@@ -1,7 +1,7 @@
 import React from 'react';
 import DummyPosition from './DummyPosition';
-import { FaRegAddressCard, FaX } from "react-icons/fa6";
-import PositionForm from '../PositionForm';
+import { FaPencil, FaX } from "react-icons/fa6";
+import PositionForm from '../forms/PositionForm';
 import { useMutation } from '@apollo/client';
 import { DELETE_POSITION } from '../../utils/mutations';
 
@@ -34,7 +34,7 @@ const Position = ({ p }) => {
           button={
             <button type='button' className='btn btn-secondary mx-1' data-bs-toggle='tooltip' data-bs-placement='left' title='View Details'>
               <span data-bs-toggle='modal' data-bs-target={`#positionForm-${p._id}`}>
-                <FaRegAddressCard/>
+                <FaPencil/>
               </span>
             </button>
           }
