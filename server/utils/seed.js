@@ -13,16 +13,27 @@ async function seedDb() {
         const fakeCompanies = Array.from({ length: 5 }, () => ({
             companyName: faker.company.name(),
             companyPhone: faker.phone.number('512-###-####'),
+            positions: [], 
         }));
 
         const fakePositions = Array.from({ length: 10 }, () => ({
             jobTitle: faker.person.jobTitle(),
         }));
 
-        const fakeShifts = Array.from({ length: 100 }, () => ({
-            startDateTime: faker.date.future(),
-            endDateTime: faker.date.future(),
-        }));
+        const fakeShifts = Array.from({ length: 100 }, () => {
+            const startDateTime = faker.date.future(); // future date for start time
+            startDateTime.setMinutes(0); // Set the minutes to 0
+            startDateTime.setSeconds(0); // Set the seconds to 0
+            
+            const endDateTime = new Date(startDateTime); // new Date object based on start time
+            endDateTime.setHours(startDateTime.getHours() + 4); // add four hours to get end time
+
+            return {
+                startDateTime,
+                endDateTime,
+                note: faker.lorem.sentence(),
+            };
+        });
 
         const fakeUsers = Array.from({ length: 50 }, () => ({
             firstName: faker.person.firstName(),
@@ -33,7 +44,7 @@ async function seedDb() {
             fullTime: faker.datatype.boolean(),
             activeEmployee: faker.datatype.boolean(),
             isAdmin: faker.datatype.boolean(),
-        }))
+        }));
         
         const accounts = await Account.insertMany(fakeAccounts);
 
@@ -53,9 +64,9 @@ async function seedDb() {
             // set some employees with termination date and some null(active)
             if (faker.datatype.boolean()) {
                 fakeUser.terminationDate = faker.date.past();
-                } else {
+            } else {
                 fakeUser.terminationDate = null;
-                }
+            }
 
             // if null, activeEmployee = true
             fakeUser.activeEmployee = fakeUser.terminationDate === null;
@@ -66,11 +77,41 @@ async function seedDb() {
             account.user = user._id;
             await account.save();
             users.push(user);
-        } 
+        }
 
-        await Company.insertMany(fakeCompanies);
-        await Position.insertMany(fakePositions);
-        await Shift.insertMany(fakeShifts);
+        const companies = await Company.insertMany(fakeCompanies);
+
+        for (let i = 0; i < companies.length; i++) {
+            const company = companies[i];
+
+            // Randomly select positions from the positions array
+            const numPositionsToAdd = Math.floor(Math.random() * fakePositions.length) + 1; // Randomly select 1 to n positions
+            const positionsToAdd = fakePositions.slice(0, numPositionsToAdd);
+
+            // Assign the selected positions to the company
+            company.positions = positionsToAdd.map(position => position._id);
+            
+            // Save the updated company
+            await company.save();
+        }
+
+        const positions = await Position.insertMany(fakePositions); // Save the actual Position documents
+
+        // populate user and position fields for Shift documents
+        for (let i = 0; i < fakeShifts.length; i++) {
+            const fakeShift = fakeShifts[i];
+
+            // randomly select a user from the array
+            const randomUser = users[Math.floor(Math.random() * users.length)];
+
+            // randomly select a position from the actual positions stored in the database
+            const randomPosition = positions[Math.floor(Math.random() * positions.length)];
+
+            fakeShift.user = randomUser._id;
+            fakeShift.position = randomPosition._id;
+
+            await Shift.create(fakeShift);
+        }
 
         console.log('Database seeding completed successfully!');
     } catch (err) {

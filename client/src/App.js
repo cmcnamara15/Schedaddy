@@ -17,6 +17,7 @@ import Admin from "./components/Admin";
 import PositionList from "./components/PositionList";
 import AddCompany from "./components/AddCompany";
 import AddUserProfile from './components/AddUserProfile';
+import LandingPage from "./components/LandingPage";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -45,6 +46,10 @@ function App() {
       <Router>
           <Navbar />
           <Routes>
+            <Route
+              path='/'
+              element={<LandingPage />}
+            />
             <Route
               path='/login'
               element={<LoginForm />}

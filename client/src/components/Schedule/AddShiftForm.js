@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { Form, FloatingLabel, Dropdown, FormGroup, FormLabel, FormControl, Button, Modal } from 'react-bootstrap';
 import Datetime from 'react-datetime'; 
 import { AiOutlinePlus } from 'react-icons/ai';
+import ShiftList from './ShiftListModal';
 
-import { useMutation } from '@apollo/client';
-import { ADD_SHIFT } from '../../utils/mutations';
+import { useQuery } from "@apollo/client";
+import { FIND_ALL_USERS, FIND_ALL_POSITIONS } from '../../utils/queries';
 
-const AddShift = ({ onAddShift }) => {
+const AddShiftForm = ({ onAddShift }) => {
     const [showModal, setShowModal] = useState(false);
     const [formData, setFormData] = useState({
         user: '',
@@ -15,6 +16,29 @@ const AddShift = ({ onAddShift }) => {
         endTime: '',
         notes: '',
     });
+    
+    // Fetch users and positions data using useQuery hooks
+    const { data: userData, loading: userLoading, error: userError } = useQuery(FIND_ALL_USERS);
+    const { data: positionData, loading: positionLoading, error: positionError } = useQuery(FIND_ALL_POSITIONS);
+
+    // Check if data is still loading or if there's an error in the queries
+    if (userLoading || positionLoading) {
+        return <div>Loading...</div>;
+    }
+
+    if (userError) {
+        console.error('Error fetching users:', userError);
+        return <div>Error fetching users.</div>;
+    }
+
+    if (positionError) {
+        console.error('Error fetching positions:', positionError);
+        return <div>Error fetching positions.</div>;
+    }
+
+    // Extract users and positions from the fetched data
+    const users = userData?.users || [];
+    const positions = positionData?.positions || [];
 
     const handleClose = () => setShowModal(false);
     const handleShow = () => setShowModal(true);
@@ -30,7 +54,6 @@ const AddShift = ({ onAddShift }) => {
     };
 
     const handleSubmit = () => {
-
         const newShift = {
             user: formData.user,
             start: new Date(formData.startTime),
@@ -56,22 +79,11 @@ const AddShift = ({ onAddShift }) => {
 
     return (
         <>
-        <div className='row mt-3 mb-3'>
-
-        {/* CALENDAR TITLE */}
-            <div className='col'>
-                <h1>My Calendar</h1>
-            </div>
-
         {/* ADD SHIFT BUTTON */}
-            <div className="col d-flex justify-content-end">
-                <Button variant="primary" onClick={handleShow}>
-                    <AiOutlinePlus/><span className='ms-1'>Add Shift</span>
-                </Button>
-            </div>
+        <Button variant="primary" onClick={handleShow}>
+            <AiOutlinePlus/><span className='ms-1'>Add Shift</span>
+        </Button>
         
-        </div>
-
         {/* MODAL******************************* */}
         <Modal show={showModal} onHide={handleClose}>
 
@@ -84,32 +96,39 @@ const AddShift = ({ onAddShift }) => {
                     
                     {/* DROPDOWNS */}
 
+                    {/* user/employee dropdown */}
                     <div className='row mb-3'>
-                        {/* user dropdown */}
                         <Form.Select
                             required
                             value={formData.user}
                             onChange={(event) => handleDropdownChange('user', event.target.value)}
-                        >
-                            <option value="">Select an Employee</option>
-                            <option value="Test Employee">Test Employee</option>
-                            {/* map employees/users here */}
+                            >
+                                <option value="">Select an Employee</option>
+                                {users.map((user) => (
+                                    <option key={user._id} value={user.firstName + ' ' + user.lastName}>
+                                        {user.firstName} {user.lastName}
+                                    </option>
+                            ))}
                         </Form.Select>
                     </div>
-
+                    
+                    {/* position dropdown */}
                     <div className='row mb-3'>
-                        {/* position dropdown */}
                         <Form.Select
                             required
                             value={formData.position}
                             onChange={(event) => handleDropdownChange('position', event.target.value)}
-                        >
-                            <option value="">Select a Position</option>
-                            <option value="Test Position">Test Position</option>
-                            {/* map positions here */}
+                            >
+                                <option value="">Select a Position</option>
+                                {positions.map((position) => (
+                                <option key={position._id} value={position.jobTitle}>
+                                    {position.jobTitle}
+                                </option>
+                            ))}
                         </Form.Select>
                     </div>
-
+                    
+                    {/* DATE PICKERS ROW*/}
                     <div className='row mb-3'>
 
                     {/* START TIME */}
@@ -164,4 +183,4 @@ const AddShift = ({ onAddShift }) => {
     )
 }
 
-export default AddShift
+export default AddShiftForm
