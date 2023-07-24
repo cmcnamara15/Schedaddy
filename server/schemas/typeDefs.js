@@ -66,7 +66,6 @@ const typeDefs = gql`
   type Position {
     _id: ID!
     jobTitle: String!
-    user: User
   }
 
   input PositionInput {
@@ -150,7 +149,7 @@ const typeDefs = gql`
     addShift(input: ShiftInput!): Shift
     updateShift(_id: ID!, startDateTime: String, endDateTime: String): Shift
     deleteShift(_id: ID!): Shift
-    addPosition(_id: ID!, jobTitle: String!): Position
+    addPosition(jobTitle: String!): Position
     updatePosition(_id: ID!, jobTitle: String): Position
     deletePosition(_id: ID!): Position
     addAddress(input: AddressInput!): Address
