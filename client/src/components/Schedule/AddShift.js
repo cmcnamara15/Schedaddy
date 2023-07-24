@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { Form, Dropdown, FormGroup, FormLabel, FormControl, Button, Modal } from 'react-bootstrap';
+import { Form, FloatingLabel, Dropdown, FormGroup, FormLabel, FormControl, Button, Modal } from 'react-bootstrap';
 import Datetime from 'react-datetime'; 
+import { AiOutlinePlus } from 'react-icons/ai';
+
 import { useMutation } from '@apollo/client';
 import { ADD_SHIFT } from '../../utils/mutations';
 
 const AddShift = ({ onAddShift }) => {
     const [showModal, setShowModal] = useState(false);
     const [formData, setFormData] = useState({
-        title: '',
+        user: '',
         position: '',
         startTime: '',
         endTime: '',
@@ -21,14 +23,16 @@ const AddShift = ({ onAddShift }) => {
         setFormData((prevState) => ({ ...prevState, [id]: date }));
     };
     
-    const handleDropdownChange = (id, value) => {
+    const handleDropdownChange = (id,value) => {
+        if (value) {
         setFormData((prevState) => ({ ...prevState, [id]: value }));
+        }
     };
 
     const handleSubmit = () => {
 
         const newShift = {
-            title: formData.title,
+            user: formData.user,
             start: new Date(formData.startTime),
             end: new Date(formData.endTime),
             position: formData.position,
@@ -42,7 +46,7 @@ const AddShift = ({ onAddShift }) => {
 
     const resetForm = () => {
         setFormData({
-            title: '',
+            user: '',
             position: '',
             startTime: '',
             endTime: '',
@@ -62,7 +66,7 @@ const AddShift = ({ onAddShift }) => {
         {/* ADD SHIFT BUTTON */}
             <div className="col d-flex justify-content-end">
                 <Button variant="primary" onClick={handleShow}>
-                    Add Shift
+                    <AiOutlinePlus/><span className='ms-1'>Add Shift</span>
                 </Button>
             </div>
         
@@ -80,39 +84,30 @@ const AddShift = ({ onAddShift }) => {
                     
                     {/* DROPDOWNS */}
 
-                    <div className='row'>
-                        {/* Employee Drop Down */}
-                        <div className='mb-3 col-md-5'>
-                            <Dropdown>
-                                <Dropdown.Toggle variant="primary" required>
-                                    Employee
-                                </Dropdown.Toggle>
-
-
-                                <Dropdown.Menu>
-                                    <Dropdown.Item onSelect={() => handleDropdownChange('title', 'Test')}>
-                                        Test Employee
-                                    </Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
-                        </div>
+                    <div className='row mb-3'>
+                        {/* user dropdown */}
+                        <Form.Select
+                            required
+                            value={formData.user}
+                            onChange={(event) => handleDropdownChange('user', event.target.value)}
+                        >
+                            <option value="">Select an Employee</option>
+                            <option value="Test Employee">Test Employee</option>
+                            {/* map employees/users here */}
+                        </Form.Select>
                     </div>
 
-                    <div className='row'>
-                        {/* Position Drop Down */}
-                        <div className='mb-3 col-md-5'>
-                            <Dropdown>
-                                <Dropdown.Toggle variant="primary" required>
-                                    Position
-                                </Dropdown.Toggle>
-
-                                <Dropdown.Menu>
-                                    <Dropdown.Item onSelect={() => handleDropdownChange('position', `test`)}>
-                                        Test Position
-                                    </Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
-                        </div>
+                    <div className='row mb-3'>
+                        {/* position dropdown */}
+                        <Form.Select
+                            required
+                            value={formData.position}
+                            onChange={(event) => handleDropdownChange('position', event.target.value)}
+                        >
+                            <option value="">Select a Position</option>
+                            <option value="Test Position">Test Position</option>
+                            {/* map positions here */}
+                        </Form.Select>
                     </div>
 
                     <div className='row mb-3'>

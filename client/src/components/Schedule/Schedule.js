@@ -11,13 +11,13 @@ const localizer = momentLocalizer(moment);
 
 const EventTitle = ({ event }) => (
   <div>
-    <strong>{event.title}</strong>
+    <strong>{event.user}</strong>
   </div>
 );
 
 const AgendaEvent = ({ event }) => (
   <div>
-    <strong>{event.title}</strong>
+    <strong>{event.user}</strong>
     <p>Position: {event.position}</p>
     {event.note !== "" && <p>Note: {event.note}</p>}
   </div>
@@ -57,7 +57,7 @@ const Schedule = () => {
 
       <Modal show={selectedEvent !== null} onHide={() => setSelectedEvent(null)}>
         <Modal.Header closeButton>
-          <Modal.Title>{selectedEvent?.title}</Modal.Title>
+          <Modal.Title>{selectedEvent?.user}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <p>Position: {selectedEvent?.position}</p>
