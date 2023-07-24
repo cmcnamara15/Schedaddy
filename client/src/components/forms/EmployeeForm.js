@@ -6,9 +6,23 @@ import Checkbox from '../partials/Checkbox';
 import FormInput from '../partials/FormInput';
 import EmptyUser from '../partials/EmptyUser';
 import DummyUser from '../partials/DummyUser';
+import { useMutation, useQuery } from '@apollo/client';
+
+import Auth from '../../utils/auth';
+import { FIND_SINGLE_ACCOUNT } from '../../utils/queries';
+import { CREATE_USER } from '../../utils/mutations';
+import { UPDATE_USER } from '../../utils/mutations';
 
 const EmployeeForm = ({ u, id, button }) => {
   const [user, setUser] = useState(u);
+
+  const [addEmployee, { addError }] = useMutation(CREATE_USER);
+  const [updateEmployee, { updateError }] = useMutation(UPDATE_USER);
+  const { data, refetch } = useQuery(FIND_SINGLE_ACCOUNT, {
+    variables: {
+      id: Auth.getProfile().data._id
+    }
+  });
 
   const handleCheck = (key, value) => {    
     setUser({...user, [key]: value});
@@ -36,9 +50,61 @@ const EmployeeForm = ({ u, id, button }) => {
     setUser(EmptyUser);
   }
 
-  const handleFormSubmit = (e) => {
+  useEffect(() => {
+    console.log(data);
+  }, [data])
+
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    alert(`New Employee ${user.firstName} ${user.lastName} added!`);
+
+    if (e.currentTarget.getAttribute('data-type') === 'new') {
+      const { data, error } = await addEmployee({
+        variables: {
+          "firstName": user.firstName,
+          "lastName": user.lastName,
+          "userAddress": {
+            "street1": user.address.street1,
+            "street2": user.address.street2,
+            "city": user.address.city,
+            "state": user.address.state,
+            "zip": user.address.zip
+          },
+          "payRate": user.payRate,
+          "hireDate": user.hireDate,
+          "terminationDate": user.terminationDate,
+          "phone": user.phone,
+          "userCompany": Auth,
+          "activeEmployee": user.activeEmployee,
+          "fullTime": user.fullTime,
+          "isAdmin": user.isAdmin
+        }
+      })
+    } else {
+      const { data, error } = await updateEmployee({
+        variables: {
+          variables: {
+            "firstName": user.firstName,
+            "lastName": user.lastName,
+            "userAddress": {
+              "street1": user.address.street1,
+              "street2": user.address.street2,
+              "city": user.address.city,
+              "state": user.address.state,
+              "zip": user.address.zip
+            },
+            "payRate": user.payRate,
+            "hireDate": user.hireDate,
+            "terminationDate": user.terminationDate,
+            "phone": user.phone,
+            "userCompany": Auth,
+            "activeEmployee": user.activeEmployee,
+            "fullTime": user.fullTime,
+            "isAdmin": user.isAdmin
+          }
+        }
+      })
+    }
+
     setUser(EmptyUser);
   };
 
@@ -46,7 +112,7 @@ const EmployeeForm = ({ u, id, button }) => {
     <>
       {button}
 
-      <div className="modal fade text-start" id={`addEmployeeForm-${id}`} tabindex='-1' aria-labelledby="addEmployeeFormLabel" aria-hidden="true">
+      <div className="modal fade text-start" id={`addEmployeeForm-${id}`} tabIndex='-1' aria-labelledby="addEmployeeFormLabel" aria-hidden="true">
         <div className="modal-dialog modal-lg">
           <div className="modal-content">
             <div className="modal-header">
