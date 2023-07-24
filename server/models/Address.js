@@ -21,11 +21,11 @@ const addressSchema = new Schema({
   zip: {
     type: String,
     required: true,
-  },
-  country: {
-    type: String,
-    required: true,
-  },
+  }
+  // country: {
+  //   type: String,
+  //   required: true,
+  // },
   // user: {
   //   type: Schema.Types.ObjectId,
   //   ref: "User",

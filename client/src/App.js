@@ -18,6 +18,7 @@ import PositionList from "./components/PositionList";
 import AddCompany from "./components/AddCompany";
 import AddUserProfile from './components/AddUserProfile';
 import LandingPage from "./components/LandingPage";
+import Footer from "./components/Footer";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -83,6 +84,7 @@ function App() {
               element={<AddUserProfile />}
             />
           </Routes>
+          <Footer />
       </Router>
     </ApolloProvider>
   );

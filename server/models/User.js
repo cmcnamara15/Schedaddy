@@ -17,7 +17,7 @@ const userSchema = new Schema({
   phone: {
     type: String,
     unique: false,
-    required: true,
+    required: false,
   },
   hireDate: {
     type: String,
@@ -37,17 +37,17 @@ const userSchema = new Schema({
   fullTime: {
     type: Boolean,
     unique: false,
-    required: true,
+    required: false,
   },
   activeEmployee: {
     type: Boolean,
     unique: false,
-    required: true,
+    required: false,
   },
   isAdmin: {
     type: Boolean,
     unique: false,
-    required: true,
+    required: false,
   },
   shift: [
     {

@@ -20,7 +20,6 @@ export const CREATE_USER = gql`
       firstName
       lastName
       phone
-      socialSecurity
       hireDate
       terminationDate
       payRate
