@@ -44,14 +44,24 @@ export const FIND_SINGLE_USER = gql`
   `;
 
 export const FIND_ALL_SHIFTS = gql`
-    query shifts {
+  query shifts {
     shifts {
       _id
+      startDateTime
       endDateTime
-      endDateTime
+      user {
+        _id
+        firstName
+        lastName
+      }
+      position {
+        _id
+        jobTitle
+      }
+      note
     }
   }
-  `;
+`;
 
 export const FIND_SINGLE_SHIFT = gql`
   query shift($id: ID!) {
