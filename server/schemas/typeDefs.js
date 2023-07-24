@@ -119,7 +119,7 @@ const typeDefs = gql`
     users: [User]
     user(_id: ID!): User
     shifts: [Shift]
-    shift(_id: ID!): Shift
+    shift(_id: ID!): [Shift]
     positions: [Position]
     position(_id: ID!): Position
     addresses: [Address]

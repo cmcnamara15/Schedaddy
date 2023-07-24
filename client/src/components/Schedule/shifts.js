@@ -1,6 +1,3 @@
-import { useQuery } from "@apollo/client";
-import { FIND_ALL_SHIFTS } from "../../utils/queries.js"
-
 // DATE FORMAT: Year, Month (0-11), Day, Hour (24-hour format), Minute
 
 const shifts = [
