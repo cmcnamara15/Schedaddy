@@ -7,7 +7,7 @@ import FormInput from '../partials/FormInput';
 import EmptyUser from '../partials/EmptyUser';
 import DummyUser from '../partials/DummyUser';
 
-const EmployeeForm = ({ u }) => {
+const EmployeeForm = ({ u, id, button }) => {
   const [user, setUser] = useState(u);
 
   const handleCheck = (key, value) => {    
@@ -42,18 +42,11 @@ const EmployeeForm = ({ u }) => {
     setUser(EmptyUser);
   };
 
-  useEffect(() => {
-    // For debugging/state evaluation purposes
-    console.log(user);
-  }, [user])
-
   return (
     <>
-      <button type='button' className='btn btn-primary' data-bs-toggle='tooltip' data-bs-placement='left' title='Add an Employee'>
-        <span data-bs-toggle='modal' data-bs-target='#addEmployeeForm'><FaFileCirclePlus/></span>
-      </button>
+      {button}
 
-      <div className="modal fade" id='addEmployeeForm' tabindex='-1' aria-labelledby="addEmployeeFormLabel" aria-hidden="true">
+      <div className="modal fade text-start" id={`addEmployeeForm-${id}`} tabindex='-1' aria-labelledby="addEmployeeFormLabel" aria-hidden="true">
         <div className="modal-dialog modal-lg">
           <div className="modal-content">
             <div className="modal-header">
@@ -88,7 +81,7 @@ const EmployeeForm = ({ u }) => {
                       type="text"
                       title="Street 1"
                       name="street1"
-                      value={user.address.street1}
+                      value={user.address?.street1 || ''}
                       onChange={handleAddressChange}
                       numInRow={2}
                     />
@@ -96,7 +89,7 @@ const EmployeeForm = ({ u }) => {
                       type="text"
                       title="Street 2"
                       name="street2"
-                      value={user.address.street2}
+                      value={user.address?.street2 || ''}
                       onChange={handleAddressChange}
                       numInRow={2}
                     />
@@ -106,7 +99,7 @@ const EmployeeForm = ({ u }) => {
                       type="text"
                       title="City"
                       name="city"
-                      value={user.address.city}
+                      value={user.address?.city || ''}
                       onChange={handleAddressChange}
                       numInRow={3}
                     />
@@ -114,7 +107,7 @@ const EmployeeForm = ({ u }) => {
                       <label className='form-label'>State</label>
                       <select
                         className='form-control'
-                        value={user.address.state}
+                        value={user.address?.state || ''}
                         name="state"
                         onChange={handleAddressChange}
                       >
@@ -125,7 +118,7 @@ const EmployeeForm = ({ u }) => {
                       type="number"
                       title="Zip Code"
                       name="zip"
-                      value={user.address.zip}
+                      value={user.address?.zip || ''}
                       onChange={handleAddressChange}
                       numInRow={3}
                     />
@@ -137,7 +130,7 @@ const EmployeeForm = ({ u }) => {
                       type="email"
                       title="Email"
                       name="email"
-                      value={user.email}
+                      value={user.email || ''}
                       onChange={handleInputChange}
                       numInRow={2}
                     />

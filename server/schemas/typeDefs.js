@@ -6,15 +6,13 @@ const typeDefs = gql`
     firstName: String!
     lastName: String!
     phone: String!
-    socialSecurity: String!
     hireDate: String!
     terminationDate: String
     payRate: Float!
     fullTime: Boolean!
     activeEmployee: Boolean!
     isAdmin: Boolean!
-    shift: Shift
-    position: Position
+    shift: [Shift]
     userAddress: Address
     userCompany: Company
     userAccount: Account
@@ -24,7 +22,6 @@ const typeDefs = gql`
     firstName: String!
     lastName: String!
     phone: String!
-    socialSecurity: String!
     hireDate: String!
     terminationDate: String
     payRate: Float!
@@ -34,7 +31,7 @@ const typeDefs = gql`
     shift: [ShiftInput]
     position: PositionInput
     userAddress: AddressInput
-    userCompany: CompanyInput
+    userCompany: ID!
     userAccount: AccountInput
   }
 
@@ -69,7 +66,6 @@ const typeDefs = gql`
   type Position {
     _id: ID!
     jobTitle: String!
-    user: User
   }
 
   input PositionInput {
@@ -109,13 +105,12 @@ const typeDefs = gql`
     companyName: String!
     companyAddress: AddressInput
     companyPhone: String!
-    companyAdmin: ID!
+    companyAdmin: ID
   }
 
   type Auth {
     token: ID!
-    email: String!
-    password: String!
+    account: Account!
   }
 
   type Query {
@@ -135,8 +130,8 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    login(email: String!, password: String!): String
-    createAccount(email: String!, password: String!): Account
+    login(email: String!, password: String!): Auth
+    createAccount(email: String!, password: String!): Auth
     deleteAccount(_id: ID!): Account
     createUser(input: UserInput!): User
     updateUser(
@@ -154,7 +149,7 @@ const typeDefs = gql`
     addShift(input: ShiftInput!): Shift
     updateShift(_id: ID!, startDateTime: String, endDateTime: String): Shift
     deleteShift(_id: ID!): Shift
-    addPosition(_id: ID!, jobTitle: String!): Position
+    addPosition(jobTitle: String!): Position
     updatePosition(_id: ID!, jobTitle: String): Position
     deletePosition(_id: ID!): Position
     addAddress(input: AddressInput!): Address
@@ -179,5 +174,11 @@ const typeDefs = gql`
     deleteCompany(_id: ID!): Company
   }
 `;
+
+// type Auth {
+//   token: ID!
+//   email: String!
+//   password: String!
+// }
 
 module.exports = typeDefs;

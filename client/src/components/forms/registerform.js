@@ -1,15 +1,49 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { Modal, Form } from 'react-bootstrap';
+import { useMutation } from '@apollo/client';
+import { CREATE_ACCOUNT } from '../../utils/mutations';
+import Auth from '../../utils/auth';
+
+import CompanyForm from './CompanyForm';
+import { FaFileCirclePlus } from 'react-icons/fa6';
+import EmptyCompany from '../partials/EmptyCompany';
 
 const RegisterForm = () => {
-
-  const [showModal, setShowModal] = useState(false);
   const [ user, setUser] = useState({
     email: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   });
 
-  const [validated, setValidated] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
+  const [createUser, { error, data }] = useMutation(CREATE_ACCOUNT);
+
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUser({
+      ...user,
+      [name]: value
+    });
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    console.log(user);
+
+    try {
+      const { data } = await createUser({
+        variables: { ...user },
+      });
+
+      Auth.login(data.createUser.token);
+    } catch (e) {
+      console.error(e);
+    }
+    // alert(`${user.email} has successfully created an account. It looks like your password is ${user.password} too...`);
+  };
+
 
   const handleModalOpen = () => {
     setShowModal(true)
@@ -18,25 +52,6 @@ const RegisterForm = () => {
   const handleModalClose = () => {
     setShowModal(false)
   };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setUser({...user, [name]: value})
-  };
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      e.preventDefault();
-      e.stopPropagation();
-    };
-
-    setValidated(true);
-    alert(`${user.email} has successfully created an account. It looks like your password is ${user.password} too...`);
-  };
-
-
 
 
   return (
@@ -49,7 +64,10 @@ const RegisterForm = () => {
         <Modal.Title>Sign up</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
+        {data ? (
+          <p> Nice! Account Created</p>
+        ) : (
+        <Form onSubmit={handleFormSubmit}>
           <Form.Group controlId='formEmail'>
             <Form.Label>Email</Form.Label>
             <input
@@ -78,14 +96,28 @@ const RegisterForm = () => {
             <input
               required
               className='form-control'
-              value={user.password}
-              name='password'
+              value={user.confirmPassword}
+              name='confirmPassword'
               type='password'
               placeholder='Password'
               onChange={handleInputChange} />
           </Form.Group>
           <input className='btn btn-secondary m-1 col-2' type='button' value="Submit" onClick={handleFormSubmit} />
+          <CompanyForm c={EmptyCompany} button={
+            <button type='button' className='btn btn-primary' data-bs-toggle='tooltip' data-bs-placement='left' title='Add an Employee'>
+              <span data-bs-toggle='modal' data-bs-target='#companyForm'>
+                <FaFileCirclePlus/>
+              </span>
+            </button>
+          }/>
         </Form>
+        )}
+
+        {error && (
+          <div className='my-3 p-3 bg-danger text-white'>
+            {error.message}
+          </div>
+        )}
       </Modal.Body>
     </Modal>
     </>

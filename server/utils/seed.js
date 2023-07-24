@@ -28,7 +28,6 @@ async function seedDb() {
             firstName: faker.person.firstName(),
             lastName: faker.person.lastName(),
             phone: faker.phone.number('512-###-####'),
-            socialSecurity: faker.number.octal({ min: 100000000, max: 999999999 }),
             hireDate: faker.date.past(),
             payRate: faker.number.octal({ min: 20000, max: 150000 }),
             fullTime: faker.datatype.boolean(),

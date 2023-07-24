@@ -2,11 +2,7 @@ import { gql } from "@apollo/client";
 
 export const CREATE_ACCOUNT = gql`
   mutation createAccount($email: String!, $password: String!) {
-    createAccount(email: $email, password: $password) {
-        _id
-        email
-        password
-    }
+    createAccount(email: $email, password: $password) 
   }`;
 
 export const DELETE_ACCOUNT = gql`
@@ -164,4 +160,15 @@ export const DELETE_COMPANY = gql`
         _id
     }
   }`;
-  
+
+  export const LOGIN_USER = gql`
+  mutation login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      token
+      account {
+        _id
+        email
+      }
+    }
+  }
+`;
