@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Form, FloatingLabel, Dropdown, FormGroup, FormLabel, FormControl, Button, Modal } from 'react-bootstrap';
+import { Form, FormGroup, FormLabel, FormControl, Button, Modal } from 'react-bootstrap';
 import Datetime from 'react-datetime'; 
 import { AiOutlinePlus } from 'react-icons/ai';
-import ShiftList from './ShiftListModal';
 
 import { useQuery } from "@apollo/client";
 import { FIND_ALL_USERS, FIND_ALL_POSITIONS } from '../../utils/queries';
