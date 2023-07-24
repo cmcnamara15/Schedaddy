@@ -57,9 +57,10 @@ const EmployeeForm = ({ u, id, button }) => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    if (e.currentTarget.getAttribute('data-type') === 'new') {
+    // if (e.currentTarget.getAttribute('data-type') === 'new') {
       const { data, error } = await addEmployee({
         variables: {
+          input: {          
           "firstName": user.firstName,
           "lastName": user.lastName,
           "userAddress": {
@@ -69,41 +70,39 @@ const EmployeeForm = ({ u, id, button }) => {
             "state": user.address.state,
             "zip": user.address.zip
           },
-          "payRate": user.payRate,
+          "payRate": parseFloat(user.payRate),
           "hireDate": user.hireDate,
           "terminationDate": user.terminationDate,
           "phone": user.phone,
-          "userCompany": Auth,
+          // "userCompany": Auth,
           "activeEmployee": user.activeEmployee,
           "fullTime": user.fullTime,
-          "isAdmin": user.isAdmin
+          "isAdmin": user.isAdmin}
         }
       })
-    } else {
-      const { data, error } = await updateEmployee({
-        variables: {
-          variables: {
-            "firstName": user.firstName,
-            "lastName": user.lastName,
-            "userAddress": {
-              "street1": user.address.street1,
-              "street2": user.address.street2,
-              "city": user.address.city,
-              "state": user.address.state,
-              "zip": user.address.zip
-            },
-            "payRate": user.payRate,
-            "hireDate": user.hireDate,
-            "terminationDate": user.terminationDate,
-            "phone": user.phone,
-            "userCompany": Auth,
-            "activeEmployee": user.activeEmployee,
-            "fullTime": user.fullTime,
-            "isAdmin": user.isAdmin
-          }
-        }
-      })
-    }
+    // } else {
+    //   const { data, error } = await updateEmployee({
+    //       variables: {
+    //         "firstName": user.firstName,
+    //         "lastName": user.lastName,
+    //         "userAddress": {
+    //           "street1": user.address.street1,
+    //           "street2": user.address.street2,
+    //           "city": user.address.city,
+    //           "state": user.address.state,
+    //           "zip": user.address.zip
+    //         },
+    //         "payRate": user.payRate,
+    //         "hireDate": user.hireDate,
+    //         "terminationDate": user.terminationDate,
+    //         "phone": user.phone,
+    //         "userCompany": Auth,
+    //         "activeEmployee": user.activeEmployee,
+    //         "fullTime": user.fullTime,
+    //         "isAdmin": user.isAdmin
+    //     }
+      // })
+    // }
 
     setUser(EmptyUser);
   };

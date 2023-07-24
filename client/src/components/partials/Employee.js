@@ -2,8 +2,20 @@ import React from 'react'
 import DummyUser from './DummyUser'
 import { FaAddressCard, FaRegAddressCard, FaX } from "react-icons/fa6";
 import EmployeeForm from '../forms/EmployeeForm';
+import { useMutation } from '@apollo/client';
+import { DELETE_USER } from '../../utils/mutations'
+import { FIND_ALL_USERS } from '../../utils/queries'
 
 const Employee = ({ u, handleDetails, handleRemove }) => {
+  const [deleteUser] = useMutation(DELETE_USER, {
+    refetchQueries: [FIND_ALL_USERS]
+  })
+  
+  const handleDelete = ()=> {
+    deleteUser({ 
+      variables: {id: u._id}
+    })
+  }
   return (
     <li className="list-group-item row d-flex">
       <div className="col-8">
@@ -17,7 +29,7 @@ const Employee = ({ u, handleDetails, handleRemove }) => {
             </span>
           </button>
         }/>
-        <button className="btn btn-danger mx-1" data-bs-toggle='tooltip' data-bs-placement='left' title='Delete'><FaX/></button>
+        <button onClick = {handleDelete} className="btn btn-danger mx-1" data-bs-toggle='tooltip' data-bs-placement='left' title='Delete'><FaX/></button>
       </div>
     </li>
   )
