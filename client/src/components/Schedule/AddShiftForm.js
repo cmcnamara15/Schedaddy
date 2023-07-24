@@ -7,9 +7,6 @@ import ShiftList from './ShiftListModal';
 import { useQuery } from "@apollo/client";
 import { FIND_ALL_USERS, FIND_ALL_POSITIONS } from '../../utils/queries';
 
-import { useMutation } from '@apollo/client';
-import { ADD_SHIFT } from '../../utils/mutations';
-
 const AddShiftForm = ({ onAddShift }) => {
     const [showModal, setShowModal] = useState(false);
     const [formData, setFormData] = useState({

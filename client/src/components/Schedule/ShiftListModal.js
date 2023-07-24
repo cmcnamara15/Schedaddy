@@ -25,7 +25,7 @@ const ShiftListModal = () => {
 
     return (
         <div>
-            <Button variant="primary" onClick={handleShowModal}>
+            <Button variant="secondary" onClick={handleShowModal}>
                 All Shifts
             </Button>
 

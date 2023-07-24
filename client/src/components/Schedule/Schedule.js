@@ -7,11 +7,13 @@ import AddShiftForm from './AddShiftForm';
 import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation} from '@apollo/client';
 import { FIND_ALL_SHIFTS } from '../../utils/queries.js';
+import { ADD_SHIFT } from '../../utils/mutations';
 
 const localizer = momentLocalizer(moment);
 
+// functions to format shift data for different calendar views
 const EventTitle = ({ event }) => (
     <div>
         <strong>{event.user}</strong>
@@ -28,8 +30,10 @@ const AgendaEvent = ({ event }) => (
 
 const Schedule = () => {
     const [selectedEvent, setSelectedEvent] = useState(null);
+    const handleEventClick = (event) => setSelectedEvent(event);
     const [shifts, setShifts] = useState([]);
-
+    
+    // query to find all shifts
     const { loading, error, data } = useQuery(FIND_ALL_SHIFTS);
 
     useEffect(() => {
@@ -38,8 +42,8 @@ const Schedule = () => {
         if (data) setShifts(formatShifts(data.shifts)); 
     }, [data, error, loading]);
 
-    const handleEventClick = (event) => setSelectedEvent(event);
-
+    // mutation to add shift
+    // need mutation
     const addShift = (newShift) => {
         setShifts((prevShifts) => [...prevShifts, newShift]);
         // need additional logic to add the new shift to the database
@@ -52,7 +56,7 @@ const Schedule = () => {
         title: `${shift.user.firstName} ${shift.user.lastName}`,
         start: new Date(shift.startDateTime),
         end: new Date(shift.endDateTime),
-        user: shift.user.firstName,
+        user: `${shift.user.firstName} ${shift.user.lastName}`,
         position: shift.position.jobTitle,
         note: shift.note,
         }));
@@ -64,17 +68,17 @@ const Schedule = () => {
         <div className='mt-3 mb-3 d-flex align-items-center'>
             {/* CALENDAR TITLE */}
             <div className='col'>
-            <h1>My Calendar</h1>
+                <h1>My Calendar</h1>
             </div>
 
             {/* ALL SHIFTS BUTTON */}
             <div className='col d-flex justify-content-center'>
-            <ShiftListModal />
+                <ShiftListModal />
             </div>
 
             {/* ADD SHIFTS BUTTON */}
             <div className='col d-flex justify-content-end'>
-            <AddShiftForm onAddShift={addShift} />
+                <AddShiftForm onAddShift={addShift} />
             </div>
         </div>
 
