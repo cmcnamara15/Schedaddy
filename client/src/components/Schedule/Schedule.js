@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import ShiftList from './ShiftList';
-import AddShift from './AddShift';
+import ShiftListModal from './ShiftListModal';
+import AddShiftForm from './AddShiftForm';
 import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -69,12 +69,12 @@ const Schedule = () => {
 
             {/* ALL SHIFTS BUTTON */}
             <div className='col d-flex justify-content-center'>
-            <ShiftList />
+            <ShiftListModal />
             </div>
 
             {/* ADD SHIFTS BUTTON */}
             <div className='col d-flex justify-content-end'>
-            <AddShift onAddShift={addShift} />
+            <AddShiftForm onAddShift={addShift} />
             </div>
         </div>
 

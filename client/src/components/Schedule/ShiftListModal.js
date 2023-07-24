@@ -6,7 +6,7 @@ import { useQuery } from '@apollo/client';
 import { FIND_ALL_SHIFTS } from '../../utils/queries.js';
 
 
-const ShiftList = () => {
+const ShiftListModal = () => {
     const { loading, error, data } = useQuery(FIND_ALL_SHIFTS);
     const [showModal, setShowModal] = useState(false);
 
@@ -62,4 +62,4 @@ const ShiftList = () => {
     );
 };
 
-export default ShiftList;
+export default ShiftListModal;

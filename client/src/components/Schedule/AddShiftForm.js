@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, FloatingLabel, Dropdown, FormGroup, FormLabel, FormControl, Button, Modal } from 'react-bootstrap';
 import Datetime from 'react-datetime'; 
 import { AiOutlinePlus } from 'react-icons/ai';
-import ShiftList from './ShiftList';
+import ShiftList from './ShiftListModal';
 
 import { useQuery } from "@apollo/client";
 import { FIND_ALL_USERS, FIND_ALL_POSITIONS } from '../../utils/queries';
@@ -10,7 +10,7 @@ import { FIND_ALL_USERS, FIND_ALL_POSITIONS } from '../../utils/queries';
 import { useMutation } from '@apollo/client';
 import { ADD_SHIFT } from '../../utils/mutations';
 
-const AddShift = ({ onAddShift }) => {
+const AddShiftForm = ({ onAddShift }) => {
     const [showModal, setShowModal] = useState(false);
     const [formData, setFormData] = useState({
         user: '',
@@ -186,4 +186,4 @@ const AddShift = ({ onAddShift }) => {
     )
 }
 
-export default AddShift
+export default AddShiftForm
