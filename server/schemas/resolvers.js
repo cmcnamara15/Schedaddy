@@ -42,7 +42,6 @@ const resolvers = {
     shifts: async (parent) => {
       console.log("shifts block");
       const shifts = await Shift.find({}).populate('user').populate('position');
-      console.log(shifts);
       return shifts;
     },
     shift: async (parent, args, context) => {
