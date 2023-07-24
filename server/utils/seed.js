@@ -20,11 +20,20 @@ async function seedDb() {
             jobTitle: faker.person.jobTitle(),
         }));
 
-        const fakeShifts = Array.from({ length: 100 }, () => ({
-            startDateTime: faker.date.future(),
-            endDateTime: faker.date.future(),
-            note: faker.lorem.sentence(),
-        }));
+        const fakeShifts = Array.from({ length: 100 }, () => {
+            const startDateTime = faker.date.future(); // future date for start time
+            startDateTime.setMinutes(0); // Set the minutes to 0
+            startDateTime.setSeconds(0); // Set the seconds to 0
+            
+            const endDateTime = new Date(startDateTime); // new Date object based on start time
+            endDateTime.setHours(startDateTime.getHours() + 4); // add four hours to get end time
+
+            return {
+                startDateTime,
+                endDateTime,
+                note: faker.lorem.sentence(),
+            };
+        });
 
         const fakeUsers = Array.from({ length: 50 }, () => ({
             firstName: faker.person.firstName(),

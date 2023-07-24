@@ -42,8 +42,8 @@ const ShiftListModal = () => {
                                 User:</strong> {shift.user ? `${shift.user.firstName} ${shift.user.lastName}` : 'N/A'}
                             </p>
                             <p><strong>Position:</strong> {shift.position ? shift.position.jobTitle : 'N/A'}</p>
-                            <p><strong>Start:</strong> {moment(shift.startDateTime).format('ddd, MMM D, YYYY')}</p>
-                            <p><strong>End:</strong> {moment(shift.endDateTime).format('ddd, MMM D, YYYY')}</p>
+                            <p><strong>Start:</strong> {moment(shift.startDateTime).format('ddd, MMM D, YYYY h:mm A')}</p>
+                            <p><strong>End:</strong> {moment(shift.endDateTime).format('ddd, MMM D, YYYY h:mm A')}</p>
                             <p><strong>Note:</strong> {shift.note}</p>
                             <p><strong>Shift ID:</strong> {shift._id}</p>
                             <hr />
