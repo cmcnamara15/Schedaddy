@@ -2,20 +2,22 @@ import React, { useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import shifts from './ScheduleList';
+import shiftsData from './ScheduleList';
+import AddShift from './AddShift';
 import { Modal, Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const localizer = momentLocalizer(moment);
 
 const EventTitle = ({ event }) => (
   <div>
-    <strong>{event.title}</strong>
+    <strong>{event.user}</strong>
   </div>
 );
 
 const AgendaEvent = ({ event }) => (
   <div>
-    <strong>{event.title}</strong>
+    <strong>{event.user}</strong>
     <p>Position: {event.position}</p>
     {event.note !== "" && <p>Note: {event.note}</p>}
   </div>
@@ -26,9 +28,17 @@ const Schedule = () => {
 
   const handleEventClick = (event) => setSelectedEvent(event);
 
+  const [shifts, setShifts] = useState(shiftsData);
+
+  const addShift = (newShift) => {
+    setShifts((prevShifts) => [...prevShifts, newShift]);
+  };
+
   return (
     <div className='container'>
-      <h1>My Calendar</h1>
+      
+      <AddShift onAddShift={addShift}/>
+
       <Calendar
         localizer={localizer}
         events={shifts}
@@ -47,7 +57,7 @@ const Schedule = () => {
 
       <Modal show={selectedEvent !== null} onHide={() => setSelectedEvent(null)}>
         <Modal.Header closeButton>
-          <Modal.Title>{selectedEvent?.title}</Modal.Title>
+          <Modal.Title>{selectedEvent?.user}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <p>Position: {selectedEvent?.position}</p>

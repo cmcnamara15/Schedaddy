@@ -146,6 +146,17 @@ const resolvers = {
       console.log("add shift block");
       console.log(args.input);
       const shift = await Shift.create(args.input);
+      const updateUser = await User.findByIdAndUpdate(
+        {
+          _id: args.input.user._id
+        },
+        { 
+          $push: {
+            shifts: shift._id,
+          }
+        }, 
+        { new: true }
+      );
       return shift;
     },
     updateShift: async (parent, { _id, ...args }) => {
@@ -155,7 +166,7 @@ const resolvers = {
       }
       return shift;
     },
-    deleteShift: async (args) => {
+    deleteShift: async (parent, args) => {
       console.log("delete shift block");
       console.log(args);
       const shift = await Shift.deleteOne(args);
@@ -176,10 +187,13 @@ const resolvers = {
       }
       return position;
     },
-    deletePosition: async (args) => {
+    deletePosition: async (parent, args) => {
       console.log("delete position block");
       console.log(args);
-      const position = await Position.deleteOne(args);
+      const result = await Position.deleteOne(args);
+      if (result.deletedCount !== 1) {
+        throw new Error("No position with this ID");
+      }
       return;
     },
     addCompany: async (parent, args) => {

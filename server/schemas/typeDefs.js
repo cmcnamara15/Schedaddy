@@ -12,10 +12,9 @@ const typeDefs = gql`
     fullTime: Boolean!
     activeEmployee: Boolean!
     isAdmin: Boolean!
-    shift: [Shift]
+    shift: [ID]
     userAddress: Address
-    userCompany: Company
-    userAccount: Account
+    userCompany: ID!
   }
 
   input UserInput {
@@ -28,11 +27,8 @@ const typeDefs = gql`
     fullTime: Boolean!
     activeEmployee: Boolean!
     isAdmin: Boolean!
-    shift: [ShiftInput]
-    position: PositionInput
     userAddress: AddressInput
     userCompany: ID!
-    userAccount: AccountInput
   }
 
   type Account {
@@ -55,12 +51,15 @@ const typeDefs = gql`
     endDateTime: String!
     user: User
     position: Position
+    note: String
   }
 
   input ShiftInput {
     startDateTime: String!
     endDateTime: String!
     user: ID!
+    position: PositionInput!
+    note: String
   }
 
   type Position {

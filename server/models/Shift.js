@@ -18,6 +18,10 @@ const shiftSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Position",
   },
+  note: {
+    type: String,
+    required: false,
+  }
 });
 
 const Shift = model("Shift", shiftSchema);
