@@ -15,7 +15,10 @@ export const FIND_SINGLE_ACCOUNT = gql`
     account(_id: $id){
       _id
       email
-      password
+      user {
+        _id
+        userCompany
+      }
     }
   }
   `;

@@ -116,13 +116,6 @@ const resolvers = {
         console.log("create user block");
         console.log(args.input);
         const user = await User.create(args.input);
-
-        const account = await Account.updateOne({
-          _id: context.account._id
-        }, {
-          user: user._id
-        })
-
         return user;
       } else {
         throw new AuthenticationError("needs to be logged in")
@@ -219,7 +212,7 @@ const resolvers = {
         { new: true } 
       );
       if(!company) {
-        throw new Error("no position with this ID")
+        throw new Error("No company with this ID")
       }
       return company;
     },
@@ -229,6 +222,30 @@ const resolvers = {
       const company = await Company.deleteOne(args);
       return;
     },
+    linkUserAccount: async (parent, args, context) => {
+      console.log("link user account");
+      if(context.account) {
+        console.log(args.input);
+
+        const user = await User.findOne(args);
+
+        if(!user) {
+          throw new Error("User not found with that ID");
+        }
+
+        const account = await Account.findOneAndUpdate({
+          _id: context.account._id
+        }, {
+          user: user._id
+        }, {
+          new: true
+        })
+
+        return account;
+      } else {
+        throw new AuthenticationError("needs to be logged in");
+      }
+    }
     // ***Addresses***
   },
 };
