@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Form, Dropdown, FormGroup, FormLabel, FormControl, Button, Modal } from 'react-bootstrap';
 import Datetime from 'react-datetime'; 
+import { useMutation } from '@apollo/client';
+import { ADD_SHIFT } from '../../utils/mutations';
 
 const AddShift = ({ onAddShift }) => {
     const [showModal, setShowModal] = useState(false);
@@ -77,13 +79,13 @@ const AddShift = ({ onAddShift }) => {
                 <Form>
                     
                     {/* DROPDOWNS */}
-                    <div className='row'>
 
+                    <div className='row'>
                         {/* Employee Drop Down */}
-                        <div className='mb-3 col-md-6'>
+                        <div className='mb-3 col-md-5'>
                             <Dropdown>
-                                <Dropdown.Toggle variant="primary">
-                                    {formData.title ? `Selected Employee: ${formData.title}` : 'Employee'}
+                                <Dropdown.Toggle variant="primary" required>
+                                    Employee
                                 </Dropdown.Toggle>
 
 
@@ -94,13 +96,14 @@ const AddShift = ({ onAddShift }) => {
                                 </Dropdown.Menu>
                             </Dropdown>
                         </div>
-                        
-                                            
+                    </div>
+
+                    <div className='row'>
                         {/* Position Drop Down */}
-                        <div className='mb-3 col-md-6'>
+                        <div className='mb-3 col-md-5'>
                             <Dropdown>
-                                <Dropdown.Toggle variant="primary" >
-                                    {formData.position ? `Selected Position: ${formData.position}` : 'Position'}
+                                <Dropdown.Toggle variant="primary" required>
+                                    Position
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
@@ -111,7 +114,6 @@ const AddShift = ({ onAddShift }) => {
                             </Dropdown>
                         </div>
                     </div>
-                    
 
                     <div className='row mb-3'>
 
@@ -122,6 +124,7 @@ const AddShift = ({ onAddShift }) => {
                                 <Datetime
                                 value={formData.startTime}
                                 onChange={(date) => handleChange('startTime', date)}
+                                required
                                 />
                             </FormGroup>
                         </div>
@@ -133,6 +136,7 @@ const AddShift = ({ onAddShift }) => {
                                 <Datetime
                                 value={formData.endTime}
                                 onChange={(date) => handleChange('endTime', date)}
+                                required
                                 />
                             </FormGroup> 
                         </div>
@@ -146,7 +150,6 @@ const AddShift = ({ onAddShift }) => {
                             <FormControl as="textarea" value={formData.notes} onChange={(event) => handleChange('notes', event.target.value)} />
                         </FormGroup>
                     </div>
-                    
                     
                 </Form>
             </Modal.Body>
