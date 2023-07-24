@@ -70,14 +70,26 @@ export const DELETE_USER = gql`
     }
   }`;
 
-export const ADD_SHIFT = gql`
+  export const ADD_SHIFT = gql`
   mutation addShift($input: ShiftInput!) {
     addShift(input: $input) {
-          _id
-          startDateTime
-          endDateTime
+      _id
+      startDateTime
+      endDateTime
+      user {
+        _id
+        firstName
+        lastName
+        phone
+      }
+      position {
+        _id
+        jobTitle
+      }
+      note
     }
-  }`;
+  }
+`;
 
 export const UPDATE_SHIFT = gql`
   mutation updateShift($id: ID!, $startDateTime: String!, $endDateTime: String!){
