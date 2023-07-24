@@ -39,9 +39,7 @@ const Schedule = () => {
         <div className='container'>
 
             {/* SCHEDULE HEADER ********************** */}
-            <div className='mt-3 mb-3 d-flex align-items-center'>
-
-                        
+            <div className='mt-3 mb-3 d-flex align-items-center'>       
                 {/* CALENDAR TITLE */}
                 <div className='col'>
                     <h1>My Calendar</h1>
@@ -53,10 +51,10 @@ const Schedule = () => {
                 </div>
 
                 {/* ADD SHIFTS BUTTON */}
-                <AddShift onAddShift={addShift}/>
-
+                <div className='col d-flex justify-content-end'>
+                    <AddShift onAddShift={addShift}/>
+                </div>
             </div>
-
 
             <Calendar
                 localizer={localizer}

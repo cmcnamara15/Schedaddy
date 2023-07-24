@@ -83,11 +83,9 @@ const AddShift = ({ onAddShift }) => {
     return (
         <>
         {/* ADD SHIFT BUTTON */}
-            <div className='col d-flex justify-content-end'>
-                <Button variant="primary" onClick={handleShow}>
-                    <AiOutlinePlus/><span className='ms-1'>Add Shift</span>
-                </Button>
-            </div>
+        <Button variant="primary" onClick={handleShow}>
+            <AiOutlinePlus/><span className='ms-1'>Add Shift</span>
+        </Button>
         
         {/* MODAL******************************* */}
         <Modal show={showModal} onHide={handleClose}>
