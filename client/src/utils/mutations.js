@@ -165,8 +165,9 @@ export const DELETE_COMPANY = gql`
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
       token
-      user {
+      account {
         _id
+        email
       }
     }
   }

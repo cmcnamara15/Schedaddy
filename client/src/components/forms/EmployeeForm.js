@@ -42,11 +42,6 @@ const EmployeeForm = ({ u, id, button }) => {
     setUser(EmptyUser);
   };
 
-  // useEffect(() => {
-  //   // For debugging/state evaluation purposes
-  //   console.log(user);
-  // }, [user])
-
   return (
     <>
       {button}
