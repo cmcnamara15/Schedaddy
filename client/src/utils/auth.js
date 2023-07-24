@@ -1,5 +1,8 @@
 import decode from 'jwt-decode';
 
+import { useQuery } from '@apollo/client';
+import { FIND_SINGLE_ACCOUNT, FIND_SINGLE_USER } from './queries';
+
 class AuthService {
   getProfile() {
     return decode(this.getToken());

@@ -3,10 +3,10 @@ import { useMutation } from '@apollo/client';
 import Container from 'react-bootstrap/esm/Container';
 import { Button, Modal, Form } from 'react-bootstrap';
 
-import EmptyPosition from './partials/EmptyPosition';
-import FormInput from './partials/FormInput';
+import EmptyPosition from '../partials/EmptyPosition';
+import FormInput from '../partials/FormInput';
 
-import { ADD_POSITION, UPDATE_POSITION } from '../utils/mutations';
+import { ADD_POSITION, UPDATE_POSITION } from '../../utils/mutations';
 
 const PositionForm = ({ p, id, button }) => {
   const [position, setPosition] = useState(p);
@@ -27,9 +27,8 @@ const PositionForm = ({ p, id, button }) => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(event.target);
 
-    if (event.target.getAttribute('data-type') === 'new') {
+    if (event.currentTarget.getAttribute('data-type') === 'new') {
       const { data, error } = await addPosition({
         variables: {
           jobTitle: position.jobTitle,
@@ -44,7 +43,7 @@ const PositionForm = ({ p, id, button }) => {
       })
     }
 
-    setPosition('');
+    setPosition(EmptyPosition);
     window.location.reload();
   };
 

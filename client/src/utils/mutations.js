@@ -20,7 +20,6 @@ export const CREATE_USER = gql`
       firstName
       lastName
       phone
-      socialSecurity
       hireDate
       terminationDate
       payRate
@@ -182,5 +181,16 @@ export const DELETE_COMPANY = gql`
         email
       }
     }
-  }
-`;
+  }`;
+
+  export const LINK_USER_ACCOUNT = gql`
+  mutation linkUserAccount($accountId: ID!, $userId: ID!) {
+    linkUserAccount(accountId: $accountId, userId: $userId) {
+      account {
+        _id
+        user {
+          _id
+        }
+      }
+    }
+  }`

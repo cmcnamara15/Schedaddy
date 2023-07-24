@@ -5,30 +5,30 @@ const typeDefs = gql`
     _id: ID!
     firstName: String!
     lastName: String!
-    phone: String!
+    phone: String
     hireDate: String!
     terminationDate: String
     payRate: Float!
     fullTime: Boolean!
-    activeEmployee: Boolean!
-    isAdmin: Boolean!
+    activeEmployee: Boolean
+    isAdmin: Boolean
     shift: [ID]
     userAddress: Address
-    userCompany: ID!
+    userCompany: ID
   }
 
   input UserInput {
     firstName: String!
     lastName: String!
-    phone: String!
+    phone: String
     hireDate: String!
     terminationDate: String
     payRate: Float!
-    fullTime: Boolean!
-    activeEmployee: Boolean!
-    isAdmin: Boolean!
+    fullTime: Boolean
+    activeEmployee: Boolean
+    isAdmin: Boolean
     userAddress: AddressInput
-    userCompany: ID!
+    userCompany: ID
   }
 
   type Account {
@@ -79,7 +79,6 @@ const typeDefs = gql`
     city: String!
     state: String!
     zip: String!
-    country: String!
     user: User
   }
 
@@ -89,21 +88,20 @@ const typeDefs = gql`
     city: String!
     state: String!
     zip: String!
-    country: String!
   }
 
   type Company {
     _id: ID!
     companyName: String!
     companyAddress: Address
-    companyPhone: String!
+    companyPhone: String
     companyAdmin: User
   }
 
   input CompanyInput {
     companyName: String!
     companyAddress: AddressInput
-    companyPhone: String!
+    companyPhone: String
     companyAdmin: ID
   }
 
@@ -151,17 +149,6 @@ const typeDefs = gql`
     addPosition(jobTitle: String!): Position
     updatePosition(_id: ID!, jobTitle: String): Position
     deletePosition(_id: ID!): Position
-    addAddress(input: AddressInput!): Address
-    updateAddress(
-      _id: ID!
-      street1: String!
-      street2: String
-      city: String!
-      state: String!
-      zip: String!
-      country: String!
-    ): Address
-    deleteAddress(_id: ID!): Address
     addCompany(input: CompanyInput!): Company
     updateCompany(
       _id: ID!
@@ -171,6 +158,7 @@ const typeDefs = gql`
       companyAdmin: ID
     ): Company
     deleteCompany(_id: ID!): Company
+    linkUserAccount(_id: ID!): Account
   }
 `;
 
