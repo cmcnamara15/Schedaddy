@@ -49,6 +49,35 @@ const Schedule = () => {
         // need additional logic to add the new shift to the database
     };
 
+    // mutation to delete shift
+    const [deleteShift] = useMutation(DELETE_SHIFT, {
+        update(cache) {
+            cache.modify({
+                fields: {
+                    shifts(existingShifts = [], { readField }) {
+                        return existingShifts.filter(shift => {
+                        const eventId = readField('id', shift);
+                        return eventId !== selectedEvent.id;
+                        });
+                    },
+                },
+            });
+        },
+        refetchQueries: [{ query: FIND_ALL_SHIFTS }],
+    });
+
+    const handleDeleteClick = () => {
+        if (selectedEvent) {
+            deleteShift({ variables: { id: selectedEvent.id } })
+                .then(() => {
+                setSelectedEvent(null);
+                })
+            .catch((error) => {
+                console.error('Error deleting shift:', error.message);
+            });
+        }
+    };
+
     // format shifts data
     const formatShifts = (shiftsData) => {
         return shiftsData.map((shift) => ({
@@ -113,7 +142,7 @@ const Schedule = () => {
             </Modal.Body>
 
             <Modal.Footer>
-                <Button variant="danger">
+                <Button variant="danger" onClick={handleDeleteClick}>
                     Delete
                 </Button>
 
