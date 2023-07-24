@@ -81,76 +81,76 @@ const Schedule = () => {
     // format shifts data
     const formatShifts = (shiftsData) => {
         return shiftsData.map((shift) => ({
-        id: shift._id,
-        title: `${shift.user.firstName} ${shift.user.lastName}`,
-        start: new Date(shift.startDateTime),
-        end: new Date(shift.endDateTime),
-        user: `${shift.user.firstName} ${shift.user.lastName}`,
-        position: shift.position.jobTitle,
-        note: shift.note,
+            id: shift._id,
+            title: `${shift.user.firstName} ${shift.user.lastName}`,
+            start: new Date(shift.startDateTime),
+            end: new Date(shift.endDateTime),
+            user: `${shift.user.firstName} ${shift.user.lastName}`,
+            position: shift.position.jobTitle,
+            note: shift.note,
         }));
     };
 
     return (
         <div className='container'>
-        {/* SCHEDULE HEADER ******************************** */}
-        <div className='mt-3 mb-3 d-flex align-items-center'>
-            {/* CALENDAR TITLE */}
-            <div className='col'>
-                <h1>My Calendar</h1>
+            {/* SCHEDULE HEADER ******************************** */}
+            <div className='mt-3 mb-3 d-flex align-items-center'>
+                {/* CALENDAR TITLE */}
+                <div className='col'>
+                    <h1>My Calendar</h1>
+                </div>
+
+                {/* ALL SHIFTS BUTTON */}
+                <div className='col d-flex justify-content-center'>
+                    <ShiftListModal />
+                </div>
+
+                {/* ADD SHIFTS BUTTON */}
+                <div className='col d-flex justify-content-end'>
+                    <AddShiftForm onAddShift={addShift} />
+                </div>
             </div>
 
-            {/* ALL SHIFTS BUTTON */}
-            <div className='col d-flex justify-content-center'>
-                <ShiftListModal />
-            </div>
+            {/* CALENDAR *************************************** */}
+            <Calendar
+                localizer={localizer}
+                events={shifts} // Use the queried shifts data here
+                startAccessor="start"
+                endAccessor="end"
+                defaultView="agenda"
+                style={{ height: 700 }}
+                components={{
+                event: EventTitle, // show only the event title in month, week, and day views
+                agenda: {
+                    event: AgendaEvent, // show full details in the agenda view
+                },
+                }}
+                onSelectEvent={handleEventClick}
+            />
 
-            {/* ADD SHIFTS BUTTON */}
-            <div className='col d-flex justify-content-end'>
-                <AddShiftForm onAddShift={addShift} />
-            </div>
-        </div>
+            {/* CALENDAR EVENT MODALS ************************** */}
+            <Modal show={selectedEvent !== null} onHide={() => setSelectedEvent(null)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{selectedEvent?.user}</Modal.Title>
+                </Modal.Header>
 
-        {/* CALENDAR *************************************** */}
-        <Calendar
-            localizer={localizer}
-            events={shifts} // Use the queried shifts data here
-            startAccessor="start"
-            endAccessor="end"
-            defaultView="agenda"
-            style={{ height: 700 }}
-            components={{
-            event: EventTitle, // show only the event title in month, week, and day views
-            agenda: {
-                event: AgendaEvent, // show full details in the agenda view
-            },
-            }}
-            onSelectEvent={handleEventClick}
-        />
+                <Modal.Body>
+                    <p>Position: {selectedEvent?.position}</p>
+                    {selectedEvent?.note !== "" ? (
+                        <p>Note: {selectedEvent?.note}</p>
+                    ) : ("")}
+                </Modal.Body>
 
-        {/* CALENDAR EVENT MODALS ************************** */}
-        <Modal show={selectedEvent !== null} onHide={() => setSelectedEvent(null)}>
-            <Modal.Header closeButton>
-                <Modal.Title>{selectedEvent?.user}</Modal.Title>
-            </Modal.Header>
+                <Modal.Footer>
+                    <Button variant="danger" onClick={handleDeleteClick}>
+                        Delete
+                    </Button>
 
-            <Modal.Body>
-                <p>Position: {selectedEvent?.position}</p>
-                {selectedEvent?.note !== "" ? (
-                    <p>Note: {selectedEvent?.note}</p>
-                ) : ("")}
-            </Modal.Body>
-
-            <Modal.Footer>
-                <Button variant="danger" onClick={handleDeleteClick}>
-                    Delete
-                </Button>
-
-                <Button onClick={() => setSelectedEvent(null)}>
-                    Close
-                </Button>
-            </Modal.Footer>
-        </Modal>
+                    <Button onClick={() => setSelectedEvent(null)}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 };
