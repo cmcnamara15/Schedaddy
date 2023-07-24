@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { Form, FloatingLabel, Dropdown, FormGroup, FormLabel, FormControl, Button, Modal } from 'react-bootstrap';
 import Datetime from 'react-datetime'; 
 import { AiOutlinePlus } from 'react-icons/ai';
+import ShiftList from './ShiftList';
+
 import { useQuery } from "@apollo/client";
 import { FIND_ALL_USERS, FIND_ALL_POSITIONS } from '../../utils/queries';
+
 import { useMutation } from '@apollo/client';
 import { ADD_SHIFT } from '../../utils/mutations';
 
@@ -80,15 +83,21 @@ const AddShift = ({ onAddShift }) => {
     return (
         <>
         {/* SCHEDULE HEADER ********************** */}
-        <div className='row mt-3 mb-3'>
+        <div className='mt-3 mb-3 d-flex align-items-center'>
 
         {/* CALENDAR TITLE */}
             <div className='col'>
                 <h1>My Calendar</h1>
             </div>
 
+        {/* ALL SHIFTS BUTTON */}
+            <div  className='col d-flex justify-content-center'>
+                <ShiftList/>
+            </div>
+            
+
         {/* ADD SHIFT BUTTON */}
-            <div className="col d-flex justify-content-end">
+            <div className='col d-flex justify-content-end'>
                 <Button variant="primary" onClick={handleShow}>
                     <AiOutlinePlus/><span className='ms-1'>Add Shift</span>
                 </Button>

@@ -6,7 +6,6 @@ import shiftsData from './shifts';
 import AddShift from './AddShift';
 import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ShiftList from './ShiftList';
 
 const localizer = momentLocalizer(moment);
 
@@ -37,8 +36,6 @@ const Schedule = () => {
 
   return (
     <div className='container'>
-
-      <ShiftList/>
       
       <AddShift onAddShift={addShift}/>
 

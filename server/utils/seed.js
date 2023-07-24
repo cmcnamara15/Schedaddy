@@ -13,7 +13,7 @@ async function seedDb() {
         const fakeCompanies = Array.from({ length: 5 }, () => ({
             companyName: faker.company.name(),
             companyPhone: faker.phone.number('512-###-####'),
-            positions: [], // Add an empty array to store position IDs for each company
+            positions: [], 
         }));
 
         const fakePositions = Array.from({ length: 10 }, () => ({
@@ -23,6 +23,7 @@ async function seedDb() {
         const fakeShifts = Array.from({ length: 100 }, () => ({
             startDateTime: faker.date.future(),
             endDateTime: faker.date.future(),
+            note: faker.lorem.sentence(),
         }));
 
         const fakeUsers = Array.from({ length: 50 }, () => ({

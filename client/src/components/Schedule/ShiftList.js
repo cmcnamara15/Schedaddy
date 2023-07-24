@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
+import moment from 'moment';
+
 import { useQuery } from '@apollo/client';
 import { FIND_ALL_SHIFTS } from '../../utils/queries.js';
 
@@ -23,9 +25,8 @@ const ShiftList = () => {
 
     return (
         <div>
-            <h2>All Shifts</h2>
             <Button variant="primary" onClick={handleShowModal}>
-                Show Shifts Modal
+                All Shifts
             </Button>
 
             <Modal show={showModal} onHide={handleCloseModal}>
@@ -37,14 +38,14 @@ const ShiftList = () => {
                 <Modal.Body>
                     {shifts.map((shift) => (
                         <div key={shift._id}>
-                            <p>Shift ID: {shift._id}</p>
-                            <p>
-                                User: {shift.user ? `${shift.user.firstName} ${shift.user.lastName}` : 'N/A'}
+                            <p><strong>
+                                User:</strong> {shift.user ? `${shift.user.firstName} ${shift.user.lastName}` : 'N/A'}
                             </p>
-                            <p>Position: {shift.position ? shift.position.jobTitle : 'N/A'}</p>
-                            <p>Start: {shift.startDateTime}</p>
-                            <p>End: {shift.endDateTime}</p>
-                            <p>Note: {shift.note}</p>
+                            <p><strong>Position:</strong> {shift.position ? shift.position.jobTitle : 'N/A'}</p>
+                            <p><strong>Start:</strong> {moment(shift.startDateTime).format('ddd, MMM D, YYYY')}</p>
+                            <p><strong>End:</strong> {moment(shift.endDateTime).format('ddd, MMM D, YYYY')}</p>
+                            <p><strong>Note:</strong> {shift.note}</p>
+                            <p><strong>Shift ID:</strong> {shift._id}</p>
                             <hr />
                         </div>
                     ))}
