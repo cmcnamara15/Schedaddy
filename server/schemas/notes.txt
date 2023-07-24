@@ -1,0 +1,38 @@
+*** TYPEDEFS ***
+Changed Auth from
+
+type Auth {
+  token: ID!
+  email: String!
+  password: String!
+}
+
+to 
+
+type Auth {
+  token: ID!
+  account: Account!
+}
+
+
+Changed return item of createAccount from Account to Auth
+
+Changed CompanyInput to not require Admin ID
+
+Changed UserInput > userCompany from CompanyInput to ID!
+
+Removed Social Security from User def and UserInput
+
+*** RESOLVERS ***
+Changed login to return Auth type
+
+Changed createAccount to return Auth type
+
+Discord
+
+
+A user can create an account
+
+Once the account is created, the user can optionally create a company OR they can simply join a company
+if user decides to create a company they will immediately become the admin and have the ability to share that right
+amongst other users

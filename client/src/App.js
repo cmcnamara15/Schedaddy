@@ -15,6 +15,8 @@ import RegisterForm from "./components/forms/RegisterForm";
 import Schedule from "./components/Schedule/Schedule";
 import Admin from "./components/Admin";
 import PositionList from "./components/PositionList";
+import AddCompany from "./components/AddCompany";
+import AddUserProfile from './components/AddUserProfile';
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -66,6 +68,14 @@ function App() {
             <Route
               path='/employees'
               element={<EmployeeList />}
+            />
+            <Route
+              path="/createCompany"
+              element={<AddCompany />}
+            />
+            <Route
+              path="/createUser"
+              element={<AddUserProfile />}
             />
           </Routes>
       </Router>

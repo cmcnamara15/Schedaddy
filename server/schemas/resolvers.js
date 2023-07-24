@@ -87,19 +87,23 @@ const resolvers = {
           throw new AuthenticationError("Incorrect password");
       }
       const token = signToken(account);
-      return token
+      return { token, account }
     },
-
-      createAccount: async (parents, args) => {
-        try{
+    createAccount: async (parents, args) => {
+      try{
         console.log("create account block");
         console.log(args);
         const account = await Account.create(args);
-        return account;
+        if (!account) {
+          throw new Error('Unable to create account');
+        } 
+        const token = signToken(account);
+        return { token, account };
       } catch(err) {
         console.log(err)
         throw new Error("something went wrong!")
       }
+      
     },
     deleteAccount: async (args) => {
       console.log("delete account block");
