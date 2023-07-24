@@ -1,31 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useMutation } from '@apollo/client';
 import Container from 'react-bootstrap/esm/Container';
 import { Button, Modal, Form } from 'react-bootstrap';
-import { AiOutlinePlus } from 'react-icons/ai';
 
 import EmptyPosition from './partials/EmptyPosition';
+import FormInput from './partials/FormInput';
 
-const PositionForm = () => {
-  const [position, setPosition] = useState('');
-  const [hourlyWage, setHourlyWage] = useState('');
+import { ADD_POSITION, UPDATE_POSITION } from '../utils/mutations';
+
+const PositionForm = ({ p, id, button }) => {
+  const [position, setPosition] = useState(p);
   
+  const [addPosition, { addError }] = useMutation(ADD_POSITION);
+  const [updatePosition, { updateError }] = useMutation(UPDATE_POSITION);
 
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    switch (name) {
-      case 'position': 
-        setPosition(value);
-        break
-      case 'hourlyWage':
-        setHourlyWage(value);
-        break
-    };
+  const handleInputChange = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    setPosition({...position, [name]: value});
   };
 
   const handleFormClear = (e) => {
@@ -35,63 +27,67 @@ const PositionForm = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    console.log(event.target);
 
-    alert(`New ${position.jobTitle} position created!`);
+    if (event.target.getAttribute('data-type') === 'new') {
+      const { data, error } = await addPosition({
+        variables: {
+          jobTitle: position.jobTitle,
+        }
+      })
+    } else {
+      const { data, error } = await updatePosition({
+        variables: {
+          id: position._id,
+          jobTitle: position.jobTitle,
+        }
+      })
+    }
+
     setPosition('');
-    setHourlyWage('');
+    window.location.reload();
   };
 
-
   return (
-    <Container>
-    <Button variant="primary" onClick={handleShow}>
-      <AiOutlinePlus/><span className='ms-1'>Position</span>
-    </Button>
+    <>
+      {button}
 
-    <Modal
-      show={show}
-      onHide={handleClose}
-      backdrop="static"
-      keyboard={false}
-    >
-      <Modal.Header closeButton>
-        <Modal.Title>New Position</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form>
-        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-          <Form.Label>Position Title</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Valued employee"
-            autoFocus
-            value={position} 
-            onChange={handleChange} 
-          />
-        </Form.Group>
-        {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-          <Form.Label>Hourly Wage</Form.Label>
-          <Form.Control
-            type="float"
-            placeholder="$20"
-            autoFocus
-            value={position} 
-            onChange={handleChange} 
-          />
-        </Form.Group> */}
-      </Form>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Exit without saving
-        </Button>
-        <Button variant="primary" onClick={handleClose}>
-          Save
-        </Button>
-      </Modal.Footer>
-    </Modal>
-  </Container>
+      <div className="modal fade text-start" id={`positionForm-${id}`} tabIndex='-1' aria-labelledby="positionFormLabel" aria-hidden="true">
+        <div className="modal-dialog modal-lg">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h2 className="modal-title" id="positionFormLabel">Position</h2>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+            </div>
+            <form className='m-3' onSubmit={handleFormSubmit} data-type={id}>
+              <div className="modal-body">
+                <div className="container-fluid">
+                  <FormInput
+                    type="text"
+                    title="Job Title"
+                    name="jobTitle"
+                    value={position.jobTitle}
+                    onChange={handleInputChange}
+                    numInRow={1}
+                  />
+                </div>
+              </div>
+              <div className="modal-footer">
+                <input className="btn btn-primary m-1 col-2" type="button" value="Submit" onClick={handleFormSubmit} data-type={id}/>
+                <input className="btn btn-secondary m-1 col-2" type="button" value="Clear" onClick={handleFormClear} />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </>
   )
+}
+
+PositionForm.defaultProp = {
+  p: {
+    jobTitle: EmptyPosition,
+  }
 }
 
 export default PositionForm

@@ -96,8 +96,8 @@ export const DELETE_SHIFT = gql`
   }`;
 
 export const ADD_POSITION = gql`
-  mutation addPosition($id: ID!, $jobTitle: String!) {
-    addPosition(_id: $id, jobTitle: $jobTitle) {
+  mutation addPosition($jobTitle: String!) {
+    addPosition(jobTitle: $jobTitle) {
         _id
         jobTitle
     }
@@ -114,7 +114,7 @@ export const UPDATE_POSITION = gql`
 export const DELETE_POSITION = gql`
   mutation deletePosition($id: ID!) {
     deletePosition(_id: $id) {
-        _id
+      _id
     }
   }`;
 

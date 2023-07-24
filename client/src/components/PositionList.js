@@ -3,10 +3,11 @@ import PositionForm from './PositionForm';
 import Position from './partials/Position';
 import { useQuery } from '@apollo/client';
 import { FIND_ALL_POSITIONS } from '../utils/queries';
+import EmptyPosition from './partials/EmptyPosition';
+import { AiOutlinePlus } from 'react-icons/ai';
 
 const PositionList = () => {
   const { loading, data } = useQuery(FIND_ALL_POSITIONS);
-  console.log(data);
 
   const positions = data?.positions || [];
 
@@ -20,7 +21,17 @@ const PositionList = () => {
                 <h1>Positions</h1>
               </div>
               <div className="col-6 text-end">
-                <PositionForm />
+                <PositionForm 
+                  p={EmptyPosition}
+                  id={'new'}
+                  button={
+                    <button type='button' className='btn btn-primary' data-bs-toggle='tooltip' data-bs-placement='left' title='Add New'>
+                      <span data-bs-toggle='modal' data-bs-target='#positionForm-new'>
+                        <AiOutlinePlus/> Position
+                      </span>
+                    </button>
+                  }
+                />
               </div>
             </div>
           </div>
