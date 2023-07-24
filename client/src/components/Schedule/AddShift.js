@@ -82,20 +82,6 @@ const AddShift = ({ onAddShift }) => {
 
     return (
         <>
-        {/* SCHEDULE HEADER ********************** */}
-        <div className='mt-3 mb-3 d-flex align-items-center'>
-
-        {/* CALENDAR TITLE */}
-            <div className='col'>
-                <h1>My Calendar</h1>
-            </div>
-
-        {/* ALL SHIFTS BUTTON */}
-            <div  className='col d-flex justify-content-center'>
-                <ShiftList/>
-            </div>
-            
-
         {/* ADD SHIFT BUTTON */}
             <div className='col d-flex justify-content-end'>
                 <Button variant="primary" onClick={handleShow}>
@@ -103,8 +89,6 @@ const AddShift = ({ onAddShift }) => {
                 </Button>
             </div>
         
-        </div>
-
         {/* MODAL******************************* */}
         <Modal show={showModal} onHide={handleClose}>
 
