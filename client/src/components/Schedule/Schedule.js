@@ -9,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { useQuery, useMutation} from '@apollo/client';
 import { FIND_ALL_SHIFTS } from '../../utils/queries.js';
-import { ADD_SHIFT } from '../../utils/mutations';
+import { ADD_SHIFT, DELETE_SHIFT } from '../../utils/mutations';
 
 const localizer = momentLocalizer(moment);
 
@@ -113,6 +113,10 @@ const Schedule = () => {
             </Modal.Body>
 
             <Modal.Footer>
+                <Button variant="danger">
+                    Delete
+                </Button>
+
                 <Button onClick={() => setSelectedEvent(null)}>
                     Close
                 </Button>
