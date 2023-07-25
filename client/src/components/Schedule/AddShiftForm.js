@@ -124,7 +124,7 @@ const AddShiftForm = ({ onAddShift }) => {
                   <option value="">Select an Employee</option>
                   {sortedUsers.map((user) => (
                     <option key={user._id} value={user.firstName + ' ' + user.lastName}>
-                      {user.firstName} {user.lastName}
+                      {user.lastName}, {user.firstName}
                     </option>
                   ))}
                 </Form.Select>
