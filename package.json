@@ -23,5 +23,9 @@
     "graphql": "^15.8.0",
     "jsonwebtoken": "^9.0.1",
     "typewriter-effect": "^2.20.1"
+  },
+  "engines": {
+    "node": "16.19.1",
+    "npm": "8.19.3"
   }
 }
