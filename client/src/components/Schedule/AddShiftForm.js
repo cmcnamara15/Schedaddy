@@ -44,22 +44,31 @@ const AddShiftForm = ({ onAddShift }) => {
         setFormData((prevState) => ({ ...prevState, [id]: date }));
     };
     
-    const handleDropdownChange = (id,value) => {
+    const handleDropdownChange = (id, value) => {
         if (value) {
-        setFormData((prevState) => ({ ...prevState, [id]: value }));
+            const selectedUser = users.find((user) => user.firstName + ' ' + user.lastName === value);
+            const selectedPosition = positions.find((position) => position.jobTitle === value);
+
+            if (id === 'user' && selectedUser) {
+                // Set the user ID
+                setFormData((prevState) => ({ ...prevState, [id]: selectedUser._id }));
+            } else if (id === 'position' && selectedPosition) {
+                // Set the position ID
+                setFormData((prevState) => ({ ...prevState, [id]: selectedPosition._id }));
+            }
         }
     };
 
     const handleSubmit = () => {
-        const newShift = {
-            user: formData.user,
-            start: new Date(formData.startTime),
-            end: new Date(formData.endTime),
+        const newShiftInput = {
+            startDateTime: new Date(formData.startTime).toISOString(),
+            endDateTime: new Date(formData.endTime).toISOString(),
+            user: formData.user, 
             position: formData.position,
             note: formData.notes,
         };
 
-        onAddShift(newShift);
+        onAddShift(newShiftInput);
         handleClose();
         resetForm();
     };
