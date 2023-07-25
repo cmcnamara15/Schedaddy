@@ -27,10 +27,10 @@ const resolvers = {
       return user;
     },
     me: async (parent, args, context) => {
+      console.log(`query Me: ${context.account}`)
       if (context.account) {
-        console.log(context.account)
         const account = await Account.findOne({
-          _id: context.account._id
+          _id: context.account.accountId
         })
           .populate("user");
         return account;
@@ -76,7 +76,7 @@ const resolvers = {
 
   Mutation: {
     login: async (parent, { email, password }, context) => {
-      const account = await Account.findOne({ email });
+      const account = await Account.findOne({ email }).populate('user');
       if (!account) {
         throw new AuthenticationError(
           "No account found with this email address"
@@ -99,10 +99,17 @@ const resolvers = {
       try {
         console.log("create account block");
         console.log(args);
+        const prevAccount = await Account.findOne({
+          email: args.email,
+        });
+        if (prevAccount) {
+          throw new Error('Account already exists for this email!');
+        }
         const account = await Account.create(args);
         if (!account) {
           throw new Error('Unable to create account');
         }
+        console.log(account);
         const token = signToken(account);
         return {
           token,
@@ -110,7 +117,6 @@ const resolvers = {
           userId: account.user?._id,
           companyId: account.user?.userCompany?._id,
           isAdmin: account.user?.isAdmin
-
         };
       } catch (err) {
         console.log(err)

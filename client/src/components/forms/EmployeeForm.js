@@ -9,7 +9,6 @@ import DummyUser from '../partials/DummyUser';
 import { useMutation, useQuery } from '@apollo/client';
 
 import Auth from '../../utils/auth';
-import { FIND_SINGLE_ACCOUNT } from '../../utils/queries';
 import { CREATE_USER } from '../../utils/mutations';
 import { UPDATE_USER } from '../../utils/mutations';
 
@@ -18,11 +17,7 @@ const EmployeeForm = ({ u, id, button }) => {
 
   const [addEmployee, { addError }] = useMutation(CREATE_USER);
   const [updateEmployee, { updateError }] = useMutation(UPDATE_USER);
-  const { data, refetch } = useQuery(FIND_SINGLE_ACCOUNT, {
-    variables: {
-      id: Auth.getProfile().data._id
-    }
-  });
+  const currentUser = Auth.getProfile();
 
   const handleCheck = (key, value) => {    
     setUser({...user, [key]: value});
@@ -50,59 +45,63 @@ const EmployeeForm = ({ u, id, button }) => {
     setUser(EmptyUser);
   }
 
-  // useEffect(() => {
-  //   console.log(data);
-  // }, [data])
+  useEffect(() => {
+    console.log(currentUser);
+  }, [])
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    // if (e.currentTarget.getAttribute('data-type') === 'new') {
+    if (e.currentTarget.getAttribute('data-type') === 'new') {
       const { data, error } = await addEmployee({
         variables: {
           input: {          
-          "firstName": user.firstName,
-          "lastName": user.lastName,
-          "userAddress": {
-            "street1": user.address.street1,
-            "street2": user.address.street2,
-            "city": user.address.city,
-            "state": user.address.state,
-            "zip": user.address.zip
-          },
-          "payRate": parseFloat(user.payRate),
-          "hireDate": user.hireDate,
-          "terminationDate": user.terminationDate,
-          "phone": user.phone,
-          // "userCompany": Auth,
-          "activeEmployee": user.activeEmployee,
-          "fullTime": user.fullTime,
-          "isAdmin": user.isAdmin}
+            firstName: user.firstName,
+            lastName: user.lastName,
+            userAddress: {
+              street1: user.address.street1,
+              street2: user.address.street2,
+              city: user.address.city,
+              state: user.address.state,
+              zip: user.address.zip
+            },
+            payRate: parseFloat(user.payRate),
+            hireDate: user.hireDate,
+            terminationDate: user.terminationDate,
+            phone: user.phone,
+            // "userCompany": Auth,
+            activeEmployee: user.activeEmployee,
+            fullTime: user.fullTime,
+            isAdmin: user.isAdmin
+          }
         }
       })
-    // } else {
-    //   const { data, error } = await updateEmployee({
-    //       variables: {
-    //         "firstName": user.firstName,
-    //         "lastName": user.lastName,
-    //         "userAddress": {
-    //           "street1": user.address.street1,
-    //           "street2": user.address.street2,
-    //           "city": user.address.city,
-    //           "state": user.address.state,
-    //           "zip": user.address.zip
-    //         },
-    //         "payRate": user.payRate,
-    //         "hireDate": user.hireDate,
-    //         "terminationDate": user.terminationDate,
-    //         "phone": user.phone,
-    //         "userCompany": Auth,
-    //         "activeEmployee": user.activeEmployee,
-    //         "fullTime": user.fullTime,
-    //         "isAdmin": user.isAdmin
-    //     }
-      // })
-    // }
+    } else {
+      const { data, error } = await updateEmployee({
+        variables: {
+          id: id,
+          input: {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            phone: user.phone,
+            payRate: user.payRate,
+            hireDate: user.hireDate,
+            terminationDate: user.terminationDate,
+            userCompany: user.userCompany,
+            activeEmployee: user.activeEmployee,
+            fullTime: user.fullTime,
+            isAdmin: user.isAdmin,
+            userAddress: {
+              street1: user.address.street1,
+              street2: user.address.street2,
+              city: user.address.city,
+              state: user.address.state,
+              zip: user.address.zip
+            }
+          }
+        }
+      })
+    }
 
     setUser(EmptyUser);
     window.location.reload();
@@ -187,26 +186,6 @@ const EmployeeForm = ({ u, id, button }) => {
                       value={user.address?.zip || ''}
                       onChange={handleAddressChange}
                       numInRow={3}
-                    />
-                  </div>
-                  <br />
-                  <h4>Log-in Info</h4>
-                  <div className="row">
-                    <FormInput
-                      type="email"
-                      title="Email"
-                      name="email"
-                      value={user.email || ''}
-                      onChange={handleInputChange}
-                      numInRow={2}
-                    />
-                    <FormInput
-                      type="password"
-                      title="Password"
-                      name="password"
-                      value={user.password}
-                      onChange={handleInputChange}
-                      numInRow={2}
                     />
                   </div>
                   <br />

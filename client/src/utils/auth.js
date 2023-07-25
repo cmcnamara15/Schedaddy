@@ -1,8 +1,5 @@
 import decode from 'jwt-decode';
 
-import { useQuery } from '@apollo/client';
-import { FIND_SINGLE_ACCOUNT, FIND_SINGLE_USER } from './queries';
-
 class AuthService {
   getProfile() {
     return decode(this.getToken());
@@ -11,6 +8,14 @@ class AuthService {
   loggedIn() {
     const token = this.getToken();
     return token && !this.isTokenExpired(token) ? true : false;
+  }
+
+  hasUser() {
+    return decode(this.getToken()).data?.userId ? true : false;
+  }
+
+  hasCompany() {
+    return decode(this.getToken()).data?.companyId ? true : false;
   }
 
   isTokenExpired(token) {
@@ -28,12 +33,11 @@ class AuthService {
 
   login(idToken) {
     localStorage.setItem('id_token', idToken);
-    window.location.assign('/');
+    window.location.assign('/account');
   }
 
   logout() {
     localStorage.removeItem('id_token');
-    window.location.reload();
   }
 }
 
