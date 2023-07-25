@@ -91,7 +91,7 @@ const resolvers = {
         token, 
         account,
         userId: account.user._id,
-        companyId: account.user.userCompany,
+        companyId: account.user.userCompany._id,
         isAdmin: account.user.isAdmin
       };
     },
@@ -140,8 +140,8 @@ const resolvers = {
     },
     updateUser: async(parent, {_id, ...args }) => {
       const user = await User.findByIdAndUpdate(
-        _id,
-        args,
+        _id, 
+        args.input,
         { new: true }
       );
       if(!user) {

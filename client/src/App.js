@@ -13,7 +13,7 @@ import EmployeeList from "./components/EmployeeList";
 import LoginForm from "./components/forms/LoginForm";
 import RegisterForm from "./components/forms/RegisterForm";
 import Schedule from "./components/Schedule/Schedule";
-import Admin from "./components/Admin";
+import AccountPage from "./components/AccountPage";
 import PositionList from "./components/PositionList";
 import AddCompany from "./components/AddCompany";
 import AddUserProfile from './components/AddUserProfile';
@@ -65,7 +65,7 @@ function App() {
             />
             <Route
               path='/account'
-              element={<Admin />}
+              element={<AccountPage />}
             />
             <Route
               path='/positions'

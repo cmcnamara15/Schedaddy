@@ -12,18 +12,18 @@ const typeDefs = gql`
     fullTime: Boolean!
     activeEmployee: Boolean
     isAdmin: Boolean
-    shift: [ID]
+    shifts: [Shift]
     userAddress: Address
-    userCompany: ID
+    userCompany: Company
   }
 
   input UserInput {
-    firstName: String!
-    lastName: String!
+    firstName: String
+    lastName: String
     phone: String
-    hireDate: String!
+    hireDate: String
     terminationDate: String
-    payRate: Float!
+    payRate: Float
     fullTime: Boolean
     activeEmployee: Boolean
     isAdmin: Boolean
@@ -57,7 +57,7 @@ const typeDefs = gql`
   input ShiftInput {
     startDateTime: String!
     endDateTime: String!
-    user: ID!
+    user: UserInput!
     position: PositionInput!
     note: String
   }
@@ -79,7 +79,6 @@ const typeDefs = gql`
     city: String!
     state: String!
     zip: String!
-    user: User
   }
 
   input AddressInput {
@@ -95,14 +94,12 @@ const typeDefs = gql`
     companyName: String!
     companyAddress: Address
     companyPhone: String
-    companyAdmin: User
   }
 
   input CompanyInput {
     companyName: String!
     companyAddress: AddressInput
     companyPhone: String
-    companyAdmin: ID
   }
 
   type Auth {
@@ -134,17 +131,7 @@ const typeDefs = gql`
     createAccount(email: String!, password: String!): Auth
     deleteAccount(_id: ID!): Account
     createUser(input: UserInput!): User
-    updateUser(
-      _id: ID!
-      firstName: String
-      lastName: String
-      email: String
-      phone: String
-      payRate: Float
-      fullTime: Boolean
-      activeEmployee: Boolean
-      isAdmin: Boolean
-    ): User
+    updateUser(_id: ID!, input: UserInput!): User
     deleteUser(_id: ID!): User
     addShift(input: ShiftInput!): Shift
     updateShift(_id: ID!, startDateTime: String, endDateTime: String): Shift
@@ -152,7 +139,7 @@ const typeDefs = gql`
     addPosition(jobTitle: String!): Position
     updatePosition(_id: ID!, jobTitle: String): Position
     deletePosition(_id: ID!): Position
-    addCompany(input: CompanyInput!): Company
+    addCompany(input: CompanyInput): Company
     updateCompany(
       _id: ID!
       companyName: String
