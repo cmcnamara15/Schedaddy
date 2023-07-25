@@ -21,7 +21,7 @@ export default function App() {
   }
 
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
     <Container fluid className='px-4'>
       <Navbar.Brand href="/">Schedaddy</Navbar.Brand> 
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
