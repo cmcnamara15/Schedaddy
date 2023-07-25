@@ -25,23 +25,22 @@ const resolvers = {
       console.log(args);
       const user = await User.findOne(args);
       return user;
-    }, 
+    },
     me: async (parent, args, context) => {
-      if(context.account) {
-        console.log(context.account)
+      if (context.account) {
+        console.log(context.account);
         const account = await Account.findOne({
-          _id: context.account._id
-        })
-        .populate("user");
+          _id: context.account._id,
+        }).populate("user");
         return account;
-      } else{
-        throw new AuthenticationError("needs to be logged in")
+      } else {
+        throw new AuthenticationError("needs to be logged in");
       }
-    },   
+    },
 
     shifts: async (parent) => {
       console.log("shifts block");
-      const shifts = await Shift.find({}).populate('user').populate('position');
+      const shifts = await Shift.find({}).populate("user").populate("position");
       console.log(shifts);
       return shifts;
     },
@@ -79,45 +78,43 @@ const resolvers = {
     login: async (parent, { email, password }, context) => {
       const account = await Account.findOne({ email });
       if (!account) {
-          throw new AuthenticationError(
-              "No account found with this email address"
-          );
+        throw new AuthenticationError(
+          "No account found with this email address"
+        );
       }
       const correctPw = await account.isCorrectPassword(password);
       if (!correctPw) {
-          throw new AuthenticationError("Incorrect password");
+        throw new AuthenticationError("Incorrect password");
       }
       const token = signToken(account);
-      return { 
-        token, 
+      return {
+        token,
         account,
         userId: account.user._id,
         companyId: account.user.userCompany,
-        isAdmin: account.user.isAdmin
+        isAdmin: account.user.isAdmin,
       };
     },
     createAccount: async (parents, args) => {
-      try{
+      try {
         console.log("create account block");
         console.log(args);
         const account = await Account.create(args);
         if (!account) {
-          throw new Error('Unable to create account');
-        } 
+          throw new Error("Unable to create account");
+        }
         const token = signToken(account);
-        return { 
-          token, 
+        return {
+          token,
           account,
           userId: account.user._id,
           companyId: account.user.userCompany,
-          isAdmin: account.user.isAdmin
-
+          isAdmin: account.user.isAdmin,
         };
-      } catch(err) {
-        console.log(err)
-        throw new Error("something went wrong!")
+      } catch (err) {
+        console.log(err);
+        throw new Error("something went wrong!");
       }
-      
     },
     deleteAccount: async (args) => {
       console.log("delete account block");
@@ -126,22 +123,24 @@ const resolvers = {
       return;
     },
     createUser: async (parent, args, context) => {
-      if(context.account) {
+      if (context.account) {
         console.log("create user block");
         console.log(args.input);
         const user = await User.create(args.input);
 
-        const account = await Account.updateOne({
-          _id: context.account._id
-        }, {
-          user: user._id
-        })
+        const account = await Account.updateOne(
+          {
+            _id: context.account._id,
+          },
+          {
+            user: user._id,
+          }
+        );
 
         return user;
       } else {
-        throw new AuthenticationError("needs to be logged in")
+        throw new AuthenticationError("needs to be logged in");
       }
-
     },
     updateUser: async (parent, { _id, ...args }) => {
       const user = await User.findByIdAndUpdate(_id, args, { new: true });
@@ -162,13 +161,13 @@ const resolvers = {
       const shift = await Shift.create(args.input);
       const updateUser = await User.findByIdAndUpdate(
         {
-          _id: args.input.user._id
+          _id: args.input.user._id,
         },
-        { 
+        {
           $push: {
             shifts: shift._id,
-          }
-        }, 
+          },
+        },
         { new: true }
       );
       return shift;
@@ -216,14 +215,10 @@ const resolvers = {
       const company = await Company.create(args.input);
       return company;
     },
-    updateCompany: async (parent, {_id, ...args}) => {
-      const company = await Company.findByIdAndUpdate(
-        _id,
-        args,
-        { new: true } 
-      );
-      if(!company) {
-        throw new Error("no position with this ID")
+    updateCompany: async (parent, { _id, ...args }) => {
+      const company = await Company.findByIdAndUpdate(_id, args, { new: true });
+      if (!company) {
+        throw new Error("no position with this ID");
       }
       return company;
     },
@@ -234,6 +229,34 @@ const resolvers = {
       return;
     },
     // ***Addresses***
+    linkUserAccount: async (parent, args, context) => {
+      console.log("link user account");
+      if (context.account) {
+        console.log(args.input);
+
+        const user = await User.findOne(args);
+
+        if (!user) {
+          throw new Error("User not found with that ID");
+        }
+
+        const account = await Account.findOneAndUpdate(
+          {
+            _id: context.account._id,
+          },
+          {
+            user: user._id,
+          },
+          {
+            new: true,
+          }
+        );
+
+        return account;
+      } else {
+        throw new AuthenticationError("needs to be logged in");
+      }
+    },
   },
 };
 
