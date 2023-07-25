@@ -88,7 +88,13 @@ const resolvers = {
           throw new AuthenticationError("Incorrect password");
       }
       const token = signToken(account);
-      return { token, account }
+      return { 
+        token, 
+        account,
+        userId: account.user._id,
+        companyId: account.user.userCompany,
+        isAdmin: account.user.isAdmin
+      };
     },
     createAccount: async (parents, args) => {
       try{
@@ -99,7 +105,14 @@ const resolvers = {
           throw new Error('Unable to create account');
         } 
         const token = signToken(account);
-        return { token, account };
+        return { 
+          token, 
+          account,
+          userId: account.user._id,
+          companyId: account.user.userCompany,
+          isAdmin: account.user.isAdmin
+
+        };
       } catch(err) {
         console.log(err)
         throw new Error("something went wrong!")
