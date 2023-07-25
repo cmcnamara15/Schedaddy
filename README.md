@@ -8,19 +8,19 @@
 
 ## Table of Contents
 
-* [Description](#Description)
-* [Live-URL](#Live-URL)
-* [Screenshots](#Screenshots)
-* [Technologies-Used](#Technologies-Used)
-* [Installation](#Installation)
-* [Credits](#Credits)
-* [Features](#Features)
-* [Usage-Information](#Usage-Information)
-* [Suggested-Future-Development](#Suggested-Future-Development)
-* [Contribution-Guidelines](#Contribution-Guidelines)
-* [Test-Instructions](#Test-Instructions)
-* [License](#License)
-* [Questions](#Questions)
+* [Description](#description)
+* [Live-URL](#live-url)
+* [Screenshots](#screenshots)
+* [Technologies-Used](#technologies-used)
+* [Installation](#installation)
+* [Credits](#credits)
+* [Features](#features)
+* [Usage-Information](#usage-information)
+* [Suggested-Future-Development](#suggested-future-development)
+* [Contribution-Guidelines](#contribution-guidelines)
+* [Test-Instructions](#test-instructions)
+* [License](#license)
+* [Questions](#questions)
 
 ## Description
 
@@ -29,6 +29,8 @@ Schedaddy is a Customer relationship management (CRM) platform with the intent t
 Our intention with Schedaddy was to try our hand at creating a modern CRM platform that could be used to create dynamic schedules for various types of companies.
 
 During this project, we faced a couple of challenges. Our biggest challenge was our 2-week sprint to MVP. Despite the time constraints, we successfully built a solid baseline that formed the core of Schedaddy.
+
+[Link to live URL](https://schedaddy-0dffdc6ab2cd.herokuapp.com/)
 
 ## Screenshots
 
