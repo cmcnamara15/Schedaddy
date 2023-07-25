@@ -38,7 +38,7 @@ export default function App() {
           </Nav.Link>
           <Nav.Link href="/account" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>Account</Nav.Link>
         </Nav>
-        <Nav.Link href="/login"onClick ={()=>{Auth.logout()}} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>{Auth.loggedIn() ? 'Logout' : 'Login'}</Nav.Link>
+        <Nav.Link href="/login" onClick ={()=>{Auth.logout()}} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>{Auth.loggedIn() ? 'Logout' : 'Login'}</Nav.Link>
       </Navbar.Collapse>
     </Container>
     </Navbar>

@@ -23,49 +23,35 @@ export const CREATE_USER = gql`
   mutation createUser($input: UserInput!) {
     createUser(input: $input) {
       _id
-      firstName
-      lastName
-      phone
-      hireDate
-      terminationDate
-      payRate
-      fullTime
-      activeEmployee
-      isAdmin
     }
   }`;
 
 export const UPDATE_USER = gql`
-  mutation updateUser(
-      $_id: ID!
-      $firstName: String
-      $lastName: String
-      $phone: String
-      $payRate: Float
-      $fullTime: Boolean
-      $activeEmployee: Boolean
-      $isAdmin: Boolean
-  ) {
-    updateUser(
-        _id: $_id
-        firstName: $firstName
-        lastName: $lastName
-        phone: $phone
-        payRate: $payRate
-        fullTime: $fullTime
-        activeEmployee: $activeEmployee
-        isAdmin: $isAdmin
-    ) {
+  mutation updateUser($id: ID!, $input: UserInput!) {
+    updateUser(_id: $id, input: $input) {
       _id
-        firstName
-        lastName
-        phone
-        payRate
-        fullTime
-        activeEmployee
-        isAdmin
+      activeEmployee
+      firstName
+      fullTime
+      hireDate
+      isAdmin
+      lastName
+      payRate
+      phone
+      terminationDate
+      userAddress {
+        city
+        state
+        street1
+        street2
+        zip
+      }
+      userCompany {
+        _id
+      }
     }
-  }`;
+  }
+`;
 
 export const DELETE_USER = gql`
   mutation deleteUser($id: ID!) {
@@ -184,17 +170,23 @@ export const DELETE_COMPANY = gql`
         _id
         email
       }
+      userId
+      companyId
+      isAdmin
     }
   }`;
 
   export const LINK_USER_ACCOUNT = gql`
-  mutation linkUserAccount($accountId: ID!, $userId: ID!) {
-    linkUserAccount(accountId: $accountId, userId: $userId) {
+  mutation LinkUserAccount($id: ID!) {
+    linkUserAccount(_id: $id) {
+      token
       account {
         _id
-        user {
-          _id
-        }
+        email
       }
+      userId
+      companyId
+      isAdmin
     }
-  }`
+  }
+`;

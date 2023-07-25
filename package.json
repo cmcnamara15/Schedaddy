@@ -1,7 +1,8 @@
 {
   "name": "group-project-3",
   "version": "1.0.0",
-  "description": "",
+  "description": "Schedaddy is a Customer relationship management (CRM) platform with the intent to streamline your scheduling for your company. Schedaddy offers the ability to manage employees, roles, and schedules with the greatest of ease.",
+  "homepage": "https://schedaddy-0dffdc6ab2cd.herokuapp.com/",
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
@@ -22,6 +23,11 @@
     "express": "^4.17.2",
     "graphql": "^15.8.0",
     "jsonwebtoken": "^9.0.1",
+    "moment": "^2.29.4",
     "typewriter-effect": "^2.20.1"
+  },
+  "engines": {
+    "node": "16.19.1",
+    "npm": "8.19.3"
   }
 }

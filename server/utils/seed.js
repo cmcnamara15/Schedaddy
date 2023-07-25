@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 const { faker } = require('@faker-js/faker');
 
 const { Account, Address, Company, Position, Shift, User } = require('../models/index.js');
@@ -13,7 +14,13 @@ async function seedDb() {
         const fakeCompanies = Array.from({ length: 5 }, () => ({
             companyName: faker.company.name(),
             companyPhone: faker.phone.number('512-###-####'),
-            positions: [], 
+            companyAddress: {
+              street1: faker.location.streetAddress(),
+              city: faker.location.city(),
+              state: faker.location.state({ abbreviated: true }),
+              zip: faker.location.zipCode(),
+              country: faker.location.country(),
+            }
         }));
 
         const fakePositions = Array.from({ length: 10 }, () => ({
@@ -39,7 +46,7 @@ async function seedDb() {
             firstName: faker.person.firstName(),
             lastName: faker.person.lastName(),
             phone: faker.phone.number('512-###-####'),
-            hireDate: faker.date.past(),
+            hireDate: moment(faker.date.past()).format('YYYY-MM-DD'),
             payRate: faker.number.octal({ min: 20000, max: 150000 }),
             fullTime: faker.datatype.boolean(),
             activeEmployee: faker.datatype.boolean(),
@@ -53,17 +60,17 @@ async function seedDb() {
         for (let i = 0; i < fakeUsers.length; i++) {
             const fakeUser = fakeUsers[i];
             // embed the address schema within each user document
-            fakeUser.address = {
+            fakeUser.userAddress = {
                 street1: faker.location.streetAddress(),
                 city: faker.location.city(),
-                state: faker.location.state(),
-                zip: faker.location.zipCode(),
+                state: faker.location.state({ abbreviated: true }),
+                zip: faker.location.zipCode('#####'),
                 country: faker.location.country(),
             };
 
             // set some employees with termination date and some null(active)
             if (faker.datatype.boolean()) {
-                fakeUser.terminationDate = faker.date.past();
+                fakeUser.terminationDate = moment(faker.date.past()).format('YYYY-MM-DD');
             } else {
                 fakeUser.terminationDate = null;
             }
@@ -80,20 +87,6 @@ async function seedDb() {
         }
 
         const companies = await Company.insertMany(fakeCompanies);
-
-        for (let i = 0; i < companies.length; i++) {
-            const company = companies[i];
-
-            // Randomly select positions from the positions array
-            const numPositionsToAdd = Math.floor(Math.random() * fakePositions.length) + 1; // Randomly select 1 to n positions
-            const positionsToAdd = fakePositions.slice(0, numPositionsToAdd);
-
-            // Assign the selected positions to the company
-            company.positions = positionsToAdd.map(position => position._id);
-            
-            // Save the updated company
-            await company.save();
-        }
 
         const positions = await Position.insertMany(fakePositions); // Save the actual Position documents
 

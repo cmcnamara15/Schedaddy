@@ -23,8 +23,6 @@ const LoginForm = () => {
   //submit form
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log(user);
-    // alert(`You have succesfully logged in ${user.email}, here is your password: ${user.password}`);
 
     try {
       const { data } = await login({
@@ -32,6 +30,7 @@ const LoginForm = () => {
       });
 
       Auth.login(data.login.token);
+      console.log(Auth.getProfile());
     } catch (e) {
       console.error(e);
     }
@@ -43,10 +42,10 @@ const LoginForm = () => {
     });
   };
 
-  useEffect(() => {
-    // For debugging/state evaluation purposes
-    console.log(user);
-  }, [user])
+  // useEffect(() => {
+  //   // For debugging/state evaluation purposes
+  //   console.log(user);
+  // }, [user])
 
   return (
     <>
