@@ -58,7 +58,7 @@ const typeDefs = gql`
     startDateTime: String!
     endDateTime: String!
     user: ID!
-    position: PositionInput!
+    position: ID!
     note: String
   }
 
@@ -108,6 +108,9 @@ const typeDefs = gql`
   type Auth {
     token: ID!
     account: Account!
+    userId: ID
+    companyId: ID
+    isAdmin: Boolean
   }
 
   type Query {
