@@ -57,8 +57,8 @@ const typeDefs = gql`
   input ShiftInput {
     startDateTime: String!
     endDateTime: String!
-    user: UserInput!
-    position: PositionInput!
+    user: ID!
+    position: ID!
     note: String
   }
 

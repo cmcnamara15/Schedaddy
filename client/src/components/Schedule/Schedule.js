@@ -7,7 +7,7 @@ import AddShiftForm from './AddShiftForm';
 import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { useQuery, useMutation} from '@apollo/client';
+import { useQuery, useMutation, gql} from '@apollo/client';
 import { FIND_ALL_SHIFTS } from '../../utils/queries.js';
 import { ADD_SHIFT, DELETE_SHIFT } from '../../utils/mutations';
 
@@ -43,10 +43,49 @@ const Schedule = () => {
     }, [data, error, loading]);
 
     // mutation to add shift
-    // need mutation
-    const addShift = (newShift) => {
-        setShifts((prevShifts) => [...prevShifts, newShift]);
-        // need additional logic to add the new shift to the database
+    const [addShiftMutation] = useMutation(ADD_SHIFT, {
+        update(cache, { data: { addShift } }) {
+        cache.modify({
+            fields: {
+            shifts(existingShifts = []) {
+                const newShiftRef = cache.writeFragment({
+                data: addShift,
+                fragment: gql`
+                    fragment NewShift on Shift {
+                    _id
+                    startDateTime
+                    endDateTime
+                    user {
+                        _id
+                        firstName
+                        lastName
+                    }
+                    position {
+                        _id
+                        jobTitle
+                    }
+                    note
+                    }
+                `,
+                });
+                return [...existingShifts, newShiftRef];
+            },
+            },
+        });
+        },
+    });
+
+  // Correctly use addShiftMutation -> addShift
+    const addShift = (newShiftInput) => {
+        addShiftMutation({
+        variables: { input: newShiftInput },
+        })
+        .then((response) => {
+            console.log('Shift added successfully:', response.data.addShift);
+        })
+        .catch((error) => {
+            console.error('Error adding shift:', error);
+        });
     };
 
     // mutation to delete shift

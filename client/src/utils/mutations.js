@@ -79,7 +79,6 @@ export const DELETE_USER = gql`
         _id
         firstName
         lastName
-        phone
       }
       position {
         _id
