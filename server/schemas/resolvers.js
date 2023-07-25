@@ -25,19 +25,19 @@ const resolvers = {
       console.log(args);
       const user = await User.findOne(args);
       return user;
-    }, 
+    },
     me: async (parent, args, context) => {
-      if(context.account) {
+      if (context.account) {
         console.log(context.account)
         const account = await Account.findOne({
           _id: context.account._id
         })
-        .populate("user");
+          .populate("user");
         return account;
-      } else{
+      } else {
         throw new AuthenticationError("needs to be logged in")
       }
-    },   
+    },
 
     shifts: async (parent) => {
       console.log("shifts block");
@@ -79,17 +79,17 @@ const resolvers = {
     login: async (parent, { email, password }, context) => {
       const account = await Account.findOne({ email });
       if (!account) {
-          throw new AuthenticationError(
-              "No account found with this email address"
-          );
+        throw new AuthenticationError(
+          "No account found with this email address"
+        );
       }
       const correctPw = await account.isCorrectPassword(password);
       if (!correctPw) {
-          throw new AuthenticationError("Incorrect password");
+        throw new AuthenticationError("Incorrect password");
       }
       const token = signToken(account);
-      return { 
-        token, 
+      return {
+        token,
         account,
         userId: account.user?._id || '',
         companyId: account.user?.userCompany._id || '',
@@ -97,27 +97,27 @@ const resolvers = {
       };
     },
     createAccount: async (parents, args) => {
-      try{
+      try {
         console.log("create account block");
         console.log(args);
         const account = await Account.create(args);
         if (!account) {
           throw new Error('Unable to create account');
-        } 
+        }
         const token = signToken(account);
-        return { 
-          token, 
+        return {
+          token,
           account,
           userId: account.user?._id,
           companyId: account.user?.userCompany._id,
           isAdmin: account.user?.isAdmin
 
         };
-      } catch(err) {
+      } catch (err) {
         console.log(err)
         throw new Error("something went wrong!")
       }
-      
+
     },
     deleteAccount: async (args) => {
       console.log("delete account block");
@@ -126,7 +126,7 @@ const resolvers = {
       return;
     },
     createUser: async (parent, args, context) => {
-      if(context.account) {
+      if (context.account) {
         console.log("create user block");
         console.log(args.input);
         const user = await User.create(args.input);
@@ -143,13 +143,13 @@ const resolvers = {
       }
 
     },
-    updateUser: async(parent, {_id, ...args }) => {
+    updateUser: async (parent, { _id, ...args }) => {
       const user = await User.findByIdAndUpdate(
-        _id, 
+        _id,
         args.input,
         { new: true }
       );
-      if(!user) {
+      if (!user) {
         throw new Error("no user with this id")
       }
       return user;
@@ -168,22 +168,22 @@ const resolvers = {
         {
           _id: args.input.user._id
         },
-        { 
+        {
           $push: {
             shifts: shift._id,
           }
-        }, 
+        },
         { new: true }
       );
       return shift;
     },
-    updateShift: async (parent, {_id, ...args}) => {
+    updateShift: async (parent, { _id, ...args }) => {
       const shift = await Shift.findByIdAndUpdate(
         _id,
         args,
-        { new: true } 
+        { new: true }
       );
-      if(!shift) {
+      if (!shift) {
         throw new Error("no shift with this ID")
       }
       return shift;
@@ -200,13 +200,13 @@ const resolvers = {
       const position = await Position.create(args);
       return position;
     },
-    updatePosition: async (parent, {_id, ...args}) => {
+    updatePosition: async (parent, { _id, ...args }) => {
       const position = await Position.findByIdAndUpdate(
         _id,
         args,
-        { new: true } 
+        { new: true }
       );
-      if(!position) {
+      if (!position) {
         throw new Error("no position with this ID")
       }
       return position;
@@ -226,13 +226,13 @@ const resolvers = {
       const company = await Company.create(args.input);
       return company;
     },
-    updateCompany: async (parent, {_id, ...args}) => {
+    updateCompany: async (parent, { _id, ...args }) => {
       const company = await Company.findByIdAndUpdate(
         _id,
         args,
-        { new: true } 
+        { new: true }
       );
-      if(!company) {
+      if (!company) {
         throw new Error("no position with this ID")
       }
       return company;
@@ -245,7 +245,7 @@ const resolvers = {
     },
     linkUserAccount: async (parent, args, context) => {
       console.log("link user account");
-      if(context.account) {
+      if (context.account) {
         console.log(args);
 
         const account = await Account.findOneAndUpdate({
