@@ -11,7 +11,7 @@ import { useQuery, useMutation, gql} from '@apollo/client';
 import { FIND_ALL_SHIFTS } from '../../utils/queries.js';
 import { ADD_SHIFT, DELETE_SHIFT } from '../../utils/mutations';
 import Auth from '../../utils/auth';
-import RequestSignIn from '../RequestSignIn';
+import RequestSignIn from '../partials/RequestSignIn';
 
 const localizer = momentLocalizer(moment);
 

@@ -6,7 +6,7 @@ import { FIND_ALL_POSITIONS } from '../utils/queries';
 import EmptyPosition from './partials/EmptyPosition';
 import { AiOutlinePlus } from 'react-icons/ai';
 import Auth from '../utils/auth';
-import RequestSignIn from './RequestSignIn';
+import RequestSignIn from './partials/RequestSignIn';
 
 const PositionList = () => {
   const { loading, data, error } = useQuery(FIND_ALL_POSITIONS);

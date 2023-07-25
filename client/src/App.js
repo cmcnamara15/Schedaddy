@@ -6,12 +6,12 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import Navbar from './components/Navbar';
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/js/bootstrap.min.js";
+
+import Navbar from './components/Navbar';
 import EmployeeList from "./components/EmployeeList";
 import LoginForm from "./components/forms/LoginForm";
-import RegisterForm from "./components/forms/RegisterForm";
 import Schedule from "./components/Schedule/Schedule";
 import AccountPage from "./components/AccountPage";
 import PositionList from "./components/PositionList";
@@ -19,6 +19,8 @@ import AddCompany from "./components/AddCompany";
 import AddUserProfile from './components/AddUserProfile';
 import LandingPage from "./components/LandingPage";
 import Footer from "./components/Footer";
+
+import Auth from './utils/auth';
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -54,10 +56,6 @@ function App() {
             <Route
               path='/login'
               element={<LoginForm />}
-            />
-            <Route
-              path='/register'
-              element={<RegisterForm />}
             />
             <Route
               path='/schedule'

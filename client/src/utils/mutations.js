@@ -2,7 +2,13 @@ import { gql } from "@apollo/client";
 
 export const CREATE_ACCOUNT = gql`
   mutation createAccount($email: String!, $password: String!) {
-    createAccount(email: $email, password: $password) 
+    createAccount(email: $email, password: $password) {
+      token
+      account {
+        _id
+        email
+      }
+    }
   }`;
 
 export const DELETE_ACCOUNT = gql`
@@ -61,7 +67,6 @@ export const UPDATE_USER = gql`
     }
   }`;
 
-
 export const DELETE_USER = gql`
   mutation deleteUser($id: ID!) {
     deleteUser(_id: $id) {
@@ -69,7 +74,7 @@ export const DELETE_USER = gql`
     }
   }`;
 
-  export const ADD_SHIFT = gql`
+export const ADD_SHIFT = gql`
   mutation addShift($input: ShiftInput!) {
     addShift(input: $input) {
       _id
