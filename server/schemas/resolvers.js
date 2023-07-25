@@ -254,14 +254,22 @@ const resolvers = {
         console.log(args);
 
         const account = await Account.findOneAndUpdate({
-          _id: context.account._id
+          _id: context.account.accountId
         }, {
           user: args._id
         }, {
           new: true
-        }).populate('userCompany')
+        }).populate('user');
 
-        return account;
+        const token = signToken(account);
+        return {
+          token,
+          account,
+          userId: account.user?._id || '',
+          companyId: account.user?.userCompany?._id || '',
+          isAdmin: account.user?.isAdmin || true
+        };
+        
       } else {
         throw new AuthenticationError("needs to be logged in");
       }

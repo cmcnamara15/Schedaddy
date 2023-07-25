@@ -23,15 +23,6 @@ export const CREATE_USER = gql`
   mutation createUser($input: UserInput!) {
     createUser(input: $input) {
       _id
-      firstName
-      lastName
-      phone
-      hireDate
-      terminationDate
-      payRate
-      fullTime
-      activeEmployee
-      isAdmin
     }
   }`;
 
@@ -186,11 +177,16 @@ export const DELETE_COMPANY = gql`
   }`;
 
   export const LINK_USER_ACCOUNT = gql`
-  mutation linkUserAccount($accountId: ID!, $userId: ID!) {
+  mutation LinkUserAccount($id: ID!) {
     linkUserAccount(_id: $id) {
-      _id
-      user {
+      token
+      account {
         _id
+        email
       }
+      userId
+      companyId
+      isAdmin
     }
-  }`
+  }
+`;
