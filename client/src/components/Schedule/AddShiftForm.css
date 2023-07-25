@@ -1,0 +1,37 @@
+div.rdtDays, th.rdtSwitch, div.rdtTime {
+    text-align: center;
+}
+
+.time-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.time-label {
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
+}
+
+.time-container.input.form-control {
+    width: 100%;
+    margin: 20px;
+}
+
+.dt-container {
+    display: flex;
+    justify-content: center;
+}
+
+div.rdtDays {
+    margin-top: 5%;
+}
+
+td.rdtTimeToggle {
+    padding: 5px;
+    font-weight: bold;
+}
+
+td.rdtDay {
+    padding: 6px;
+}

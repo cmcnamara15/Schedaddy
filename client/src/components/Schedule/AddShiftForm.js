@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './AddShiftForm.css';
 import { Form, FormGroup, FormLabel, FormControl, Button, Modal } from 'react-bootstrap';
 import Datetime from 'react-datetime'; 
 import { AiOutlinePlus } from 'react-icons/ai';
@@ -99,12 +100,12 @@ const AddShiftForm = ({ onAddShift }) => {
         
         {/* MODAL******************************* */}
         <Modal show={showModal} onHide={handleClose}>
-
             <Modal.Header closeButton>
                 <Modal.Title>Add Shift</Modal.Title>
             </Modal.Header>
 
-            <Modal.Body>
+            <Modal.Body className="d-flex justify-content-center align-items-center">
+            <div className="container">
                 <Form>
                     
                     {/* DROPDOWNS */}
@@ -142,12 +143,12 @@ const AddShiftForm = ({ onAddShift }) => {
                     </div>
                     
                     {/* DATE PICKERS ROW*/}
-                    <div className='row mb-3'>
+                    <div className='row mb-3 time-container'>
 
                     {/* START TIME */}
-                        <div className='col-md-5'>
+                        <div className='col dt-container'>
                             <FormGroup controlId="startTime">
-                                <FormLabel>Start Time</FormLabel>
+                                <FormLabel className='time-label'>Start Time</FormLabel>
                                 <Datetime
                                 value={formData.startTime}
                                 onChange={(date) => handleChange('startTime', date)}
@@ -155,11 +156,11 @@ const AddShiftForm = ({ onAddShift }) => {
                                 />
                             </FormGroup>
                         </div>
-
+                    
                     {/* END TIME */}
-                        <div className='col-md-5'>
+                        <div className='col dt-container'>
                             <FormGroup controlId="endTime">
-                                <FormLabel>End Time</FormLabel>
+                                <FormLabel className='time-label'>End Time</FormLabel>
                                 <Datetime
                                 value={formData.endTime}
                                 onChange={(date) => handleChange('endTime', date)}
@@ -173,12 +174,13 @@ const AddShiftForm = ({ onAddShift }) => {
                     {/* NOTES */}
                     <div className='mb-3'>
                         <FormGroup controlId="notes">
-                            <FormLabel>Notes</FormLabel>
+                            <FormLabel className='notes-label'>Notes</FormLabel>
                             <FormControl as="textarea" value={formData.notes} onChange={(event) => handleChange('notes', event.target.value)} />
                         </FormGroup>
                     </div>
                     
                 </Form>
+            </div>
             </Modal.Body>
 
             <Modal.Footer>
@@ -190,7 +192,6 @@ const AddShiftForm = ({ onAddShift }) => {
                     Submit
                 </Button>
             </Modal.Footer>
-
         </Modal>
         </>  
     )
