@@ -7,16 +7,19 @@ const LandingPage = () => {
     <div className='conatiner text-center my-5'>
       {Auth.loggedIn() ? (
         <>
-          <h2>Welcome to Schedaddy!</h2>
-          <p>Thank you for signing in.</p>
+        <div className="jumbotron">
+          <h1 className="display-4">Welcome to Schedaddy!</h1>
+          <p className="lead">Thanks for signing in <a href="/login" className="text-decoration-none">log in</a> to begin.</p>
+        </div>
         </>
       ) : (
         <>
-          <h2>Welcome to Schedaddy!</h2>
-          <p>Please <a href="/login">log in</a> to begin.</p>
+        <div className="jumbotron">
+          <h1 className="display-4">Welcome to Schedaddy!</h1>
+          <p className="lead">Please <a href="/login" className="text-decoration-none">log in</a> to begin.</p>
+        </div>
         </>
       )}
-      
     </div>
   )
 }

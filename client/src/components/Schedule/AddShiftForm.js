@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Form, FloatingLabel, Dropdown, FormGroup, FormLabel, FormControl, Button, Modal } from 'react-bootstrap';
+import { Form, FormGroup, FormLabel, FormControl, Button, Modal } from 'react-bootstrap';
 import Datetime from 'react-datetime'; 
 import { AiOutlinePlus } from 'react-icons/ai';
-import ShiftList from './ShiftListModal';
 
 import { useQuery } from "@apollo/client";
 import { FIND_ALL_USERS, FIND_ALL_POSITIONS } from '../../utils/queries';
@@ -17,11 +16,10 @@ const AddShiftForm = ({ onAddShift }) => {
         notes: '',
     });
     
-    // Fetch users and positions data using useQuery hooks
+    // queries to fetch users and positions for dropdowns
     const { data: userData, loading: userLoading, error: userError } = useQuery(FIND_ALL_USERS);
     const { data: positionData, loading: positionLoading, error: positionError } = useQuery(FIND_ALL_POSITIONS);
 
-    // Check if data is still loading or if there's an error in the queries
     if (userLoading || positionLoading) {
         return <div>Loading...</div>;
     }
@@ -36,7 +34,6 @@ const AddShiftForm = ({ onAddShift }) => {
         return <div>Error fetching positions.</div>;
     }
 
-    // Extract users and positions from the fetched data
     const users = userData?.users || [];
     const positions = positionData?.positions || [];
 

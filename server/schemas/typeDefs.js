@@ -5,30 +5,30 @@ const typeDefs = gql`
     _id: ID!
     firstName: String!
     lastName: String!
-    phone: String!
+    phone: String
     hireDate: String!
     terminationDate: String
     payRate: Float!
     fullTime: Boolean!
-    activeEmployee: Boolean!
-    isAdmin: Boolean!
+    activeEmployee: Boolean
+    isAdmin: Boolean
     shift: [ID]
     userAddress: Address
-    userCompany: ID!
+    userCompany: ID
   }
 
   input UserInput {
     firstName: String!
     lastName: String!
-    phone: String!
+    phone: String
     hireDate: String!
     terminationDate: String
     payRate: Float!
-    fullTime: Boolean!
-    activeEmployee: Boolean!
-    isAdmin: Boolean!
+    fullTime: Boolean
+    activeEmployee: Boolean
+    isAdmin: Boolean
     userAddress: AddressInput
-    userCompany: ID!
+    userCompany: ID
   }
 
   type Account {
@@ -94,14 +94,14 @@ const typeDefs = gql`
     _id: ID!
     companyName: String!
     companyAddress: Address
-    companyPhone: String!
+    companyPhone: String
     companyAdmin: User
   }
 
   input CompanyInput {
     companyName: String!
     companyAddress: AddressInput
-    companyPhone: String!
+    companyPhone: String
     companyAdmin: ID
   }
 

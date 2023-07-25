@@ -115,7 +115,10 @@ const resolvers = {
       if(context.account) {
         console.log("create user block");
         console.log(args.input);
-        const user = await User.create(args.input);
+        const user = await User.create({
+          ...args.input,
+          payRate: parseFloat(args.input.payRate)
+        });
         return user;
       } else {
         throw new AuthenticationError("needs to be logged in")
