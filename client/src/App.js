@@ -15,12 +15,14 @@ import LoginForm from "./components/forms/LoginForm";
 import Schedule from "./components/Schedule/Schedule";
 import AccountPage from "./components/AccountPage";
 import PositionList from "./components/PositionList";
-import AddCompany from "./components/AddCompany";
-import AddUserProfile from './components/AddUserProfile';
+import AddCompany from "./components/partials/AddCompany";
+import AddUserProfile from './components/partials/AddUserProfile';
 import LandingPage from "./components/LandingPage";
 import Footer from "./components/Footer";
 
 import Auth from './utils/auth';
+import Account from "./components/Account";
+import RequestSignIn from "./components/partials/RequestSignIn";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -59,27 +61,27 @@ function App() {
             />
             <Route
               path='/schedule'
-              element={<Schedule />}
+              element={Auth.loggedIn() ? <Schedule /> : <RequestSignIn/>}
             />
             <Route
               path='/account'
-              element={<AccountPage />}
+              element={
+                Auth.loggedIn() ?
+                  (Auth.hasUser() ? (
+                    Auth.hasCompany() ? 
+                      <Account/> 
+                    : <AddCompany/>) 
+                  : <AddUserProfile />)
+                : <RequestSignIn/>
+              }
             />
             <Route
               path='/positions'
-              element={<PositionList />}
+              element={Auth.loggedIn() ? <PositionList /> : <RequestSignIn/>}
             />
             <Route
               path='/employees'
-              element={<EmployeeList />}
-            />
-            <Route
-              path="/createCompany"
-              element={<AddCompany />}
-            />
-            <Route
-              path="/createUser"
-              element={<AddUserProfile />}
+              element={Auth.loggedIn() ? <EmployeeList /> : <RequestSignIn/>}
             />
           </Routes>
           <Footer />

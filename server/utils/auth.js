@@ -30,8 +30,14 @@ module.exports = {
     // send to next endpoint
     return req;
   },
-  signToken: function ({ email, _id, firstName, lastName }) {
-    const payload = { email, _id, firstName, lastName };
+  signToken: function ({ email, _id, user }) {
+    const payload = { 
+      email, 
+      accountId: _id, 
+      userId: user?._id, 
+      isAdmin: user?.isAdmin,
+      companyId: user?.userCompany?._id,
+    };
 
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
   },

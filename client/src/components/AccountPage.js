@@ -4,8 +4,17 @@ import React from 'react'
 import { FIND_ME, FIND_SINGLE_COMPANY } from '../utils/queries';
 import Auth from '../utils/auth';
 import RequestSignIn from './partials/RequestSignIn';
+import { redirect } from 'react-router-dom';
 
 const AccountPage = () => {
+  const sessionData = Auth.getProfile();
+  console.log(sessionData);
+  if (!sessionData.userId) {
+    redirect('/createUser');
+  }
+  if (!sessionData.userCompany) {
+    redirect('/createCompany');
+  }
   const { data: userData, loading: userLoading, error: userError } = useQuery(FIND_ME);
   const { data: companyData, loading: companyLoading, error: companyError } = useQuery(FIND_SINGLE_COMPANY, {
     variables: {

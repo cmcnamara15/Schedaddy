@@ -1,7 +1,7 @@
 import React from 'react'
 
-import CompanyForm from "./forms/CompanyForm";
-import EmptyCompany from "./partials/EmptyCompany";
+import CompanyForm from "../forms/CompanyForm";
+import EmptyCompany from "./EmptyCompany";
 
 import { FaFileCirclePlus } from 'react-icons/fa6';
 
