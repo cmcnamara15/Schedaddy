@@ -105,6 +105,7 @@ const EmployeeForm = ({ u, id, button }) => {
     // }
 
     setUser(EmptyUser);
+    window.location.reload();
   };
 
   return (
