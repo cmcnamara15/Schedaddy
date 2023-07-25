@@ -103,13 +103,6 @@ const RegisterForm = () => {
               onChange={handleInputChange} />
           </Form.Group>
           <input className='btn btn-secondary m-1 col-2' type='button' value="Submit" onClick={handleFormSubmit} />
-          <CompanyForm c={EmptyCompany} button={
-            <button type='button' className='btn btn-primary' data-bs-toggle='tooltip' data-bs-placement='left' title='Add an Employee'>
-              <span data-bs-toggle='modal' data-bs-target='#companyForm'>
-                <FaFileCirclePlus/>
-              </span>
-            </button>
-          }/>
         </Form>
         )}
 
