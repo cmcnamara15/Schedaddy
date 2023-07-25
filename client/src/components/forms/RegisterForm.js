@@ -26,7 +26,6 @@ const RegisterForm = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log(user);
 
     try {
       if (user.password === user.confirmPassword) {
@@ -36,8 +35,6 @@ const RegisterForm = () => {
             password: user.password,
           }
         });
-
-        console.log(data);
 
         Auth.login(data.createAccount.token);
       } else {
