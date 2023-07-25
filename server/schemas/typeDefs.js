@@ -148,7 +148,7 @@ const typeDefs = gql`
       companyAdmin: ID
     ): Company
     deleteCompany(_id: ID!): Company
-    linkUserAccount(_id: ID!): Account
+    linkUserAccount(_id: ID!): Auth
   }
 `;
 

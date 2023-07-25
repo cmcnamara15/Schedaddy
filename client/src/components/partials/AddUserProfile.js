@@ -22,11 +22,12 @@ const AddUserProfile = () => {
   };
 
   const handleFormSubmit = async () => {
-    const { data, error } = await linkUser({
+    const { data } = await linkUser({
       variables: {
         id: userCode,
       }
     })
+    Auth.login(data.login.token);
     window.location.reload();
   }
 

@@ -59,9 +59,26 @@ export const FIND_ALL_USERS = gql`
       _id
       firstName
       lastName
+      phone
+      payRate
+      hireDate
+      terminationDate
+      activeEmployee
+      fullTime
+      isAdmin
+      userCompany {
+        _id
+      }
+      userAddress {
+        street1
+        street2
+        city
+        state
+        zip
+      }
     }
   }
-  `;
+`;
 
 export const FIND_SINGLE_USER = gql`
   query user($id: ID!) {
