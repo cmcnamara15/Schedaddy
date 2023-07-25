@@ -6,7 +6,7 @@ const {
   Shift,
   User,
 } = require("../models");
-// const { signToken } = require("../utils/auth");
+const { signToken } = require("../utils/auth");
 const { AuthenticationError } = require("apollo-server-express");
 
 const resolvers = {
@@ -121,7 +121,7 @@ const resolvers = {
         };
       } catch (err) {
         console.log(err)
-        throw new Error("something went wrong!")
+        throw new Error(`Err: ${err.message}`)
       }
 
     },
