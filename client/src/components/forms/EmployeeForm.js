@@ -50,9 +50,9 @@ const EmployeeForm = ({ u, id, button }) => {
     setUser(EmptyUser);
   }
 
-  useEffect(() => {
-    console.log(data);
-  }, [data])
+  // useEffect(() => {
+  //   console.log(data);
+  // }, [data])
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();

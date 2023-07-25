@@ -5,7 +5,7 @@ import EmptyUser from "./partials/EmptyUser";
 
 import { FaFileCirclePlus } from 'react-icons/fa6';
 import Auth from '../utils/auth';
-import RequestSignIn from './RequestSignIn';
+import RequestSignIn from './partials/RequestSignIn';
 import { useMutation } from '@apollo/client';
 import { LINK_USER_ACCOUNT } from '../utils/mutations';
 import FormInput from './partials/FormInput';

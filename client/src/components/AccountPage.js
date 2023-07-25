@@ -3,7 +3,7 @@ import React from 'react'
 
 import { FIND_ME, FIND_SINGLE_COMPANY } from '../utils/queries';
 import Auth from '../utils/auth';
-import RequestSignIn from './RequestSignIn';
+import RequestSignIn from './partials/RequestSignIn';
 
 const AccountPage = () => {
   const { data: userData, loading: userLoading, error: userError } = useQuery(FIND_ME);

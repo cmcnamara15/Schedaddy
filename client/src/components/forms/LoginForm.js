@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Form, Container, Row, Col, Image } from 'react-bootstrap';
+import { Button, Form, Container, Row, Col } from 'react-bootstrap';
 import RegisterForm from './RegisterForm';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../../utils/mutations';
@@ -82,7 +82,7 @@ const LoginForm = () => {
                       placeholder='Password'
                       onChange={handleInputChange} />
                   </Form.Group>
-                  <input className='btn btn-secondary m-1 col-2' type="button" value="Login" onClick={handleFormSubmit} />
+                  <Button className='btn btn-secondary m-1 col-2' type="submit">Login</Button>
                 </Form>
                 )}
 

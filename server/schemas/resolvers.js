@@ -42,7 +42,6 @@ const resolvers = {
     shifts: async (parent) => {
       console.log("shifts block");
       const shifts = await Shift.find({}).populate('user').populate('position');
-      console.log(shifts);
       return shifts;
     },
     shift: async (parent, args, context) => {
@@ -92,7 +91,7 @@ const resolvers = {
         token,
         account,
         userId: account.user?._id || '',
-        companyId: account.user?.userCompany._id || '',
+        companyId: account.user?.userCompany?._id || '',
         isAdmin: account.user?.isAdmin || true
       };
     },
@@ -109,13 +108,13 @@ const resolvers = {
           token,
           account,
           userId: account.user?._id,
-          companyId: account.user?.userCompany._id,
+          companyId: account.user?.userCompany?._id,
           isAdmin: account.user?.isAdmin
 
         };
       } catch (err) {
         console.log(err)
-        throw new Error("something went wrong!")
+        throw new Error(`Error: ${err.message}`)
       }
 
     },
