@@ -250,7 +250,7 @@ const resolvers = {
       } else {
         throw new AuthenticationError("needs to be logged in");
       }
-    }
+    },
     // ***Addresses***
     linkUserAccount: async (parent, args, context) => {
       console.log("link user account");
