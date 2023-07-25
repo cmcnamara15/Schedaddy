@@ -49,14 +49,14 @@ const userSchema = new Schema({
     unique: false,
     required: false,
   },
-  shift: [
+  shifts: [
     {
       type: Schema.Types.ObjectId,
       ref: "Shift",
     }
   ],
   userAddress: addressSchema,
-  company: {
+  userCompany: {
     type: Schema.Types.ObjectId,
     ref: "Company",
   },
