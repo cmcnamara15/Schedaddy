@@ -9,7 +9,7 @@ const LandingPage = () => {
         <>
         <div className="jumbotron">
           <h1 className="display-4">Welcome to Schedaddy!</h1>
-          <p className="lead">Thanks for signing in <a href="/login" className="text-decoration-none">log in</a> to begin.</p>
+          <p className="lead">Thanks for signing in!</p>
         </div>
         </>
       ) : (
