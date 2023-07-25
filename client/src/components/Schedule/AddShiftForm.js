@@ -45,7 +45,7 @@ const AddShiftForm = ({ onAddShift }) => {
   const positions = positionData?.positions || [];
 
   // sort users and positions arrays alpha
-  const sortedUsers = users.slice().sort((a, b) => a.firstName.localeCompare(b.firstName));
+  const sortedUsers = users.slice().sort((a, b) => a.lastName.localeCompare(b.lastName));
   const sortedPositions = positions.slice().sort((a, b) => a.jobTitle.localeCompare(b.jobTitle));
 
   const handleClose = () => setShowModal(false);
