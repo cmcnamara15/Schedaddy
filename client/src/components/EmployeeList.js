@@ -6,7 +6,7 @@ import { FIND_ALL_USERS } from '../utils/queries';
 import { AiOutlinePlus } from 'react-icons/ai';
 import Auth from '../utils/auth';
 import EmptyUser from './partials/EmptyUser';
-import RequestSignIn from './RequestSignIn';
+import RequestSignIn from './partials/RequestSignIn';
 
 
 

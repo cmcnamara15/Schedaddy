@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import {
   ApolloClient,
   InMemoryCache,
@@ -6,19 +6,25 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import Navbar from './components/Navbar';
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/js/bootstrap.min.js";
+
+import Navbar from './components/Navbar';
 import EmployeeList from "./components/EmployeeList";
 import LoginForm from "./components/forms/LoginForm";
-import RegisterForm from "./components/forms/RegisterForm";
 import Schedule from "./components/Schedule/Schedule";
 import AccountPage from "./components/AccountPage";
 import PositionList from "./components/PositionList";
-import AddCompany from "./components/AddCompany";
-import AddUserProfile from './components/AddUserProfile';
+import AddCompany from "./components/partials/AddCompany";
+import AddUserProfile from './components/partials/AddUserProfile';
 import LandingPage from "./components/LandingPage";
 import Footer from "./components/Footer";
+
+import Auth from './utils/auth';
+import Account from "./components/Account";
+import RequestSignIn from "./components/partials/RequestSignIn";
+
+import TestPage from './components/TestPage';
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -49,39 +55,39 @@ function App() {
           <Routes>
             <Route
               path='/'
-              element={<LandingPage />}
+              element={Auth.loggedIn() ? <Navigate to='/schedule' replace='true'/> : <LandingPage />}
             />
             <Route
               path='/login'
               element={<LoginForm />}
             />
             <Route
-              path='/register'
-              element={<RegisterForm />}
-            />
-            <Route
               path='/schedule'
-              element={<Schedule />}
+              element={Auth.loggedIn() ? <Schedule /> : <RequestSignIn/>}
             />
             <Route
               path='/account'
-              element={<AccountPage />}
+              element={
+                Auth.loggedIn() ?
+                  (Auth.hasUser() ? (
+                    Auth.hasCompany() ? 
+                      <AccountPage/> 
+                    : <AddCompany/>) 
+                  : <AddUserProfile />)
+                : <RequestSignIn/>
+              }
             />
             <Route
               path='/positions'
-              element={<PositionList />}
+              element={Auth.loggedIn() ? <PositionList /> : <RequestSignIn/>}
             />
             <Route
               path='/employees'
-              element={<EmployeeList />}
+              element={Auth.loggedIn() ? <EmployeeList /> : <RequestSignIn/>}
             />
             <Route
-              path="/createCompany"
-              element={<AddCompany />}
-            />
-            <Route
-              path="/createUser"
-              element={<AddUserProfile />}
+              path='/test'
+              element={<TestPage/>}
             />
           </Routes>
           <Footer />

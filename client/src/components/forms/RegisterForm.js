@@ -4,10 +4,6 @@ import { useMutation } from '@apollo/client';
 import { CREATE_ACCOUNT } from '../../utils/mutations';
 import Auth from '../../utils/auth';
 
-import CompanyForm from './CompanyForm';
-import { FaFileCirclePlus } from 'react-icons/fa6';
-import EmptyCompany from '../partials/EmptyCompany';
-
 const RegisterForm = () => {
   const [ user, setUser] = useState({
     email: '',
@@ -17,7 +13,7 @@ const RegisterForm = () => {
 
   const [showModal, setShowModal] = useState(false);
 
-  const [createUser, { error, data }] = useMutation(CREATE_ACCOUNT);
+  const [createAccount, { error, data }] = useMutation(CREATE_ACCOUNT);
 
 
   const handleInputChange = (e) => {
@@ -30,14 +26,20 @@ const RegisterForm = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log(user);
 
     try {
-      const { data } = await createUser({
-        variables: { ...user },
-      });
+      if (user.password === user.confirmPassword) {
+        const { data } = await createAccount({
+          variables: {
+            email: user.email,
+            password: user.password,
+          }
+        });
 
-      Auth.login(data.createUser.token);
+        Auth.login(data.createAccount.token);
+      } else {
+        alert('Passwords do not match!')
+      }
     } catch (e) {
       console.error(e);
     }
@@ -46,11 +48,16 @@ const RegisterForm = () => {
 
 
   const handleModalOpen = () => {
-    setShowModal(true)
+    setShowModal(true);
   };
 
   const handleModalClose = () => {
-    setShowModal(false)
+    setShowModal(false);
+    setUser({
+      email: '',
+      password: '',
+      confirmPassword: ''
+    });
   };
 
 
@@ -91,7 +98,8 @@ const RegisterForm = () => {
               placeholder='Password'
               onChange={handleInputChange} />
           </Form.Group>
-          <Form.Group controlId='formPassword'>
+          <br/>
+          <Form.Group controlId='formConfirmPassword'>
             <Form.Label>Confirm Password</Form.Label>
             <input
               required
@@ -102,6 +110,7 @@ const RegisterForm = () => {
               placeholder='Password'
               onChange={handleInputChange} />
           </Form.Group>
+          <br/>
           <input className='btn btn-secondary m-1 col-2' type='button' value="Submit" onClick={handleFormSubmit} />
         </Form>
         )}

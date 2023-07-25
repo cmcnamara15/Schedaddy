@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Form, Container, Row, Col, Image } from 'react-bootstrap';
+import { Button, Form, Container, Row, Col } from 'react-bootstrap';
 import RegisterForm from './RegisterForm';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../../utils/mutations';
@@ -23,8 +23,6 @@ const LoginForm = () => {
   //submit form
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log(user);
-    // alert(`You have succesfully logged in ${user.email}, here is your password: ${user.password}`);
 
     try {
       const { data } = await login({
@@ -32,6 +30,7 @@ const LoginForm = () => {
       });
 
       Auth.login(data.login.token);
+      console.log(Auth.getProfile());
     } catch (e) {
       console.error(e);
     }
@@ -43,10 +42,10 @@ const LoginForm = () => {
     });
   };
 
-  useEffect(() => {
-    // For debugging/state evaluation purposes
-    console.log(user);
-  }, [user])
+  // useEffect(() => {
+  //   // For debugging/state evaluation purposes
+  //   console.log(user);
+  // }, [user])
 
   return (
     <>
@@ -82,7 +81,7 @@ const LoginForm = () => {
                       placeholder='Password'
                       onChange={handleInputChange} />
                   </Form.Group>
-                  <input className='btn btn-secondary m-1 col-2' type="button" value="Login" onClick={handleFormSubmit} />
+                  <Button className='btn btn-secondary m-1 col-2' type="submit">Login</Button>
                 </Form>
                 )}
 

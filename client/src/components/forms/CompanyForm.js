@@ -40,7 +40,7 @@ const CompanyForm = ({ c, button }) => {
     <>
       {button}
 
-      <div className="modal fade text-start" id={`companyForm`} tabindex='-1' aria-labelledby="companyFormLabel" aria-hidden="true">
+      <div className="modal fade text-start" id={`companyForm`} tabIndex='-1' aria-labelledby="companyFormLabel" aria-hidden="true">
         <div className="modal-dialog modal-lg">
           <div className="modal-content">
             <div className="modal-header">
