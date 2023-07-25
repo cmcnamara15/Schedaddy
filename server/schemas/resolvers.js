@@ -1,4 +1,11 @@
-const { Account, Address, Company, Position, Shift, User } = require("../models");
+const {
+  Account,
+  Address,
+  Company,
+  Position,
+  Shift,
+  User,
+} = require("../models");
 // const { signToken } = require("../utils/auth");
 const { AuthenticationError } = require("apollo-server-express");
 
@@ -90,9 +97,9 @@ const resolvers = {
       return {
         token,
         account,
-        userId: account.user?._id || '',
-        companyId: account.user?.userCompany._id || '',
-        isAdmin: account.user?.isAdmin || true
+        userId: account.user?._id || "",
+        companyId: account.user?.userCompany._id || "",
+        isAdmin: account.user?.isAdmin || true,
       };
     },
     createAccount: async (parents, args) => {
@@ -109,14 +116,14 @@ const resolvers = {
           account,
           userId: account.user._id,
           companyId: account.user.userCompany,
-          isAdmin: account.user.isAdmin
-
+          isAdmin: account.user.isAdmin,
         };
       } catch (err) {
         console.log(err);
         throw new Error("something went wrong!");
       }
     },
+
     deleteAccount: async (args) => {
       console.log("delete account block");
       console.log(args);
@@ -130,8 +137,8 @@ const resolvers = {
         const user = await User.create(args.input);
 
         const account = await Account.updateOne(
-          {
-            _id: context.account._id,
+          { 
+            _id: context.account._id
           },
           {
             user: user._id,
@@ -143,14 +150,10 @@ const resolvers = {
         throw new AuthenticationError("needs to be logged in");
       }
     },
-    updateUser: async(parent, {_id, ...args }) => {
-      const user = await User.findByIdAndUpdate(
-        _id,
-        args,
-        { new: true }
-      );
-      if(!user) {
-        throw new Error("no user with this id")
+    updateUser: async (parent, { _id, ...args }) => {
+      const user = await User.findByIdAndUpdate(_id, args, { new: true });
+      if (!user) {
+        throw new Error("no user with this id");
       }
       return user;
     },
@@ -235,16 +238,20 @@ const resolvers = {
     },
     linkUserAccount: async (parent, args, context) => {
       console.log("link user account");
-      if(context.account) {
+      if (context.account) {
         console.log(args);
 
-        const account = await Account.findOneAndUpdate({
-          _id: context.account._id
-        }, {
-          user: args._id
-        }, {
-          new: true
-        }).populate('userCompany')
+        const account = await Account.findOneAndUpdate(
+          {
+            _id: context.account._id,
+          },
+          {
+            user: args._id,
+          },
+          {
+            new: true,
+          }
+        ).populate("userCompany");
 
         return account;
       } else {
@@ -252,34 +259,6 @@ const resolvers = {
       }
     },
     // ***Addresses***
-    linkUserAccount: async (parent, args, context) => {
-      console.log("link user account");
-      if (context.account) {
-        console.log(args.input);
-
-        const user = await User.findOne(args);
-
-        if (!user) {
-          throw new Error("User not found with that ID");
-        }
-
-        const account = await Account.findOneAndUpdate(
-          {
-            _id: context.account._id,
-          },
-          {
-            user: user._id,
-          },
-          {
-            new: true,
-          }
-        );
-
-        return account;
-      } else {
-        throw new AuthenticationError("needs to be logged in");
-      }
-    },
   },
 };
 
