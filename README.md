@@ -30,6 +30,8 @@ Our intention with Schedaddy was to try our hand at creating a modern CRM platfo
 
 During this project, we faced a couple of challenges. Our biggest challenge was our 2-week sprint to MVP. Despite the time constraints, we successfully built a solid baseline that formed the core of Schedaddy.
 
+## Live-URL
+
 [Link to live URL](https://schedaddy-0dffdc6ab2cd.herokuapp.com/)
 
 ## Screenshots
