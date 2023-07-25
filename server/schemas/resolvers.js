@@ -91,9 +91,9 @@ const resolvers = {
       return { 
         token, 
         account,
-        userId: account.user._id,
-        companyId: account.user.userCompany,
-        isAdmin: account.user.isAdmin
+        userId: account.user?._id || '',
+        companyId: account.user?.userCompany._id || '',
+        isAdmin: account.user?.isAdmin || true
       };
     },
     createAccount: async (parents, args) => {
@@ -108,9 +108,9 @@ const resolvers = {
         return { 
           token, 
           account,
-          userId: account.user._id,
-          companyId: account.user.userCompany,
-          isAdmin: account.user.isAdmin
+          userId: account.user?._id,
+          companyId: account.user?.userCompany._id,
+          isAdmin: account.user?.isAdmin
 
         };
       } catch(err) {
@@ -145,8 +145,8 @@ const resolvers = {
     },
     updateUser: async(parent, {_id, ...args }) => {
       const user = await User.findByIdAndUpdate(
-        _id,
-        args,
+        _id, 
+        args.input,
         { new: true }
       );
       if(!user) {
@@ -243,6 +243,24 @@ const resolvers = {
       const company = await Company.deleteOne(args);
       return;
     },
+    linkUserAccount: async (parent, args, context) => {
+      console.log("link user account");
+      if(context.account) {
+        console.log(args);
+
+        const account = await Account.findOneAndUpdate({
+          _id: context.account._id
+        }, {
+          user: args._id
+        }, {
+          new: true
+        }).populate('userCompany')
+
+        return account;
+      } else {
+        throw new AuthenticationError("needs to be logged in");
+      }
+    }
     // ***Addresses***
   },
 };

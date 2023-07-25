@@ -1,5 +1,33 @@
 import { gql } from "@apollo/client";
 
+export const FIND_ME = gql`
+  query me {
+    me {
+      _id
+      user {
+        _id
+        firstName
+        lastName
+        phone
+        userAddress {
+          street1
+          street2
+          city
+          state
+          zip
+        }
+        payRate
+        hireDate
+        terminationDate
+        userCompany
+        activeEmployee
+        fullTime
+        isAdmin
+      }
+    }
+  }
+`;
+
 export const FIND_ALL_ACCOUNTS = gql`
   query accounts {
     accounts {
