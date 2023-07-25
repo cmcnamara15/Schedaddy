@@ -91,9 +91,9 @@ const resolvers = {
       return { 
         token, 
         account,
-        userId: account.user._id,
-        companyId: account.user.userCompany._id,
-        isAdmin: account.user.isAdmin
+        userId: account.user?._id || '',
+        companyId: account.user?.userCompany._id || '',
+        isAdmin: account.user?.isAdmin || true
       };
     },
     createAccount: async (parents, args) => {
@@ -108,9 +108,9 @@ const resolvers = {
         return { 
           token, 
           account,
-          userId: account.user._id,
-          companyId: account.user.userCompany,
-          isAdmin: account.user.isAdmin
+          userId: account.user?._id,
+          companyId: account.user?.userCompany._id,
+          isAdmin: account.user?.isAdmin
 
         };
       } catch(err) {
