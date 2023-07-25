@@ -4,7 +4,7 @@ import Auth from '../utils/auth';
 
 const LandingPage = () => {
   return (
-    <div className='conatiner text-center my-5'>
+    <div className='container text-center my-5'>
       {Auth.loggedIn() ? (
         <>
         <div className="jumbotron">
