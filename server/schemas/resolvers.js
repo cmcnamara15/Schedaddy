@@ -243,6 +243,24 @@ const resolvers = {
       const company = await Company.deleteOne(args);
       return;
     },
+    linkUserAccount: async (parent, args, context) => {
+      console.log("link user account");
+      if(context.account) {
+        console.log(args);
+
+        const account = await Account.findOneAndUpdate({
+          _id: context.account._id
+        }, {
+          user: args._id
+        }, {
+          new: true
+        }).populate('userCompany')
+
+        return account;
+      } else {
+        throw new AuthenticationError("needs to be logged in");
+      }
+    }
     // ***Addresses***
   },
 };
