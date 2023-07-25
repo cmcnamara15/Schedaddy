@@ -35,13 +35,14 @@ const resolvers = {
     },
     me: async (parent, args, context) => {
       if (context.account) {
-        console.log(context.account);
+        console.log(context.account)
         const account = await Account.findOne({
-          _id: context.account._id,
-        }).populate("user");
+          _id: context.account._id
+        })
+          .populate("user");
         return account;
       } else {
-        throw new AuthenticationError("needs to be logged in");
+        throw new AuthenticationError("needs to be logged in")
       }
     },
 
@@ -108,7 +109,7 @@ const resolvers = {
         console.log(args);
         const account = await Account.create(args);
         if (!account) {
-          throw new Error("Unable to create account");
+          throw new Error('Unable to create account');
         }
         const token = signToken(account);
         return {
@@ -119,9 +120,10 @@ const resolvers = {
           isAdmin: account.user.isAdmin,
         };
       } catch (err) {
-        console.log(err);
-        throw new Error("something went wrong!");
+        console.log(err)
+        throw new Error("something went wrong!")
       }
+
     },
 
     deleteAccount: async (args) => {
@@ -151,9 +153,13 @@ const resolvers = {
       }
     },
     updateUser: async (parent, { _id, ...args }) => {
-      const user = await User.findByIdAndUpdate(_id, args, { new: true });
+      const user = await User.findByIdAndUpdate(
+        _id,
+        args.input,
+        { new: true }
+      );
       if (!user) {
-        throw new Error("no user with this id");
+        throw new Error("no user with this id")
       }
       return user;
     },
@@ -174,16 +180,20 @@ const resolvers = {
         {
           $push: {
             shifts: shift._id,
-          },
+          }
         },
         { new: true }
       );
       return shift;
     },
     updateShift: async (parent, { _id, ...args }) => {
-      const shift = await Shift.findByIdAndUpdate(_id, args, { new: true });
+      const shift = await Shift.findByIdAndUpdate(
+        _id,
+        args,
+        { new: true }
+      );
       if (!shift) {
-        throw new Error("no shift with this ID");
+        throw new Error("no shift with this ID")
       }
       return shift;
     },
@@ -200,11 +210,13 @@ const resolvers = {
       return position;
     },
     updatePosition: async (parent, { _id, ...args }) => {
-      const position = await Position.findByIdAndUpdate(_id, args, {
-        new: true,
-      });
+      const position = await Position.findByIdAndUpdate(
+        _id,
+        args,
+        { new: true }
+      );
       if (!position) {
-        throw new Error("no position with this ID");
+        throw new Error("no position with this ID")
       }
       return position;
     },
@@ -224,9 +236,13 @@ const resolvers = {
       return company;
     },
     updateCompany: async (parent, { _id, ...args }) => {
-      const company = await Company.findByIdAndUpdate(_id, args, { new: true });
+      const company = await Company.findByIdAndUpdate(
+        _id,
+        args,
+        { new: true }
+      );
       if (!company) {
-        throw new Error("no position with this ID");
+        throw new Error("no position with this ID")
       }
       return company;
     },

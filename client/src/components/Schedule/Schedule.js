@@ -10,6 +10,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useQuery, useMutation, gql} from '@apollo/client';
 import { FIND_ALL_SHIFTS } from '../../utils/queries.js';
 import { ADD_SHIFT, DELETE_SHIFT } from '../../utils/mutations';
+import Auth from '../../utils/auth';
+import RequestSignIn from '../RequestSignIn';
 
 const localizer = momentLocalizer(moment);
 
@@ -131,66 +133,72 @@ const Schedule = () => {
     };
 
     return (
-        <div className='container'>
-            {/* SCHEDULE HEADER ******************************** */}
-            <div className='mt-3 mb-3 d-flex align-items-center'>
-                {/* CALENDAR TITLE */}
-                <div className='col'>
-                    <h1>My Calendar</h1>
-                </div>
+      <>
+        {Auth.loggedIn() ? (
+          <div className='container'>
+              {/* SCHEDULE HEADER ******************************** */}
+              <div className='mt-3 mb-3 d-flex align-items-center'>
+                  {/* CALENDAR TITLE */}
+                  <div className='col'>
+                      <h1>My Calendar</h1>
+                  </div>
 
-                {/* ALL SHIFTS BUTTON */}
-                <div className='col d-flex justify-content-center'>
-                    <ShiftListModal />
-                </div>
+                  {/* ALL SHIFTS BUTTON */}
+                  <div className='col d-flex justify-content-center'>
+                      <ShiftListModal />
+                  </div>
 
-                {/* ADD SHIFTS BUTTON */}
-                <div className='col d-flex justify-content-end'>
-                    <AddShiftForm onAddShift={addShift} />
-                </div>
-            </div>
+                  {/* ADD SHIFTS BUTTON */}
+                  <div className='col d-flex justify-content-end'>
+                      <AddShiftForm onAddShift={addShift} />
+                  </div>
+              </div>
 
-            {/* CALENDAR *************************************** */}
-            <Calendar
-                localizer={localizer}
-                events={shifts} // Use the queried shifts data here
-                startAccessor="start"
-                endAccessor="end"
-                defaultView="agenda"
-                style={{ height: 700 }}
-                components={{
-                event: EventTitle, // show only the event title in month, week, and day views
-                agenda: {
-                    event: AgendaEvent, // show full details in the agenda view
-                },
-                }}
-                onSelectEvent={handleEventClick}
-            />
+              {/* CALENDAR *************************************** */}
+              <Calendar
+                  localizer={localizer}
+                  events={shifts} // Use the queried shifts data here
+                  startAccessor="start"
+                  endAccessor="end"
+                  defaultView="agenda"
+                  style={{ height: 700 }}
+                  components={{
+                  event: EventTitle, // show only the event title in month, week, and day views
+                  agenda: {
+                      event: AgendaEvent, // show full details in the agenda view
+                  },
+                  }}
+                  onSelectEvent={handleEventClick}
+              />
 
-            {/* CALENDAR EVENT MODALS ************************** */}
-            <Modal show={selectedEvent !== null} onHide={() => setSelectedEvent(null)}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{selectedEvent?.user}</Modal.Title>
-                </Modal.Header>
+              {/* CALENDAR EVENT MODALS ************************** */}
+              <Modal show={selectedEvent !== null} onHide={() => setSelectedEvent(null)}>
+                  <Modal.Header closeButton>
+                      <Modal.Title>{selectedEvent?.user}</Modal.Title>
+                  </Modal.Header>
 
-                <Modal.Body>
-                    <p>Position: {selectedEvent?.position}</p>
-                    {selectedEvent?.note !== "" ? (
-                        <p>Note: {selectedEvent?.note}</p>
-                    ) : ("")}
-                </Modal.Body>
+                  <Modal.Body>
+                      <p>Position: {selectedEvent?.position}</p>
+                      {selectedEvent?.note !== "" ? (
+                          <p>Note: {selectedEvent?.note}</p>
+                      ) : ("")}
+                  </Modal.Body>
 
-                <Modal.Footer>
-                    <Button variant="danger" onClick={handleDeleteClick}>
-                        Delete
-                    </Button>
+                  <Modal.Footer>
+                      <Button variant="danger" onClick={handleDeleteClick}>
+                          Delete
+                      </Button>
 
-                    <Button onClick={() => setSelectedEvent(null)}>
-                        Close
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-        </div>
+                      <Button onClick={() => setSelectedEvent(null)}>
+                          Close
+                      </Button>
+                  </Modal.Footer>
+              </Modal>
+          </div>
+        ) : (
+          <RequestSignIn/>
+        )}
+        </>
     );
 };
 
