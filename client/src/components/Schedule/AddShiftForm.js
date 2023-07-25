@@ -50,10 +50,10 @@ const AddShiftForm = ({ onAddShift }) => {
             const selectedPosition = positions.find((position) => position.jobTitle === value);
 
             if (id === 'user' && selectedUser) {
-                // Set the user ID
+                // set the user ID
                 setFormData((prevState) => ({ ...prevState, [id]: selectedUser._id }));
             } else if (id === 'position' && selectedPosition) {
-                // Set the position ID
+                // set the position ID
                 setFormData((prevState) => ({ ...prevState, [id]: selectedPosition._id }));
             }
         }
