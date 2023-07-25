@@ -108,6 +108,9 @@ const typeDefs = gql`
   type Auth {
     token: ID!
     account: Account!
+    userId: ID
+    companyId: ID
+    isAdmin: Boolean
   }
 
   type Query {
