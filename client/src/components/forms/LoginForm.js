@@ -52,8 +52,7 @@ const LoginForm = () => {
     <>
       <Container>
         <Row>
-          <Col md={6}>
-            <h1 style={{marginTop: 175 + 'px'}}>Login</h1>
+          <Col md={6} style={{marginTop: 300 + 'px'}}>
             <div className='card'>
               <div className='card-body'>
                 {data ? (
@@ -98,8 +97,10 @@ const LoginForm = () => {
             </div>
 
           </Col>
-          <Col md={6}>
-            <Image src='logo512.png' />
+          <Col md={6} style={{marginTop: 375 + 'px'}}>
+            <div className='jumbotron'>
+              <h1 className="display-4">Schedaddy Login</h1>
+            </div>
           </Col>
         </Row>
       </Container>
