@@ -33,8 +33,8 @@ const LandingPage = () => {
           <Row>
             <div className='col-12 col-md-6'>
             <div className ="jumbotron">
-              <h1 className="display-4 fw-semibold">Schedaddy</h1>
-              <div className="App">
+              <h1 className="display-4 fw-semibold" style={{ fontSize: '3rem' }}>Schedaddy</h1>
+              <div className="App" style={{ fontSize: '1.25rem' }}>
                 <Typewriter
                   options={{
                     autoStart: true,
