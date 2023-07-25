@@ -9,8 +9,14 @@ import { FIND_ALL_USERS, FIND_ALL_POSITIONS } from '../../utils/queries';
 const AddShiftForm = ({ onAddShift }) => {
     const [showModal, setShowModal] = useState(false);
     const [formData, setFormData] = useState({
-        user: '',
-        position: '',
+        user: {
+            userId: '',
+            userValue:'',
+        },
+        position: {
+            positionId: '',
+            positionValue:'',
+        },
         startTime: '',
         endTime: '',
         notes: '',
@@ -51,10 +57,10 @@ const AddShiftForm = ({ onAddShift }) => {
 
             if (id === 'user' && selectedUser) {
                 // set the user ID
-                setFormData((prevState) => ({ ...prevState, [id]: selectedUser._id }));
+                setFormData({ ...formData, [id]: {userId: selectedUser._id, userValue: value}});
             } else if (id === 'position' && selectedPosition) {
                 // set the position ID
-                setFormData((prevState) => ({ ...prevState, [id]: selectedPosition._id }));
+                setFormData({ ...formData, [id]: {positionId: selectedPosition._id, positionValue: value}});
             }
         }
     };
@@ -63,14 +69,15 @@ const AddShiftForm = ({ onAddShift }) => {
         const newShiftInput = {
             startDateTime: new Date(formData.startTime).toISOString(),
             endDateTime: new Date(formData.endTime).toISOString(),
-            user: formData.user, 
-            position: formData.position,
+            user: formData.user.userId, 
+            position: formData.position.positionId,
             note: formData.notes,
         };
 
         onAddShift(newShiftInput);
         handleClose();
         resetForm();
+        window.location.reload();
     };
 
     const resetForm = () => {
@@ -106,7 +113,7 @@ const AddShiftForm = ({ onAddShift }) => {
                     <div className='row mb-3'>
                         <Form.Select
                             required
-                            value={formData.user}
+                            value={formData.user.userValue}
                             onChange={(event) => handleDropdownChange('user', event.target.value)}
                             >
                                 <option value="">Select an Employee</option>
@@ -122,7 +129,7 @@ const AddShiftForm = ({ onAddShift }) => {
                     <div className='row mb-3'>
                         <Form.Select
                             required
-                            value={formData.position}
+                            value={formData.position.positionValue}
                             onChange={(event) => handleDropdownChange('position', event.target.value)}
                             >
                                 <option value="">Select a Position</option>
