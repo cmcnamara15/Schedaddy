@@ -19,7 +19,9 @@ export const FIND_ME = gql`
         payRate
         hireDate
         terminationDate
-        userCompany
+        userCompany {
+          _id
+        }
         activeEmployee
         fullTime
         isAdmin

@@ -15,7 +15,7 @@ class AuthService {
   }
 
   hasCompany() {
-    return decode(this.getToken()).data?.userCompany ? true : false;
+    return decode(this.getToken()).data?.companyId ? true : false;
   }
 
   isTokenExpired(token) {

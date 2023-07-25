@@ -27,10 +27,10 @@ const resolvers = {
       return user;
     },
     me: async (parent, args, context) => {
+      console.log(`query Me: ${context.account}`)
       if (context.account) {
-        console.log(context.account)
         const account = await Account.findOne({
-          _id: context.account._id
+          _id: context.account.accountId
         })
           .populate("user");
         return account;

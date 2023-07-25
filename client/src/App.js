@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import {
   ApolloClient,
   InMemoryCache,
@@ -23,6 +23,8 @@ import Footer from "./components/Footer";
 import Auth from './utils/auth';
 import Account from "./components/Account";
 import RequestSignIn from "./components/partials/RequestSignIn";
+
+import TestPage from './components/TestPage';
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -53,7 +55,7 @@ function App() {
           <Routes>
             <Route
               path='/'
-              element={<LandingPage />}
+              element={Auth.loggedIn() ? <Navigate to='/schedule' replace='true'/> : <LandingPage />}
             />
             <Route
               path='/login'
@@ -69,7 +71,7 @@ function App() {
                 Auth.loggedIn() ?
                   (Auth.hasUser() ? (
                     Auth.hasCompany() ? 
-                      <Account/> 
+                      <AccountPage/> 
                     : <AddCompany/>) 
                   : <AddUserProfile />)
                 : <RequestSignIn/>
@@ -82,6 +84,10 @@ function App() {
             <Route
               path='/employees'
               element={Auth.loggedIn() ? <EmployeeList /> : <RequestSignIn/>}
+            />
+            <Route
+              path='/test'
+              element={<TestPage/>}
             />
           </Routes>
           <Footer />

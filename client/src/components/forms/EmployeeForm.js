@@ -78,28 +78,28 @@ const EmployeeForm = ({ u, id, button }) => {
       })
     } else {
       const { data, error } = await updateEmployee({
-          variables: {
-            id: id,
-            input: {
-              firstName: user.firstName,
-              lastName: user.lastName,
-              phone: user.phone,
-              payRate: user.payRate,
-              hireDate: user.hireDate,
-              terminationDate: user.terminationDate,
-              userCompany: user.userCompany,
-              activeEmployee: user.activeEmployee,
-              fullTime: user.fullTime,
-              isAdmin: user.isAdmin,
-              userAddress: {
-                street1: user.address.street1,
-                street2: user.address.street2,
-                city: user.address.city,
-                state: user.address.state,
-                zip: user.address.zip
-              }
+        variables: {
+          id: id,
+          input: {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            phone: user.phone,
+            payRate: user.payRate,
+            hireDate: user.hireDate,
+            terminationDate: user.terminationDate,
+            userCompany: user.userCompany,
+            activeEmployee: user.activeEmployee,
+            fullTime: user.fullTime,
+            isAdmin: user.isAdmin,
+            userAddress: {
+              street1: user.address.street1,
+              street2: user.address.street2,
+              city: user.address.city,
+              state: user.address.state,
+              zip: user.address.zip
             }
           }
+        }
       })
     }
 
