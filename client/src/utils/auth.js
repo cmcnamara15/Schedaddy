@@ -33,7 +33,11 @@ class AuthService {
 
   login(idToken) {
     localStorage.setItem('id_token', idToken);
-    window.location.assign('/account');
+    window.location.assign('/');
+  }
+
+  addUserId(id) {
+    localStorage.getItem('id_token')
   }
 
   logout() {
