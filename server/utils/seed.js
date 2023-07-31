@@ -15,11 +15,11 @@ async function seedDb() {
             companyName: faker.company.name(),
             companyPhone: faker.phone.number('512-###-####'),
             companyAddress: {
-              street1: faker.location.streetAddress(),
-              city: faker.location.city(),
-              state: faker.location.state({ abbreviated: true }),
-              zip: faker.location.zipCode(),
-              country: faker.location.country(),
+                street1: faker.location.streetAddress(),
+                city: faker.location.city(),
+                state: faker.location.state({ abbreviated: true }),
+                zip: faker.location.zipCode(),
+                country: faker.location.country(),
             }
         }));
 
