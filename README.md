@@ -1,4 +1,5 @@
 # Schedaddy
+![Photo of landing page](./client/src/images/titleScreenshot.png)
 
 ![MongoDB Badge](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=fff&style=flat-square)![Express Badge](https://img.shields.io/badge/Express-000?logo=express&logoColor=fff&style=flat-square)![React Badge](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=000&style=flat-square)![Node.js Badge](https://img.shields.io/badge/Node.js-393?logo=nodedotjs&logoColor=fff&style=flat-square)
 
@@ -35,8 +36,12 @@ During this project, we faced a couple of challenges. Our biggest challenge was 
 [Link to live URL](https://schedaddy-0dffdc6ab2cd.herokuapp.com/)
 
 ## Screenshots
-
-WIP
+![Photo of landing page](./client/src/images/mainScreenshot.png)
+![Photo of landing page](./client/src/images/login.png)
+![Photo of landing page](./client/src/images/calender.png)
+![Photo of landing page](./client/src/images/calender2.png)
+![Photo of landing page](./client/src/images/addShift.png)
+![Photo of landing page](./client/src/images/positions.png)
 
 ## Technologies-Used
 
@@ -90,6 +95,7 @@ Open to collaboration, if you choose to do so open an issue and modify any chang
 ## Test-Instructions
 
 There is currently no unit testing written for this application.
+***FAKER***
 
 ## License
 
