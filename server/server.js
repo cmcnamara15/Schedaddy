@@ -23,7 +23,7 @@ if (process.env.NODE_ENV === "production") {
 
 // Put this AFTER all your API routes. This will handle all other routes
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client"));
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 
 // Create a new instance of an Apollo server with the GraphQL schema
